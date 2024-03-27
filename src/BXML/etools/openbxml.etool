@@ -1,0 +1,16 @@
+<externalTool name="openbxml"
+	category="component"
+	label="Open bxml"
+	tooltip="Opens the bxlm file using an external editor"
+	 menu="POG2"
+        >
+
+	<toolParameter name="editor"
+		type="exefile"
+		default="emacs" />
+
+	<command>${editor}</command>
+	<param>${projectBdp}/${componentName}.bxml</param>
+
+</externalTool>
+

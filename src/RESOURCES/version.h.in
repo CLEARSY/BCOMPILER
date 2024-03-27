@@ -1,0 +1,14 @@
+/*
+  This file is generated automatically with CMake.
+  Contents is filled using git commands to obtain
+  git tag and git sha.
+*/
+#ifndef RESOURCES_VERSION_H
+#define RESOURCES_VERSION_H
+
+#define RESOURCES_VERSION "@GIT_DESCRIBE_TAG@"
+#define RESOURCES_SOURCE_CODE_SHA "@GIT_REPO_SHA@"
+
+#define RESOURCES_COPYRIGHT "(c) 2008-2024 CLEARSY"
+
+#endif /* RESOURCES_VERSION_H */

@@ -1,0 +1,773 @@
+#******************************** CLEARSY  *************************************
+# Fichier : $Id: Makefile,v 2.0 2008/04/29 13:41:12 arequet Exp $
+# (C) 2008 CLEARSY
+#
+# Description : Compilateur B - Makefile
+#
+#
+#This file is part of B_COMPILER
+#    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+#
+#    B_COMPILER is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; GNU General Public License version 3
+#    of the License
+#
+#    B_COMPILER is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with B_COMPILER; if not, write to the Free Software
+#    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#******************************************************************************
+EXE		=	bcomp
+LIB		=	libBCOMP.a
+
+CLIBS 	=	-lSTUB_DECOMP -lRES
+
+# Flags de compilation
+# 1) NE PAS TOUCHER !!!
+# 2) LES CLIENTS DOIVENT AVOIR LES MEMES, A L'EXCEPTION DE __BCOMP__
+COMPCF	=		-D__BCOMP__ -fno-implicit-templates \
+				-DB0C
+#				-DFIX_MAPLETS -DB0C
+#				-DEVOL_RECORDS -DINCLUDE_DEFINITIONS -DOPTIM_PERSIST
+#				-DEVOL_RECORDS -DINCLUDE_DEFINITIONS -DATB_DIFF
+
+
+OBJECTS	=		c_trace.o c_port.o c_object.o c_lex.o c_pralex.o \
+				c_memory.o c_cleanup.o c_memchk.o c_io.o \
+				c_lexana.o c_lexstk.o \
+				c_item.o c_chain.o c_msg.o c_out.o c_api.o c_betree.o \
+				c_subst.o c_subblk.o c_subato.o c_expr.o c_ident.o \
+				c_parexp.o c_litexp.o c_varexp.o c_binexp.o c_unexp.o \
+				c_mach.o c_umach.o c_op.o c_valu.o c_relati.o c_char.o \
+				c_bltin.o c_base.o c_defini.o c_flag.o c_commen.o \
+				c_lstlnk.o c_usedef.o c_usecre.o c_cata.o c_symb.o c_pred.o \
+				c_chain2.o c_meta.o c_uop.o c_bmana.o c_blist.o \
+				c_tstamp.o c_objman.o c_type.o c_clntyp.o c_namtyp.o \
+				c_equtyp.o c_cmptyp.o c_genop.o c_umsg.o c_dollar.o \
+				c_bound.o c_path.o c_pragma.o c_projdb.o c_b0type.o \
+				c_env.o c_clone.o c_record.o c_md5.o c_skel.o \
+				\
+				s_lex.o s_pralex.o s_synta.o s_lr.o s_pstack.o \
+				s_lrtab.o s_defini.o s_expr.o s_pred.o s_subst.o s_mach.o \
+				s_op.o s_misc.o s_subblk.o \
+				\
+				v_toplvl.o v_colli.o v_hcolli.o v_compo.o v_ldreq.o \
+				v_aux.o v_proj.o v_op.o v_find.o \
+				v_import.o v_visi.o v_glued.o v_subst.o v_modif.o \
+				\
+				i_toplvl.o i_type.o i_aux.o i_check.o i_listid.o\
+				i_globdat.o i_typchk.o i_valchk.o i_lstind.o i_subst.o\
+				i_decl.o i_expr.o i_op.o i_pred.o\
+				\
+				t_misc.o t_expr.o t_opres.o t_pred.o t_subst.o \
+				t_binop.o t_op.o t_locop.o t_record.o t_ident.o \
+				\
+				d_misc.o \
+				d_dskman.o d_dskobj.o d_dskstr.o \
+				\
+				h_misc.o h_expr.o h_pred.o h_subst.o h_bmana.o \
+				h_type.o  h_b0type.o \
+				f_file.o \
+				m_api.o m_compo.o m_file.o m_msg.o \
+				m_pmana.o m_projec.o m_state.o m_clean.o \
+				m_lexsta.o m_synsta.o m_gcheck.o m_action.o m_sign.o\
+				m_actsta.o m_comsta.o\
+				\
+				tinyxml.o tinyxmlparser.o tinyxmlerror.o tinystr.o
+
+EXPORT_INC	=	c_io.h c_memory.h c_cleanup.h c_memchk.h c_object.h c_chain.h \
+				c_betree.h c_mach.h c_item.h c_symb.h c_secure.h \
+				c_op.h c_subst.h c_trace.h c_pred.h \
+				c_expr.h c_lstlnk.h c_commen.h \
+				c_flag.h c_defini.h c_umach.h c_ident.h c_port.h \
+				c_base.h c_bltin.h c_char.h c_lex.h c_pralex.h c_lexstk.h \
+				c_valu.h c_relati.h c_usedef.h c_usecre.h c_msg.h c_out.h c_api.h \
+				c_nodtyp.h c_lextyp.h c_exptyp.h c_llktyp.h \
+				c_pretyp.h c_subtyp.h c_cata.h \
+				c_chain2.h c_meta.h c_uop.h c_bmana.h c_blist.h \
+				c_tstamp.h c_objman.h c_type.h c_genop.h \
+				c_bound.h c_path.h c_pragma.h c_projdb.h c_b0type.h c_env.h \
+				c_record.h \
+				c_md5.h \
+				v_vistbl.h v_toplvl.h v_visi.h \
+				i_aux.h i_listid.h i_globdat.h i_ctx.h i_lstind.h \
+				i_aux.h i_listid.h i_globdat.h i_ctx.h \
+				t_ident.h \
+				f_file.h \
+				m_api.h m_compo.h m_file.h m_msg.h \
+				m_pmana.h m_projec.h m_state.h m_clean.h \
+				m_lextyp.h m_lexsta.h m_synsta.h m_action.h \
+				m_gcheck.h m_sign.h m_actsta.h m_comsta.h \
+				t_locop.h \
+				tinyxml.h tinystr.h
+
+EXEOBJECTS 	=	bcomp.o c_auto_test.o
+
+
+
+
+
+#******************************************************************************
+# Règles de compilation pour outils en C/C++
+#******************************************************************************
+
+# Compilation sur Linux
+# ---------------------
+CINCLUDES_LINUX		=	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_LINUX		= 	-L$(ATB_BASE_REP)/blib/$(REP_LINUX)
+
+# Compilation sur Mac OS X
+# ------------------------
+CINCLUDES_MAC		=	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_MAC			= 	-L/sw/lib -L$(ATB_BASE_REP)/blib/$(REP_MAC) -arch ppc -arch i386 -Wl,-syslibroot,/Developer/SDKs/MacOSX10.4u.sdk
+
+# Compilation sur Windows
+#----------------------------
+CINCLUDES_WIN32		=	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_WIN32		=	-mno-cygwin -L$(ATB_BASE_REP)/blib/$(REP_WIN32) -lwsock32
+
+# Compilation sur SunOS4.1.x
+# --------------------------
+CINCLUDES_SUN4 		=	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_SUN4 		=	-L$(ATB_BASE_REP)/blib/$(REP_SUN4) -lsocket -lnsl
+
+# Compilation sur Solaris 2.3 (SunOS 5.3)
+# ---------------------------------------
+CINCLUDES_SUN5.3 		= 	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_SUN5.3 		=	-L$(ATB_BASE_REP)/blib/$(REP_SUN5.3) -lsocket -lnsl
+
+# Compilation sur Solaris 2.4 (SunOS 5.4)
+# ---------------------------------------
+CINCLUDES_SUN5.4 		= 	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_SUN5.4 		=	-L$(ATB_BASE_REP)/blib/$(REP_SUN5.4) -lsocket -lnsl
+
+# Compilation sur Solaris 2.5 (SunOS 5.5)
+# ---------------------------------------
+CINCLUDES_SUN5.5 		= 	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_SUN5.5 		=	-L$(ATB_BASE_REP)/blib/$(REP_SUN5.5) -lsocket -lnsl
+
+# Compilation sur Solaris 2.5.1 (SunOS 5.5.1)
+# ---------------------------------------
+CINCLUDES_SUN5.5.1 	= 	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_SUN5.5.1		=	-L$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1) -lsocket -lnsl
+
+# Compilation sur Solaris 2.6 (SunOS 5.6)
+# ---------------------------------------
+CINCLUDES_SUN5.6 		= 	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_SUN5.6		=	-L$(ATB_BASE_REP)/blib/$(REP_SUN5.6) -lsocket -lnsl
+
+# Compilation sur Solaris 7 (SunOS 5.7)
+# ---------------------------------------
+CINCLUDES_SUN5.7 		= 	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_SUN5.7		=	-L$(ATB_BASE_REP)/blib/$(REP_SUN5.7) -lsocket -lnsl
+
+# Compilation sur HP-UX 09.05
+# -----------------------------
+CINCLUDES_HP 		=	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_HP 		=	-L$(ATB_BASE_REP)/blib/$(REP_HP)
+
+# Compilation sur HP-UX 10.20
+# -----------------------------
+CINCLUDES_HP10 		=	-I$(ATB_BASE_REP)/../B_COMPILER
+LDFLAGS_HP10 		=	-L$(ATB_BASE_REP)/blib/$(REP_HP10)
+
+
+#******************************************************************************
+# Regles de compilation pour trouver la cible
+#******************************************************************************
+
+# Variable servant de procedure pour determiner
+# le type de systeme sur lequel on se trouve
+# ---------------------------------------------
+GET_TYPE=\
+machine=`uname -a | awk '{print $$1}'`;\
+systeme=`uname -a | awk '{print $$3}'`; \
+short_systeme=`echo $$systeme | cut -d'.' -f1-2`; \
+if [ "$$machine" = "SunOS" ]; \
+then \
+if [ "$$short_systeme" = "4.1" ];\
+then type="sun4"; \
+elif [ "$$systeme" = "5.3" ];\
+then type="sun5.3"; \
+elif [ "$$systeme" = "5.4" ]; \
+then type="sun5.4"; \
+elif [ "$$systeme" = "5.5" ]; \
+then type="sun5.5"; \
+elif [ "$$systeme" = "5.5.1" ]; \
+then type="sun5.5.1"; \
+elif [ "$$systeme" = "5.6" ]; \
+then type="sun5.6"; \
+elif [ "$$systeme" = "5.7" ]; \
+then type="sun5.7"; \
+elif [ "$$systeme" = "5.10" ]; \
+then type="sun5.6"; \
+else \
+echo "Attention : systeme inconnu : $$machine $$systeme"; \
+exit;\
+fi;\
+elif [ "$$machine" = "Linux" ];\
+then type="linux";\
+elif [ "$$machine" = "HP-UX" ];\
+then \
+	hp_release=`uname -r | cut -d '.' -f2`;\
+	if [ "$$hp_release" = "09" ];\
+	then type="hp";\
+	elif [ "$$hp_release" = "10" ];\
+	then type="hp10";\
+	else \
+		echo "Attention : systeme inconnu : $$machine $$systeme"; \
+		exit;\
+	fi; \
+elif [ "$$machine" = "Darwin" ];\
+then type="macosx";\
+elif [ "$$machine" = "CYGWIN_NT-5.1" ]; \
+then type="win32"; \
+else \
+echo "Attention : type de machine inconnu : $$machine"; \
+exit; \
+fi
+
+
+#******************************************************************************
+# Regles de compilation source -> objet
+#******************************************************************************
+
+# Ligne suivante seulement pour GNU Make
+.SUFFIXES: .S .o .c .s .i .C .cc .cpp
+
+
+# On utilise le meme lex sur toutes les plate-formes
+LEX=flex
+
+# Entree intelligente qui determine le type de machine
+# et qui fait une compilation sans licence
+# ----------------------------------------------------
+all :
+	@ $(GET_TYPE);\
+	  if [ ! "x$(LIB)" = "x" ];\
+	  then make lib$$type;\
+	  fi;\
+	  if [ ! "x$(EXE)" = "x" ];\
+	  then make exe$$type;\
+	  fi
+
+library:
+	@ $(GET_TYPE);\
+	  make lib$$type
+
+binary:
+	@ $(GET_TYPE);\
+	  make exe$$type
+
+jetbinary:
+	@ $(GET_TYPE);\
+	  make jet$$type
+
+licbinary:
+	@ $(GET_TYPE);\
+	  make lic$$type
+
+# Compilation sur Linux
+# ---------------------
+REP_LINUX			= linux
+CFLAGS_LINUX 		= -DLINUX
+
+exelinux :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_LINUX)" \
+		"LDFLAGS=$(LDFLAGS_LINUX)" \
+		"CINCLUDES=$(CINCLUDES_LINUX) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_LINUX)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_LINUX)"
+
+jetlinux :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_LINUX) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_LINUX) -lTOKEN  -Wl,-Bstatic -lcrypto -Wl,-Bdynamic" \
+		"CINCLUDES=$(CINCLUDES_LINUX) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_LINUX)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_LINUX)"
+
+liblinux :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_LINUX)" \
+		"CINCLUDES=$(CINCLUDES_LINUX) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_LINUX)"
+
+
+# Compilation sur Mac OS X. On compile des binaires universels
+# ------------------------------------------------------------
+REP_MAC			= macosx
+CFLAGS_MAC 		= -DMAC_OS_X -arch ppc -mcpu=G4 -arch i386 -isysroot /Developer/SDKs/MacOSX10.4u.sdk
+
+exemacosx :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_MAC)" \
+		"LDFLAGS=$(LDFLAGS_MAC)" \
+		"CINCLUDES=$(CINCLUDES_MAC) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_MAC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_MAC)"
+
+jetmacosx :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_MAC) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_MAC) -lTOKEN" \
+		"CINCLUDES=$(CINCLUDES_MAC) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_MAC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_MAC)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_MAC)"
+
+# AR: modifi� pour utiliser le syst�me de licence de la balbulette sous
+# MacOS X (afin de permettre de tester des ateliers B sans avoir fini de porter
+# le systeme de licence)
+# a changer lorsque le syst�me de license sera port�
+#jetmacosx :
+#	@ make exe \
+#		"CFLAGS=$(CFLAGS_MAC) -DTIME_LIMIT -DANNEE=2007 -DMOIS=12 -DJOUR=01" \
+#		"LDFLAGS=$(LDFLAGS_MAC)" \
+#		"CINCLUDES=$(CINCLUDES_MAC) $(COMPINC)" \
+#		"REPBIN=$(ATB_BASE_REP)/bbin/$(REP_MAC)" \
+#		"REPLIB=$(ATB_BASE_REP)bbin//$(REP_MAC)"
+#	@ make strip "REPBIN=$(ATB_BASE_REP)/bbin/$(REP_MAC)"
+
+libmacosx :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_MAC)" \
+		"CINCLUDES=$(CINCLUDES_MAC) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_MAC)"
+	@ make ranlib "RANLIB_FLAGS=-c" "REPLIB=$(ATB_BASE_REP)/blib/$(REP_MAC)"
+
+# Compilation sur Windows. On utilise cygwin avec le flag -mno-cygwin afin
+# de compiler des "vrais" binaires windows
+# ------------------------------------------------------------
+REP_WIN32			= win32
+CFLAGS_WIN32 		= -DWIN32 -mno-cygwin
+
+exewin32 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_WIN32)" \
+		"LDFLAGS=$(LDFLAGS_WIN32)" \
+		"CINCLUDES=$(CINCLUDES_WIN32) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_WIN32)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_WIN32)"
+
+
+jetwin32:
+	@make exe \
+		"CFLAGS=$(CFLAGS_WIN32) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_WIN32) -lTOKEN" \
+		"CINCLUDES=$(CINCLUDES_WIN32) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_WIN32)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_WIN32)"
+	@make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_WIN32)"
+
+libwin32 :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_WIN32)" \
+		"CINCLUDES=$(CINCLUDES_WIN32) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_WIN32)"
+	@ make ranlib "REPLIB=$(ATB_BASE_REP)/blib/$(REP_WIN32)"
+
+# Compilation sur SunOS4.1.x
+# --------------------------
+REP_SUN4 			= sun4
+CFLAGS_SUN4 		= -DIPX -DSUN -DBSDsun
+
+exesun4 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN4)" \
+		"LDFLAGS=$(LDFLAGS_SUN4)" \
+		"CINCLUDES=$(CINCLUDES_SUN4) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_SUN4)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN4)"
+
+jetsun4 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN4) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_SUN4) -lTOKEN" \
+		"CINCLUDES=$(CINCLUDES_SUN4) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN4)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN4)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN4)"
+
+libsun4 :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_SUN4)" \
+		"CINCLUDES=$(CINCLUDES_SUN4) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN4)"
+	@ make ranlib "REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN4)"
+
+# Compilation sur Solaris 2.3 (SunOS 5.3)
+# ---------------------------------------
+REP_SUN5.3 			= sun5.3
+CFLAGS_SUN5.3 		= -DSOLARIS_5_3 -DSYSV -DSUN -DSOLARIS -DMOTIF1_2
+
+exesun5.3 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.3)" \
+		"LDFLAGS=$(LDFLAGS_SUN5.3)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.3) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_SUN5.3)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.3)"
+
+jetsun5.3 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.3) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_SUN5.3) -lTOKEN -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.3) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.3)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.3)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.3)"
+
+libsun5.3 :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_SUN5.3)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.3) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.3)"
+
+# Compilation sur Solaris 2.4 (SunOS 5.4)
+# ---------------------------------------
+REP_SUN5.4 			= sun5.4
+CFLAGS_SUN5.4		= -DSOLARIS_5_4 -DSYSV -DSUN -DSOLARIS -DMOTIF1_2
+
+exesun5.4 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.4)" \
+		"LDFLAGS=$(LDFLAGS_SUN5.4)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.4) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_SUN5.4)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.4)"
+
+jetsun5.4 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.4) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_SUN5.4) -lTOKEN -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.4) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.4)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.4)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.4)"
+
+libsun5.4 :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_SUN5.4)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.4) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.4)"
+
+
+# Compilation sur Solaris 2.5 (SunOS 5.5)
+# ---------------------------------------
+REP_SUN5.5 			= sun5.5
+CFLAGS_SUN5.5		= -DSOLARIS_5_5  -DSYSV -DSUN -DSOLARIS -DMOTIF1_2
+
+exesun5.5 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.5)" \
+		"LDFLAGS=$(LDFLAGS_SUN5.5)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.5) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_SUN5.5)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.5)"
+
+jetsun5.5 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.5) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_SUN5.5) -lTOKEN -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.5) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.5)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.5)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.5)"
+
+libsun5.5 :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_SUN5.5)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.5) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.5)"
+
+# Compilation sur Solaris 2.5.1 (SunOS 5.5.1)
+# ---------------------------------------
+REP_SUN5.5.1 		= sun5.5.1
+CFLAGS_SUN5.5.1 	= -DSOLARIS_5_5_1  -DSYSV -DSUN -DSOLARIS  -DMOTIF1_2
+
+exesun5.5.1 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.5.1)" \
+		"LDFLAGS=$(LDFLAGS_SUN5.5.1)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.5.1) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_SUN5.5.1)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1)"
+
+jetsun5.5.1 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.5.1) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_SUN5.5.1) -lTOKEN -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.5.1) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1)"
+
+licsun5.5.1 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.5.1) -DPROTECTION" \
+		"LDFLAGS=$(LDFLAGS_SUN5.5.1) -lLIC -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.5.1) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1)"
+
+libsun5.5.1 :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_SUN5.5.1)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.5.1) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.5.1)"
+
+# Compilation sur Solaris 2.6 (SunOS 5.6)
+# ---------------------------------------
+REP_SUN5.6 		= sun5.6
+CFLAGS_SUN5.6 	= -DSOLARIS_5_6  -DSYSV -DSUN -DSOLARIS  -DMOTIF1_2
+
+exesun5.6 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.6)" \
+		"LDFLAGS=$(LDFLAGS_SUN5.6)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.6) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_SUN5.6)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.6)"
+
+jetsun5.6 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.6) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_SUN5.6) -lTOKEN -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.6) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.6)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.6)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.6)"
+
+licsun5.6 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.6) -DPROTECTION" \
+		"LDFLAGS=$(LDFLAGS_SUN5.6) -lLIC -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.6) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.6)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.6)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.6)"
+
+libsun5.6 :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_SUN5.6)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.6) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.6)"
+
+# Compilation sur Solaris 7 (SunOS 5.7)
+# -------------------------------------
+REP_SUN5.7 		= sun5.7
+CFLAGS_SUN5.7 	= -DSOLARIS_5_7  -DSYSV -DSUN -DSOLARIS  -DMOTIF1_2
+
+exesun5.7 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.7)" \
+		"LDFLAGS=$(LDFLAGS_SUN5.7)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.7) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_SUN5.7)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.7)"
+
+jetsun5.7 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.7) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_SUN5.7) -lTOKEN -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.7) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.7)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.7)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.7)"
+
+licsun5.7 :
+	@ make exe \
+		"CFLAGS=$(CFLAGS_SUN5.7) -DPROTECTION" \
+		"LDFLAGS=$(LDFLAGS_SUN5.7) -lLIC -lsocket -lnsl" \
+		"CINCLUDES=$(CINCLUDES_SUN5.7) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.7)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.7)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_SUN5.7)"
+
+libsun5.7 :
+	@ make lib \
+		"CFLAGS=$(CFLAGS_SUN5.7)" \
+		"CINCLUDES=$(CINCLUDES_SUN5.7) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_SUN5.7)"
+
+# Compilation sur HP-UX 09.05
+# -----------------------------
+REP_HP 				= hp
+CFLAGS_HP 			= -DHPUX -DMOTIF1_2 -D_HPUX_SOURCE -DINLINE=
+
+exehp :
+	@ make exe \
+		"YFLAGS=-Nm40000" \
+		"CFLAGS=$(CFLAGS_HP)" \
+		"LDFLAGS=$(LDFLAGS_HP)" \
+		"CINCLUDES=$(CINCLUDES_HP) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_HP)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_HP)"
+
+jethp :
+	@ make exe \
+		"YFLAGS=-Nm40000" \
+		"CFLAGS=$(CFLAGS_HP) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_HP) -lTOKEN" \
+		"CINCLUDES=$(CINCLUDES_HP) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_HP)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_HP)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_HP)"
+
+libhp :
+	@ make lib \
+		"YFLAGS=-Nm40000" \
+		"CFLAGS=$(CFLAGS_HP)" \
+		"CINCLUDES=$(CINCLUDES_HP) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_HP)"
+
+# Compilation sur HP-UX 10.20
+# -----------------------------
+REP_HP10 				= hp10
+CFLAGS_HP10 			= -DHPUX -DMOTIF1_2 -D_HPUX_SOURCE -DINLINE=
+
+exehp10 :
+	@ make exe \
+		"YFLAGS=--yacc" \
+		"CFLAGS=$(CFLAGS_HP10)" \
+		"LDFLAGS=$(LDFLAGS_HP10)" \
+		"CINCLUDES=$(CINCLUDES_HP10) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/$(REP_HP10)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_HP10)"
+
+jethp10 :
+	@ make exe \
+		"YFLAGS=--yacc" \
+		"CFLAGS=$(CFLAGS_HP10) -DJETON" \
+		"LDFLAGS=$(LDFLAGS_HP10) -lTOKEN" \
+		"CINCLUDES=$(CINCLUDES_HP10) $(COMPINC)" \
+		"REPBIN=$(ATB_BASE_REP)/blib/$(REP_HP10)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_HP10)"
+	@ make strip "REPBIN=$(ATB_BASE_REP)/blib/$(REP_HP10)"
+
+libhp10 :
+	@ make lib \
+		"YFLAGS=--yacc" \
+		"CFLAGS=$(CFLAGS_HP10)" \
+		"CINCLUDES=$(CINCLUDES_HP10) $(COMPINC)" \
+		"REPLIB=$(ATB_BASE_REP)/blib/$(REP_HP10)"
+
+# Nettoyage
+# ---------
+clean :
+	make sclean ;\
+	make libclean ;\
+	make execlean
+
+sclean :
+	rm -f $(OBJECTS) $(EXEOBJECTS)
+
+libclean :
+	@ $(GET_TYPE);\
+	  if [ ! "x$(LIB)" = "x" ];\
+	  then \
+		echo "rm -f $(ATB_BASE_REP)/blib/$$type/$(LIB)";\
+		rm -f $(ATB_BASE_REP)/blib/$$type/$(LIB);\
+	  fi
+
+execlean :
+	@ $(GET_TYPE);\
+	  if [ ! "x$(EXE)" = "x" ];\
+	  then \
+		echo "rm -f $(ATB_BASE_REP)/bbin/$$type/$(EXE)";\
+		rm -f $(ATB_BASE_REP)/bbin/$$type/$(EXE);\
+	  fi
+
+extract_lib :
+	@ $(GET_TYPE);\
+	  if [ ! "x$(LIB)" = "x" ];\
+	  then \
+		ar xv $(ATB_BASE_REP)/blib/$$type/$(LIB); \
+	  fi
+
+#----------------------------------------------------------------
+#  LV, le 03 FEB 2000:
+#
+#   Reprise de cette r�gle pour ne plus faire de copie syst�matique.
+#
+#install :
+#	cp $(EXPORT_INC) $(ATB_BASE_REP)/include
+
+install : $(EXPORT_INC:%=$(ATB_BASE_REP)/include/%)
+.PHONY: install
+
+$(ATB_BASE_REP)/include/%.h: %.h
+	cp -p $(@F) $@
+
+#  Fin modif LV
+#----------------------------------------------------------------
+
+fullclean :
+	make sclean ;\
+	make libclean ;\
+	make execlean ;\
+	cd $(ATB_BASE_REP)/include ;\
+	rm -f $(EXPORT_INC) ;
+
+livr :
+	make fullclean ;\
+	make all ;\
+	make install
+
+# Regles de compilation generales
+# -------------------------------
+
+# generation executable
+exe : $(REPBIN)/$(EXE)
+$(REPBIN)/$(EXE) : $(EXEOBJECTS) $(OBJECTS)
+	$(CCC) $(EXEOBJECTS) $(OBJECTS) $(CLIBS) $(LDFLAGS) $(ULDFLAGS)  -o $(REPBIN)/$(EXE)
+
+strip : $(REPBIN)/$(EXE)
+#	strip $(REPBIN)/$(EXE)
+
+# generation bibliotheque
+lib : $(REPLIB)/$(LIB)
+$(REPLIB)/$(LIB) : $(OBJECTS)
+	ar ruv $(REPLIB)/$(LIB) $(OBJECTS)
+
+# ranlib
+ranlib : $(REPLIB)/$(LIB)
+	ranlib $(RANLIB_FLAGS) $(REPLIB)/$(LIB)
+
+# generation executable
+lisp : $(OBJECTS)
+
+# Regle de dependance sources <-> include
+.o : .c .h
+
+# Regle de compilation des fichiers sources C
+.c.o :
+	$(CC) -c $(CINCLUDES) $(UCINCLUDES) $(UCFLAGS) $(COMPCF) $(CFLAGS) $< -o $*.o
+
+# Regle de compilation des fichiers sources C++
+.cpp.o :
+	$(CCC) -c $(CINCLUDES) $(UCINCLUDES) $(UCFLAGS) $(COMPCF) $(CFLAGS) $< -o $*.o
+
+# Regle de compilation des fichiers sources Emacs lisp
+.el.elc :
+	$(EMACS) -batch -f batch-byte-compile $(EMACS_UFLAGS) $<
+
+# Regle de compilation des fichiers LEX
+.l.o :
+	$(LEX) $(LFLAGS) $<
+	$(CC) -c $(UCFLAGS) $(CFLAGS) $(CINCLUDES) $(UCINCLUDES) lex.yy.c -o $*.o
+	rm -f lex.yy.c
+
+# Regle de compilation des fichiers YACC
+.y.o :
+	$(YACC) -d $(YFLAGS) $<
+	$(CC) -c $(UCFLAGS) $(CFLAGS) $(YCFLAGS) $(CINCLUDES) $(UCINCLUDES) y.tab.c -o $*.o
+	rm -f y.tab.c

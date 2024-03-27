@@ -1,0 +1,115 @@
+#******************************** CLEARSY  *************************************
+# Fichier : $Id: Makefile,v 2.0 2008/04/29 13:41:12 arequet Exp $
+# (C) 2008 CLEARSY
+#
+# Description : Compilateur B - Makefile
+#
+#
+#This file is part of B_COMPILER
+#    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+#
+#    B_COMPILER is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; GNU General Public License version 3
+#    of the License
+#
+#    B_COMPILER is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with B_COMPILER; if not, write to the Free Software
+#    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#******************************************************************************
+EXE		=	bcomp
+
+CLIBS 	=	-lSTUB_DECOMP -lRES
+
+# Flags de compilation
+# 1) NE PAS TOUCHER !!!
+# 2) LES CLIENTS DOIVENT AVOIR LES MEMES, A L'EXCEPTION DE __BCOMP__
+COMPCF	=		-D__BCOMP__ -fno-implicit-templates \
+				-DB0C
+#				-DFIX_MAPLETS -DB0C
+#				-DEVOL_RECORDS -DINCLUDE_DEFINITIONS -DOPTIM_PERSIST
+#				-DEVOL_RECORDS -DINCLUDE_DEFINITIONS -DATB_DIFF
+
+
+OBJECTS	=		c_trace.o c_port.o c_object.o c_lex.o c_pralex.o \
+				c_memory.o c_cleanup.o c_memchk.o c_io.o \
+				c_lexana.o c_lexstk.o \
+				c_item.o c_chain.o c_msg.o c_out.o c_api.o c_betree.o \
+				c_subst.o c_subblk.o c_subato.o c_expr.o c_ident.o \
+				c_parexp.o c_litexp.o c_varexp.o c_binexp.o c_unexp.o \
+				c_mach.o c_umach.o c_op.o c_valu.o c_relati.o c_char.o \
+				c_bltin.o c_base.o c_defini.o c_flag.o c_commen.o \
+				c_lstlnk.o c_usedef.o c_usecre.o c_cata.o c_symb.o c_pred.o \
+				c_chain2.o c_meta.o c_uop.o c_bmana.o c_blist.o \
+				c_tstamp.o c_objman.o c_type.o c_clntyp.o c_namtyp.o \
+				c_equtyp.o c_cmptyp.o c_genop.o c_umsg.o c_dollar.o \
+				c_bound.o c_path.o c_pragma.o c_projdb.o c_b0type.o \
+				c_env.o c_clone.o c_record.o c_md5.o c_skel.o \
+				\
+				s_lex.o s_pralex.o s_synta.o s_lr.o s_pstack.o \
+				s_lrtab.o s_defini.o s_expr.o s_pred.o s_subst.o s_mach.o \
+				s_op.o s_misc.o s_subblk.o \
+				\
+				v_toplvl.o v_colli.o v_hcolli.o v_compo.o v_ldreq.o \
+				v_aux.o v_proj.o v_op.o v_find.o \
+				v_import.o v_visi.o v_glued.o v_subst.o v_modif.o \
+				\
+				i_toplvl.o i_type.o i_aux.o i_check.o i_listid.o\
+				i_globdat.o i_typchk.o i_valchk.o i_lstind.o i_subst.o\
+				i_decl.o i_expr.o i_op.o i_pred.o\
+				\
+				t_misc.o t_expr.o t_opres.o t_pred.o t_subst.o \
+				t_binop.o t_op.o t_locop.o t_record.o t_ident.o \
+				\
+				d_misc.o \
+				d_dskman.o d_dskobj.o d_dskstr.o \
+				\
+				h_misc.o h_expr.o h_pred.o h_subst.o h_bmana.o \
+				h_type.o  h_b0type.o \
+				f_file.o \
+				m_api.o m_compo.o m_file.o m_msg.o \
+				m_pmana.o m_projec.o m_state.o m_clean.o \
+				m_lexsta.o m_synsta.o m_gcheck.o m_action.o m_sign.o\
+				m_actsta.o m_comsta.o\
+				\
+				tinyxml.o tinyxmlparser.o tinyxmlerror.o tinystr.o
+
+EXPORT_INC	=	c_io.h c_memory.h c_cleanup.h c_memchk.h c_object.h c_chain.h \
+				c_betree.h c_mach.h c_item.h c_symb.h c_secure.h \
+				c_op.h c_subst.h c_trace.h c_pred.h \
+				c_expr.h c_lstlnk.h c_commen.h \
+				c_flag.h c_defini.h c_umach.h c_ident.h c_port.h \
+				c_base.h c_bltin.h c_char.h c_lex.h c_pralex.h c_lexstk.h \
+				c_valu.h c_relati.h c_usedef.h c_usecre.h c_msg.h c_out.h c_api.h \
+				c_nodtyp.h c_lextyp.h c_exptyp.h c_llktyp.h \
+				c_pretyp.h c_subtyp.h c_cata.h \
+				c_chain2.h c_meta.h c_uop.h c_bmana.h c_blist.h \
+				c_tstamp.h c_objman.h c_type.h c_genop.h \
+				c_bound.h c_path.h c_pragma.h c_projdb.h c_b0type.h c_env.h \
+				c_record.h \
+				c_md5.h \
+				v_vistbl.h v_toplvl.h v_visi.h \
+				i_aux.h i_listid.h i_globdat.h i_ctx.h i_lstind.h \
+				i_aux.h i_listid.h i_globdat.h i_ctx.h \
+				t_ident.h \
+				f_file.h \
+				m_api.h m_compo.h m_file.h m_msg.h \
+				m_pmana.h m_projec.h m_state.h m_clean.h \
+				m_lextyp.h m_lexsta.h m_synsta.h m_action.h \
+				m_gcheck.h m_sign.h m_actsta.h m_comsta.h \
+				t_locop.h \
+				tinyxml.h tinystr.h
+
+EXEOBJECTS 	=	bcomp.o c_auto_test.o
+
+include $(ATB_BASE_REP)/makerules/Crules.mk
+
+check:
+	echo "Liste des controles effectues par l'outil :"; \
+	grep -n CTRL *cpp
+

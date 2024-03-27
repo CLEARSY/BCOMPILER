@@ -1,0 +1,15 @@
+/*
+  This file is generated automatically with CMake.
+  Contents is filled using git commands to obtain
+  git tag and git sha.
+*/
+#ifndef @PROJECT_NAME@_VERSION_H
+#define @PROJECT_NAME@_VERSION_H
+
+#define @PROJECT_NAME@_VERSION "@GIT_DESCRIBE_TAG@"
+#define @PROJECT_NAME@_SOURCE_CODE_SHA "@GIT_REPO_SHA@"
+
+#define @PROJECT_NAME@_COPYRIGHT "(c) 2008-2024 CLEARSY"
+
+#endif /* @PROJECT_NAME@_VERSION_H */
+

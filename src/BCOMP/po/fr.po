@@ -1,0 +1,2676 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bcomp\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-09 15:27+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Language: fr_FR\n"
+
+#: c_msg.cpp:47
+#, c-format
+msgid "Parse error : illegal character '%c'"
+msgstr "Erreur d'analyse lexicale : caractère illegal '%c'"
+
+#: c_msg.cpp:49
+#, c-format
+msgid "Unable to open input file \"%s\" (%s)"
+msgstr "Impossible d'ouvrir le fichier \"%s\" en lecture (%s)"
+
+#: c_msg.cpp:51
+msgid "End of file found inside string"
+msgstr "Fin de fichier détectée dans une chaine"
+
+#: c_msg.cpp:53
+msgid "String starts here"
+msgstr "Début de la chaine"
+
+#: c_msg.cpp:55
+msgid "New line found inside string"
+msgstr "Retour chariot détecté dans une chaine"
+
+#: c_msg.cpp:57
+#, c-format
+msgid "Parse error : illegal token %s"
+msgstr "Erreur de parsing : lexeme illegal %s"
+
+#: c_msg.cpp:59
+msgid "No input file name given (usage : bcomp -V)"
+msgstr "Nom de fichier a analyser manquant (usage : bcomp -V)"
+
+#: c_msg.cpp:61
+#, c-format
+msgid "Invalid component type %s (MACHINE, REFINEMENT or IMPLEMENTATION expected)"
+msgstr "Type de composant %s invalide (MACHINE, REFINEMENT ou IMPLEMENTATION attendu)"
+
+#: c_msg.cpp:63
+#, c-format
+msgid "Disparity between file name \"%s\" and component name \"%s\""
+msgstr "Le nom du fichier \"%s\" ne correspond pas au nom du composant \"%s\""
+
+#: c_msg.cpp:65
+#, c-format
+msgid "No \"END\" keyword matching component's %s keyword"
+msgstr "Le mot clé %s du composant n'a pas de \"END\" associé"
+
+#: c_msg.cpp:67
+#, c-format
+msgid "Invalid token : '%s' is not a valid machine clause"
+msgstr "Mot clé invalide : '%s' n'est pas une clause valide de machine"
+
+#: c_msg.cpp:69
+#, c-format
+msgid "Operation name or output parameters expected, got %s"
+msgstr "Nom d'opération ou de paramètre d'entrée attendu, %s obtenu"
+
+#: c_msg.cpp:71
+msgid "Unexpected end of file"
+msgstr "Fin de fichier prématurée"
+
+#: c_msg.cpp:73
+msgid "Source file is empty"
+msgstr "Le fichier source est vide"
+
+#: c_msg.cpp:75
+#, c-format
+msgid "There were %d error(s). Stopping compilation."
+msgstr "Il y a eu %d erreur(s). La compilation s'arrête."
+
+#: c_msg.cpp:77
+#, c-format
+msgid "Disparity between component type (%s) and file suffix (%s)"
+msgstr "Le type du composant (%s) ne correspond pas au suffixe du fichier (%s)"
+
+#: c_msg.cpp:81
+#, c-format
+msgid "%s is a definition with %d parameter(s) defined here"
+msgstr "%s est une définition à %d paramètre(s) définie ici"
+
+#: c_msg.cpp:83
+#, c-format
+msgid "Invalid number of arguments (%d) for definition %s"
+msgstr "Nomde de paramètre invalide (%d) pour l'utilisation de la définition %s"
+
+#: c_msg.cpp:85
+#, c-format
+msgid "Error while parsing atomic substitution starting with identifier \"%s\""
+msgstr "Erreur lors de l'analyse syntaxique de la substitution atomique commençant par l'identificateur \"%s\""
+
+#: c_msg.cpp:91
+msgid "REFINES clause is not allowed in a specification"
+msgstr "La clause REFINES est interdite dans une spécification"
+
+#: c_msg.cpp:93
+msgid "INCLUDES clause is forbidden in an implementation"
+msgstr "La clause INCLUDES est interdite dans une implémentation"
+
+#: c_msg.cpp:95
+msgid "IMPORTS clause is not allowed in a specification"
+msgstr "La clause IMPORTS est interdite dans une spécification"
+
+#: c_msg.cpp:97
+msgid "IMPORTS clause is not allowed in a refinement"
+msgstr "La clause IMPORTS est interdite dans un raffinement"
+
+#: c_msg.cpp:99
+msgid "No output file name given (usage : bcomp -V)"
+msgstr "Vous n'avez pas donné de nom de fichier à produire (options : bcomp -V)"
+
+#: c_msg.cpp:101
+#, c-format
+msgid "Bad magic number (expected 0x%08x, got 0x%08x).\n\"%s\" is not a Betree dump"
+msgstr "Mauvais magic number (attendu 0x%08x, obtenu 0x%08x).\n\"%s\" is n'est pas un Betree binaire"
+
+#: c_msg.cpp:103
+msgid "Cycle found in DEFINITIONS clause"
+msgstr "Dépendances circulaires dans la clause DEFINITIONS"
+
+#: c_msg.cpp:105
+#, c-format
+msgid "Virtual memory exhausted while trying to allocate %d bytes of memory"
+msgstr "Mémoire virtuelle épuisée lors de la tentative d'allocation de %d octets de mémoire"
+
+#: c_msg.cpp:107
+#, c-format
+msgid "Fatal IO error (\"%s\")"
+msgstr "Erreur d'entrée/sortie fatale (\"%s\")"
+
+#: c_msg.cpp:109
+#, c-format
+msgid "Definition \"%s\" is part of the cycle"
+msgstr "La définition \"%s\" fait partie du cycle"
+
+#: c_msg.cpp:111
+#, c-format
+msgid "In definition %s : redefinition of formal parameter %s"
+msgstr "Dans la definition %s : redéfinition du paramètre formel %s"
+
+#: c_msg.cpp:113
+#, c-format
+msgid "Error while reading file \"%s\" : %s"
+msgstr "Erreur lors de la lecture du fichier \"%s\" : %s"
+
+#: c_msg.cpp:115
+#, c-format
+msgid "Error while creating file \"%s\" : %s"
+msgstr "Erreur lors de la création du fichier \"%s\" : %s"
+
+#: c_msg.cpp:117
+msgid "Error : OR keyword illegal in first argument of choice (EITHER expected)"
+msgstr "Erreur : Le mot-clé OR est ne peut pas être la première alternative du choix (il faut utiliser EITHER)"
+
+#: c_msg.cpp:119
+msgid "Error : EITHER keyword after first argument of choice (OR expected)"
+msgstr "Erreur : Le mot-clé EITHER ne peut être que la première alternative du choix (il faut utiliser OR)"
+
+#: c_msg.cpp:121
+#, c-format
+msgid "Error while closing file \"%s\" : %s"
+msgstr "Erreur lors de la fermeture du fichier \"%s\" : %s"
+
+#: c_msg.cpp:123
+#, c-format
+msgid "File name \"%s\" does not have a suffix"
+msgstr "Le nom de fichier \"%s\" ne comporte pas de suffixe"
+
+#: c_msg.cpp:125
+#, c-format
+msgid "Closing lexem \"%s\" does not match opening lexem"
+msgstr "Le lexème fermant \"%s\" ne correspond pas au lexème ouvrant associé"
+
+#: c_msg.cpp:127
+#, c-format
+msgid "(Localisation of opening lexem \"%s\")"
+msgstr "(Localisation du lexème ouvrant associé \"%s\")"
+
+#: c_msg.cpp:129
+#, c-format
+msgid "Unexpected binary operator %s"
+msgstr "L'opérateur binaire %s ne peut pas être utilisé ici"
+
+#: c_msg.cpp:131
+#, c-format
+msgid "Formula is not an expression (it is a(n) %s)"
+msgstr "La formule n'est pas une expression (c'est un(e) %s)"
+
+#: c_msg.cpp:133
+#, c-format
+msgid "Misaligned address 0x%x"
+msgstr "L'adresse 0x%x n'est pas alignée correctement"
+
+#: c_msg.cpp:135
+msgid "Bad syntaxic construction with '.'. Lambda-expression, Universal or Existential Predicate, SIGMA, PI, UNION or INTER expected"
+msgstr "Mauvaise construction syntaxique avec '.'. Les possibilités valides sont une Lambda-expression, un prédicat universel ou existentiel, SIGMA, PI, UNION ou INTER"
+
+#: c_msg.cpp:137
+msgid "(Hint : quantifiers must be declared as '(xx,yy..)' and not 'xx,yy..')"
+msgstr "(Remarque : les quantificateurs doivent être déclarés sous la forme '(xx,yy..)' et pas sous la forme 'xx,yy..')"
+
+#: c_msg.cpp:139
+#, c-format
+msgid "Left hand side of binary predicate is not a predicate : it is a(n) %s"
+msgstr "Le côté gauche du prédicat binaire n'est pas un prédicat : c'est un(e) %s"
+
+#: c_msg.cpp:141
+#, c-format
+msgid "Right hand side of binary predicate is not a predicate : it is a(n) %s"
+msgstr "Le côté droit du prédicat binaire n'est pas un prédicat : c'est un(e) %s"
+
+#: c_msg.cpp:143
+msgid "VAR .. IN .. END substitution is not allowed in a specification"
+msgstr "La substitution VAR .. IN .. END n'est pas autorisée dans une spécification"
+
+#: c_msg.cpp:145
+msgid "WHILE substitution is not allowed in a specification"
+msgstr "La substitution WHILE n'est pas autorisée dans une spécification"
+
+#: c_msg.cpp:147
+msgid "LET substitution is not allowed in an implementation"
+msgstr "La substitution LET n'est pas autorisée dans une implémentation"
+
+#: c_msg.cpp:149
+msgid "SELECT substitution is not allowed in an implementation"
+msgstr "La substitution SELECT n'est pas autorisée dans une implémentation"
+
+#: c_msg.cpp:151
+msgid "ANY substitution is not allowed in an implementation"
+msgstr "La substitution ANY n'est pas autorisée dans une implémentation"
+
+#: c_msg.cpp:153
+msgid "CHOICE substitution is not allowed in an implementation"
+msgstr "La substitution CHOICE n'est pas autorisée dans une implémentation"
+
+#: c_msg.cpp:155
+msgid "PRE .. THEN .. END substitution is not allowed in an implementation"
+msgstr "La substitution PRE..THEN..END n'est pas autorisée dans une implémentation"
+
+#: c_msg.cpp:157
+msgid "Sequential (';') substitution is not allowed in a specification"
+msgstr "La substitution séquentielle (';') n'est pas autorisée dans une spécification"
+
+#: c_msg.cpp:159
+msgid "WHILE substitution is not allowed in a refinement"
+msgstr "La substitution WHILE n'est pas autorisée dans un raffinement"
+
+#: c_msg.cpp:161
+#, c-format
+msgid "LR state %d does not have a successor"
+msgstr "L'état %d de l'automate LR n'a pas de successeur"
+
+#: c_msg.cpp:163
+msgid "Lexem does not have an associativity"
+msgstr "Le lexème n'a pas d'associativité"
+
+#: c_msg.cpp:165
+#, c-format
+msgid "Atom of type %s (%s) is not yet implemented"
+msgstr "Les constructions atomiques de type %s (%s) ne sont pas implémentés dans cette version"
+
+#: c_msg.cpp:167
+#, c-format
+msgid "Binop of type %s (%s) is not yet implemented"
+msgstr "Les constructions binaires de type %s (%s) ne sont pas implémentés dans cette version"
+
+#: c_msg.cpp:169
+#, c-format
+msgid "Unop of type %s is not yet implemented"
+msgstr "Les opérateurs unaires de type %s ne sont pas implémentés dans cette version"
+
+#: c_msg.cpp:171
+msgid "Use of '()' is compulsory for function call"
+msgstr "L'utilisaiton '()' est obligatoire lors de l'appel d'une fonction"
+
+#: c_msg.cpp:173
+msgid "While parsing operation header"
+msgstr "Lors de l'analyse syntaxique de l'entête de l'opération"
+
+#: c_msg.cpp:175
+#, c-format
+msgid "Component has a %s clause but not a(n) %s clause"
+msgstr "Le composant a une clause %s mais pas de clause %s"
+
+#: c_msg.cpp:177
+#, c-format
+msgid "Definition of identifier \"%s\" as a %s clashes with previous definition as a %s"
+msgstr "La définition de l'identificateur \"%s\" en tant que %s est en conflit avec sa définition précédente en tant que %s"
+
+#: c_msg.cpp:179
+msgid "Location of conflicting definition"
+msgstr "Localisation de la définition en conflit"
+
+#: c_msg.cpp:181
+msgid "ABSTRACT_CONSTANTS clause is forbidden in an implementation"
+msgstr "La clause ABSTRACT_CONSTANTS n'est pas autorisée dans une implémentation"
+
+#: c_msg.cpp:183
+msgid "ABSTRACT_VARIABLES clause is forbidden in an implementation"
+msgstr "La clause ABSTRACT_VARIABLES n'est pas autorisée dans une implémentation"
+
+#: c_msg.cpp:185
+msgid "CONSTRAINTS clause is forbidden in a refinement"
+msgstr "La clause CONSTRAINTS n'est pas autorisée dans un raffinement"
+
+#: c_msg.cpp:187
+msgid "CONSTRAINTS clause is forbidden in an implementation"
+msgstr ""
+
+#: c_msg.cpp:189
+msgid "Component does not have a REFINES clause"
+msgstr ""
+
+#: c_msg.cpp:191
+msgid "USES clause is forbidden in a refinement"
+msgstr ""
+
+#: c_msg.cpp:193
+msgid "USES clause is forbidden in an implementation"
+msgstr ""
+
+#: c_msg.cpp:195
+msgid "VALUES clause is forbidden in a refinement"
+msgstr ""
+
+#: c_msg.cpp:197
+msgid "VALUES clause is forbidden in a specification"
+msgstr ""
+
+#: c_msg.cpp:199
+#, c-format
+msgid "Required component %s is missing"
+msgstr ""
+
+#: c_msg.cpp:201
+#, c-format
+msgid "No SEES %s clause for component %s seen by abstraction %s"
+msgstr ""
+
+#: c_msg.cpp:203
+#, c-format
+msgid "Location of SEES %s clause in abstraction"
+msgstr ""
+
+#: c_msg.cpp:205
+msgid "Required component is not a specification"
+msgstr ""
+
+#: c_msg.cpp:207
+msgid "Refined component is not a specification"
+msgstr ""
+
+#: c_msg.cpp:209
+msgid "Refined component is neither a specification, nor a refinement"
+msgstr ""
+
+#: c_msg.cpp:211
+#, c-format
+msgid "Formal parameter #%d of abstraction (\"%s\") is missing"
+msgstr ""
+
+#: c_msg.cpp:213
+#, c-format
+msgid "Formal parameter #%d (\"%s\") is not a parameter of the abstraction"
+msgstr ""
+
+#: c_msg.cpp:215
+msgid "Definition of the formal parameters of the abstraction"
+msgstr ""
+
+#: c_msg.cpp:217
+#, c-format
+msgid "Definition of the formal parameter #%d of the abstraction"
+msgstr ""
+
+#: c_msg.cpp:219
+#, c-format
+msgid ""
+"Formal parameter #%d (\"%s\") differs from formal parameter #%d (\"%s\") of "
+"the abstraction"
+msgstr ""
+
+#: c_msg.cpp:221
+#, c-format
+msgid "Machine %s can not be imported since it contains a USES clause"
+msgstr ""
+
+#: c_msg.cpp:223
+#, c-format
+msgid "Machine %s can not be extended since it contains a USES clause"
+msgstr ""
+
+#: c_msg.cpp:225
+#, c-format
+msgid "Machine %s can not be seen since it contains a USES clause"
+msgstr ""
+
+#: c_msg.cpp:227
+#, c-format
+msgid "Machine %s can not be refined since it contains a USES clause"
+msgstr ""
+
+#: c_msg.cpp:229
+#, c-format
+msgid "Operation %s is not an operation of abstraction %s"
+msgstr ""
+
+#: c_msg.cpp:231
+#, c-format
+msgid "Operation %s is not refined in component %s"
+msgstr ""
+
+#: c_msg.cpp:233
+msgid "Parallel ('||') substitution is not allowed in an implementation"
+msgstr ""
+
+#: c_msg.cpp:235
+msgid ""
+"Becomes such that (':') substitution is not allowed in an implementation"
+msgstr ""
+
+#: c_msg.cpp:237
+msgid ""
+"Becomes member of ('::') substitution is not allowed in an implementation"
+msgstr ""
+
+#: c_msg.cpp:239
+msgid "Specification has formal scalar parameters and no CONSTRAINTS clause"
+msgstr ""
+
+#: c_msg.cpp:241
+msgid ""
+"CONSTRAINTS clause is forbidden in a specification without formal scalar "
+"parameters"
+msgstr ""
+
+#: c_msg.cpp:243
+msgid ""
+"'$0' expression is only allowed in WHILE and in 'becomes such that' "
+"substitutions"
+msgstr ""
+
+#: c_msg.cpp:245
+msgid "Component can not refine itself"
+msgstr ""
+
+#: c_msg.cpp:247
+#, c-format
+msgid "Component %s is multiply referenced"
+msgstr ""
+
+#: c_msg.cpp:249
+#, c-format
+msgid "Component %s is multiply imported"
+msgstr ""
+
+#: c_msg.cpp:251
+#, c-format
+msgid "Component %s is imported here"
+msgstr ""
+
+#: c_msg.cpp:253
+#, c-format
+msgid "Undeclared identifier \"%s\""
+msgstr ""
+
+#: c_msg.cpp:255
+#, c-format
+msgid "No type given for %s %s"
+msgstr ""
+
+#: c_msg.cpp:257
+msgid "Location of operation specification"
+msgstr ""
+
+#: c_msg.cpp:259
+#, c-format
+msgid "Illegal type %s for %s %s"
+msgstr ""
+
+#: c_msg.cpp:261
+#, c-format
+msgid "Location of type %s definition for %s %s"
+msgstr ""
+
+#: c_msg.cpp:263
+msgid ""
+"Unexpected expression in equality predicate (should be of type Exp = Exp or "
+"Exp /= Exp)"
+msgstr ""
+
+#: c_msg.cpp:265
+#, c-format
+msgid "Right hand side of ':' predicate should be a Set (it is %s)"
+msgstr ""
+
+#: c_msg.cpp:267
+#, c-format
+msgid ""
+"Unbalanced affectation : there are %d identifiers on the lhs but %d "
+"expressions on the rhs"
+msgstr ""
+
+#: c_msg.cpp:269
+#, c-format
+msgid "Given type %s does not type the %d identifiers on the left hand side"
+msgstr ""
+
+#: c_msg.cpp:271
+#, c-format
+msgid "%s %s not specified"
+msgstr ""
+
+#: c_msg.cpp:273
+msgid ""
+"STRING type can only be used to type operation input parameters, with the "
+"belong predicate"
+msgstr ""
+
+#: c_msg.cpp:275
+#, c-format
+msgid ""
+"STRING type can only be used to type operation input parameters (%s is a %s)"
+msgstr ""
+
+#: c_msg.cpp:277
+#, c-format
+msgid ""
+"Illegal access to non-visible entity \"%s\" (rights are \"%s\" for %s \"%s\" "
+"declared in \"%s\", %s, from %s of \"%s\")"
+msgstr ""
+
+#: c_msg.cpp:279
+#, c-format
+msgid "Location of non-visible entity \"%s\" declaration"
+msgstr ""
+
+#: c_msg.cpp:281
+#, c-format
+msgid "New type %s is incompatible with previous type %s"
+msgstr ""
+
+#: c_msg.cpp:283
+#, c-format
+msgid ""
+"In operation %s call: wrong number of effective in parameters (%d given "
+"parameters, %d expected)"
+msgstr ""
+
+#: c_msg.cpp:285
+#, c-format
+msgid ""
+"In operation %s call: wrong number of effective out parameters (%d "
+"parameters given, %d expected)"
+msgstr ""
+
+#: c_msg.cpp:287
+#, c-format
+msgid "Location of \"%s\" definition"
+msgstr ""
+
+#: c_msg.cpp:289
+#, c-format
+msgid "Impossible to call \"%s\" since it is not an operation"
+msgstr ""
+
+#: c_msg.cpp:291
+#, c-format
+msgid "Identifier \"%s\" can not be accessed since it has not been typed"
+msgstr ""
+
+#: c_msg.cpp:293
+#, c-format
+msgid "Right hand side of '::' substitution should be a Set (it is %s)"
+msgstr ""
+
+#: c_msg.cpp:295
+#, c-format
+msgid ""
+"Unbalanced '::' substitution : there are %d identifiers on the lhs but %d "
+"sets on the rhs"
+msgstr ""
+
+#: c_msg.cpp:297
+msgid "Item of cartesian product is not a set"
+msgstr ""
+
+#: c_msg.cpp:299
+#, c-format
+msgid ""
+"In extensive set : item type %s is not compatible with the type of the items "
+"of the set (%s)"
+msgstr ""
+
+#: c_msg.cpp:301
+msgid "Invalid interval"
+msgstr ""
+
+#: c_msg.cpp:303
+#, c-format
+msgid "Operand is not an integer (its type is %s)"
+msgstr ""
+
+#: c_msg.cpp:305
+#, c-format
+msgid "Operand is not an integer neither a set (its type is %s)"
+msgstr ""
+
+#: c_msg.cpp:307
+#, c-format
+msgid "Operand is not a set (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:309
+#, c-format
+msgid "While calling operation %s : invalid use of ':=' (use '<--' instead)"
+msgstr ""
+
+#: c_msg.cpp:311
+#, c-format
+msgid "Builtin operator %s has only one operand (%d operands given)"
+msgstr ""
+
+#: c_msg.cpp:313
+#, c-format
+msgid "Builtin operator %s requires a set operand (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:315
+#, c-format
+msgid "Set type %s is not compatible with first operand type %s"
+msgstr ""
+
+#: c_msg.cpp:317
+#, c-format
+msgid ""
+"Builtin operator %s requires an integer set operand (given operand type is "
+"%s)"
+msgstr ""
+
+#: c_msg.cpp:319
+#, c-format
+msgid ""
+"Builtin operator %s requires a sequence operand (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:321
+#, c-format
+msgid ""
+"Builtin operator %s requires a non empty sequence operand (given operand "
+"type is %s)"
+msgstr ""
+
+#: c_msg.cpp:323
+#, c-format
+msgid ""
+"Operand of set relation '<->' should be a set (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:325
+#, c-format
+msgid "Operand of converse '~' should be a relation (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:327
+#, c-format
+msgid ""
+"Builtin operator %s requires a relation operand (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:329
+#, c-format
+msgid ""
+"Builtin operator %s requires an operand of type 'relation from a A to A' "
+"(given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:331
+#, c-format
+msgid ""
+"Builtin operator %s requires its first operand to be of type relation (given "
+"operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:333
+#, c-format
+msgid ""
+"Builtin operator %s requires its first operand to be of type 'relation from "
+"a A to A' (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:335
+#, c-format
+msgid ""
+"Builtin operator %s requires is second operand to be an integer (given "
+"operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:337
+#, c-format
+msgid "Builtin operator %s needs two operands (%d operands given)"
+msgstr ""
+
+#: c_msg.cpp:339
+#, c-format
+msgid ""
+"Operand of composition operator ';' should be a relation (given operand type "
+"is %s)"
+msgstr ""
+
+#: c_msg.cpp:341
+#, c-format
+msgid ""
+"Operands of compositor operator ';' should have compatible types (given "
+"types are %s and %s"
+msgstr ""
+
+#: c_msg.cpp:343
+msgid "Location of bad composition operator ';' operand"
+msgstr ""
+
+#: c_msg.cpp:345
+#, c-format
+msgid ""
+"First operand of predicate should be an integer (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:347
+#, c-format
+msgid ""
+"Second operand of predicate should be an integer (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:349
+#, c-format
+msgid "First operand of predicate should be a set (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:351
+#, c-format
+msgid "Second operand of predicate should be a set (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:353
+#, c-format
+msgid ""
+"First operand of builtin operator %s is not a set (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:355
+#, c-format
+msgid ""
+"Second operand of builtin operator %s is not a set (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:357
+#, c-format
+msgid "WHILE loop variant is not an integer (given variant type is %s)"
+msgstr ""
+
+#: c_msg.cpp:359
+#, c-format
+msgid "Identifier %s is not typed in the predicate of 'becomes such that'"
+msgstr ""
+
+#: c_msg.cpp:361
+#, c-format
+msgid "Identifier %s is not an array (given type is %s)"
+msgstr ""
+
+#: c_msg.cpp:363
+#, c-format
+msgid "Item is not an array (given type is %s)"
+msgstr ""
+
+#: c_msg.cpp:365
+#, c-format
+msgid ""
+"The type %s of the indexes is not compatible with the type %s of the array"
+msgstr ""
+
+#: c_msg.cpp:367
+#, c-format
+msgid "Unable to find context for identifier \"%s\" (which is a %s)"
+msgstr ""
+
+#: c_msg.cpp:369 c_msg.cpp:379
+#, c-format
+msgid "Lhs type %s is incompatible with rhs type %s"
+msgstr ""
+
+#: c_msg.cpp:371
+#, c-format
+msgid "Variable %s is modified in two parallel substitutions"
+msgstr ""
+
+#: c_msg.cpp:373
+#, c-format
+msgid "Location of previous modification of variable %s"
+msgstr ""
+
+#: c_msg.cpp:375
+#, c-format
+msgid ""
+"%s can not be valued here since is not a local variable of the LET "
+"substitution"
+msgstr ""
+
+#: c_msg.cpp:377
+#, c-format
+msgid ""
+"%s can not be valued here since it has already been valued in this LET "
+"substitution"
+msgstr ""
+
+#: c_msg.cpp:381
+#, c-format
+msgid "Type %s is incompatible with first type %s"
+msgstr ""
+
+#: c_msg.cpp:383
+#, c-format
+msgid "Lhs of binary operator should be a sequence (given type is %s)"
+msgstr ""
+
+#: c_msg.cpp:385
+#, c-format
+msgid "Rhs of binary operator should be a sequence (given type is %s)"
+msgstr ""
+
+#: c_msg.cpp:387
+#, c-format
+msgid "Can not add an item of type %s to a sequence of type %s"
+msgstr ""
+
+#: c_msg.cpp:389
+#, c-format
+msgid "Operand should be a sequence (given type is %s)"
+msgstr ""
+
+#: c_msg.cpp:391
+#, c-format
+msgid "Unknown or non-visible operation %s can not be promoted"
+msgstr ""
+
+#: c_msg.cpp:393
+#, c-format
+msgid "%s %s has not been refined"
+msgstr ""
+
+#: c_msg.cpp:395
+#, c-format
+msgid "First operand of image should be a relation (given type is %s)"
+msgstr ""
+
+#: c_msg.cpp:397
+#, c-format
+msgid "Second operand of image should be a subset of %s (given type is %s)"
+msgstr ""
+
+#: c_msg.cpp:399
+#, c-format
+msgid "Unable to find the visibility link between components %s and %s"
+msgstr ""
+
+#: c_msg.cpp:401
+#, c-format
+msgid ""
+"Invalid valuation of abstract set %s (given type is neither an abstract set, "
+"nor an finite and non-empty interval of integers)"
+msgstr ""
+
+#: c_msg.cpp:403
+#, c-format
+msgid "Abstract data %s of ANY clause can not be modified"
+msgstr ""
+
+#: c_msg.cpp:405
+msgid "No ')' matching '(' around previous substitution"
+msgstr ""
+
+#: c_msg.cpp:407
+msgid "Location of unmatched '('"
+msgstr ""
+
+#: c_msg.cpp:409
+#, c-format
+msgid "Variable %s of lambda expression is not typed in the typing predicate"
+msgstr ""
+
+#: c_msg.cpp:411
+#, c-format
+msgid ""
+"Builtin operator %s requires an integer operand (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:413
+#, c-format
+msgid ""
+"First operand of (anti)restriction is not a set (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:415
+#, c-format
+msgid ""
+"Second operand of (anti)restriction is not a relation (given operand type is "
+"%s)"
+msgstr ""
+
+#: c_msg.cpp:417
+#, c-format
+msgid ""
+"First operand of corestriction is not a relation (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:419
+#, c-format
+msgid "Second operand of corestriction is not a set (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:421
+#, c-format
+msgid "Invalid pragma \"%s\" has no '(' : parameters will be ignored"
+msgstr ""
+
+#: c_msg.cpp:423
+#, c-format
+msgid "Invalid pragma \"%s\" : missing parameters : parameters will be ignored"
+msgstr ""
+
+#: c_msg.cpp:425
+#, c-format
+msgid "Invalid pragma \"%s\" has no identifier : it will be ignored"
+msgstr ""
+
+#: c_msg.cpp:427
+#, c-format
+msgid ""
+"Second operand of direct product is not a relation (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:429
+#, c-format
+msgid ""
+"First operand of direct product is not a relation (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:431
+msgid "Trailing garbage after pragma"
+msgstr ""
+
+#: c_msg.cpp:433
+#, c-format
+msgid ""
+"Wrong number of effective parameters for machine %s (%d given parameter(s), "
+"%d expected)"
+msgstr ""
+
+#: c_msg.cpp:435
+#, c-format
+msgid ""
+"Effective parameter type %s is incompatible with type %s of formal parameter "
+"%s"
+msgstr ""
+
+#: c_msg.cpp:437
+#, c-format
+msgid "Lhs relation destination type %s is incompatible with rhs base type %s"
+msgstr ""
+
+#: c_msg.cpp:439
+#, c-format
+msgid ""
+"In [] : expression has %d types, which is greater or equal than the number "
+"of types in the relation (%d)"
+msgstr ""
+
+#: c_msg.cpp:441
+#, c-format
+msgid "Rhs relation source type %s is incompatible with lhs base type %s"
+msgstr ""
+
+#: c_msg.cpp:443
+#, c-format
+msgid "In extensive record : expression with parenthesis expected, got %s"
+msgstr ""
+
+#: c_msg.cpp:445
+#, c-format
+msgid "Record label expected, got %s"
+msgstr ""
+
+#: c_msg.cpp:447
+#, c-format
+msgid ""
+"First operand of left overload is not a relation (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:449
+#, c-format
+msgid ""
+"Second operand of left overload is not a relation (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:451
+#, c-format
+msgid "Type %s of index number %d is incompatible with expected type %s"
+msgstr ""
+
+#: c_msg.cpp:453
+msgid "A record label is compulsory here"
+msgstr ""
+
+#: c_msg.cpp:455
+#, c-format
+msgid "End of file or component found while parsing definition %s"
+msgstr ""
+
+#: c_msg.cpp:457
+#, c-format
+msgid "Type should be a set of set i.e. Setof(Setof(t)) (given type is %s)"
+msgstr ""
+
+#: c_msg.cpp:459
+#, c-format
+msgid ""
+"Second operand of parallel product is not a relation (given operand type is "
+"%s)"
+msgstr ""
+
+#: c_msg.cpp:461
+#, c-format
+msgid ""
+"First operand of parallel product is not a relation (given operand type is "
+"%s)"
+msgstr ""
+
+#: c_msg.cpp:463
+msgid "No type given for effective parameter"
+msgstr ""
+
+#: c_msg.cpp:465
+#, c-format
+msgid "Called operation name should be an identifier (given name is a(n) %s)"
+msgstr ""
+
+#: c_msg.cpp:467
+msgid "Right hand side of valuation does not have a type"
+msgstr ""
+
+#: c_msg.cpp:469
+msgid ""
+"The label of this record item can not be retrieved from the other record "
+"item since it has no label either"
+msgstr ""
+
+#: c_msg.cpp:471
+msgid "Location of other record item without label"
+msgstr ""
+
+#: c_msg.cpp:473
+#, c-format
+msgid ""
+"Can not access field %s of this expression since it is not a record (given "
+"type is %s)"
+msgstr ""
+
+#: c_msg.cpp:475
+#, c-format
+msgid ""
+"Can not access field %s of this expression since it is not a label of this "
+"record type (given record type is %s)"
+msgstr ""
+
+#: c_msg.cpp:477
+#, c-format
+msgid ""
+"Identifier can not be typed with this record type since it contains jokers "
+"(given type is: %s)"
+msgstr ""
+
+#: c_msg.cpp:479
+msgid ""
+"Definitions file name can not include a path. Use \"file\" to fetch a local "
+"file or <file> to fetch a library file."
+msgstr ""
+
+#: c_msg.cpp:481
+#, c-format
+msgid "Unable to find object at rank %d - File is corrupted"
+msgstr ""
+
+#: c_msg.cpp:483
+#, c-format
+msgid ""
+"Identifier \"%s\" has less than 2 characters : it will be rejected by "
+"Atelier-B's Logic Solver"
+msgstr ""
+
+#: c_msg.cpp:485
+#, c-format
+msgid "There should be a component named %s in this file (\"%s\")"
+msgstr ""
+
+#: c_msg.cpp:487
+#, c-format
+msgid "Component %s can not be part of this file"
+msgstr ""
+
+#: c_msg.cpp:489
+#, c-format
+msgid ""
+"Component %s can not be stored in file %s since it is not a multi-component "
+"file"
+msgstr ""
+
+#: c_msg.cpp:491
+msgid ""
+"Invalid expression : <expr \"=\" expr> is not an expression, but a predicate."
+msgstr ""
+
+#: c_msg.cpp:493
+#, c-format
+msgid ""
+"No type given for %s %s. %s should have been typed in the %s clause of %s"
+msgstr ""
+
+#: c_msg.cpp:495
+#, c-format
+msgid ""
+"%s %s can not be typed in the %s clause. It should be typed in the %s clause"
+msgstr ""
+
+#: c_msg.cpp:497
+#, c-format
+msgid ""
+"%s is an operation : it can not be on the left-hand side of an affectation"
+msgstr ""
+
+#: c_msg.cpp:499
+#, c-format
+msgid "%s %s has not been valuated in the VALUES clause of %s"
+msgstr ""
+
+#: c_msg.cpp:501
+msgid "Location of VALUES clause"
+msgstr ""
+
+#: c_msg.cpp:503
+#, c-format
+msgid "%s %s has not been initialised in the INITIALISATION clause of %s"
+msgstr ""
+
+#: c_msg.cpp:505
+msgid "Location of INITIALISATION clause"
+msgstr ""
+
+#: c_msg.cpp:507
+#, c-format
+msgid ""
+"Invalid identifier \"%s\" : '$' can only be used inside the \"$0\" suffix "
+"for an identifier"
+msgstr ""
+
+#: c_msg.cpp:509
+msgid "Garbage lexem before component beginning"
+msgstr "Lexème parasite avant le début du composant"
+
+#: c_msg.cpp:511
+#, c-format
+msgid "Missing '.' in %s expression construction should be here"
+msgstr ""
+
+#: c_msg.cpp:513
+msgid "A Set formal parameter can not be valuated with an empty interval"
+msgstr ""
+
+#: c_msg.cpp:515
+#, c-format
+msgid "Definition %s can not be part of its own rewrite rule"
+msgstr ""
+
+#: c_msg.cpp:517
+#, c-format
+msgid "Unexpected node type %d (%s)"
+msgstr ""
+
+#: c_msg.cpp:519
+#, c-format
+msgid ""
+"Can not create syntaxic refinement of component %s since it has a PROMOTES "
+"clause"
+msgstr ""
+
+#: c_msg.cpp:521
+#, c-format
+msgid "The \"%s\" identifier, defined as a(n) %s in %s, should not be renamed"
+msgstr ""
+
+#: c_msg.cpp:523
+#, c-format
+msgid ""
+"The \"%s\" identifier, defined as a(n) %s in %s, is not renamed or is "
+"renamed with a bad prefix"
+msgstr ""
+
+#: c_msg.cpp:525
+#, c-format
+msgid "The %s \"%s\" can not refine a(n) %s"
+msgstr ""
+
+#: c_msg.cpp:527
+#, c-format
+msgid ""
+"In the redefinition of \"%s\", the enumerated value \"%s\" differs from "
+"\"%s\""
+msgstr ""
+
+#: c_msg.cpp:529
+#, c-format
+msgid "In the redefinition of \"%s\", enumerated value \"%s\" is exceeding"
+msgstr ""
+
+#: c_msg.cpp:531
+#, c-format
+msgid "In the redefinition of \"%s\", enumerated value \"%s\" is missing"
+msgstr ""
+
+#: c_msg.cpp:533
+#, c-format
+msgid "%s is not allowed in an implementation"
+msgstr ""
+
+#: c_msg.cpp:535
+#, c-format
+msgid "%s is not implementable"
+msgstr ""
+
+#: c_msg.cpp:537
+#, c-format
+msgid "Invalid array expression %s"
+msgstr ""
+
+#: c_msg.cpp:539
+msgid "In an array access, index must be a term"
+msgstr ""
+
+#: c_msg.cpp:541
+#, c-format
+msgid "Invalid range %s "
+msgstr ""
+
+#: c_msg.cpp:543
+#, c-format
+msgid "Invalid interval bound %s is not an arithmetic expression"
+msgstr ""
+
+#: c_msg.cpp:545
+#, c-format
+msgid ""
+"In %s call : %s is not a valid effective parameter (term or string expected)"
+msgstr ""
+
+#: c_msg.cpp:547
+#, c-format
+msgid "Invalid index set %s for array aggregate"
+msgstr ""
+
+#: c_msg.cpp:549
+#, c-format
+msgid "Invalid value %s for array aggregate"
+msgstr ""
+
+#: c_msg.cpp:551
+#, c-format
+msgid "Invalid index %s for maplet (literal scalar expected)"
+msgstr ""
+
+#: c_msg.cpp:553
+#, c-format
+msgid "Invalid operand %s of %s (arithmetic expression expected)"
+msgstr ""
+
+#: c_msg.cpp:555
+#, c-format
+msgid "Invalid operand %s of bool (boolean expression expected)"
+msgstr ""
+
+#: c_msg.cpp:557
+#, c-format
+msgid "%s is not a condition"
+msgstr ""
+
+#: c_msg.cpp:559 c_msg.cpp:567
+#, c-format
+msgid "%s is not a simple term"
+msgstr ""
+
+#: c_msg.cpp:561
+#, c-format
+msgid "Invalid value %s for maplet"
+msgstr ""
+
+#: c_msg.cpp:563
+msgid "Maplet is not implementable"
+msgstr ""
+
+#: c_msg.cpp:565
+#, c-format
+msgid "%s is not a term"
+msgstr ""
+
+#: c_msg.cpp:569
+msgid "Effective parameter is not implementable"
+msgstr ""
+
+#: c_msg.cpp:571
+msgid "Record item is not implementable"
+msgstr ""
+
+#: c_msg.cpp:573
+#, c-format
+msgid "Invalid case selector %s (simple term expected)"
+msgstr ""
+
+#: c_msg.cpp:575
+msgid "Simultaneous affectation is not implementable"
+msgstr ""
+
+#: c_msg.cpp:577
+msgid "Invalid lhs in affectation"
+msgstr ""
+
+#: c_msg.cpp:579
+msgid "Invalid rhs in affectation"
+msgstr ""
+
+#: c_msg.cpp:581
+#, c-format
+msgid "Invalid identifier type %s for formal scalar parameter %s"
+msgstr ""
+
+#: c_msg.cpp:583
+#, c-format
+msgid "Invalid destination set %s for a total function"
+msgstr ""
+
+#: c_msg.cpp:585
+msgid "Invalid relation type for concrete type (total function expected)"
+msgstr ""
+
+#: c_msg.cpp:587
+#, c-format
+msgid "Invalid source set %s for a total function"
+msgstr ""
+
+#: c_msg.cpp:589
+#, c-format
+msgid "Invalid simple set %s"
+msgstr ""
+
+#: c_msg.cpp:591
+#, c-format
+msgid "Invalid typing expression %s for concrete constant %s"
+msgstr ""
+
+#: c_msg.cpp:593
+#, c-format
+msgid "Invalid typing expression %s for concrete variable %s"
+msgstr ""
+
+#: c_msg.cpp:595
+#, c-format
+msgid "Invalid typing expression %s for formal scalar parameter %s"
+msgstr ""
+
+#: c_msg.cpp:597
+#, c-format
+msgid "Invalid typing expression %s for in operation parameter %s"
+msgstr ""
+
+#: c_msg.cpp:599
+msgid "Invalid typing predicate ( = or : expected)"
+msgstr ""
+
+#: c_msg.cpp:601
+#, c-format
+msgid "Invalid identifier type %s for array index %s"
+msgstr ""
+
+#: c_msg.cpp:603
+#, c-format
+msgid "Invalid type for expression %s : scalar expected"
+msgstr ""
+
+#: c_msg.cpp:605
+#, c-format
+msgid "Invalid typing expression %s for record_item"
+msgstr ""
+
+#: c_msg.cpp:607
+#, c-format
+msgid "Type of %s %s not implementable"
+msgstr ""
+
+#: c_msg.cpp:609
+msgid "Type of record label not implementable"
+msgstr ""
+
+#: c_msg.cpp:611
+#, c-format
+msgid "Invalid expression %s for formal parameter instanciation"
+msgstr ""
+
+#: c_msg.cpp:613
+#, c-format
+msgid "Invalid index %s for array constant valuation (literal scalar expected)"
+msgstr ""
+
+#: c_msg.cpp:615
+#, c-format
+msgid "Invalid ident type %s for identifier %s in an instanciation context"
+msgstr ""
+
+#: c_msg.cpp:617
+#, c-format
+msgid "Invalid ident type %s for identifier %s in a valuation context"
+msgstr ""
+
+#: c_msg.cpp:619
+#, c-format
+msgid "Invalid expression %s for valuation of %s %s"
+msgstr ""
+
+#: c_msg.cpp:621
+msgid "Invalid interval bound (literal integer expected)"
+msgstr ""
+
+#: c_msg.cpp:623
+#, c-format
+msgid "Invalid ident type %s for identifier %s (concrete data expected)"
+msgstr ""
+
+#: c_msg.cpp:625
+#, c-format
+msgid "%s %s is already valued"
+msgstr ""
+
+#: c_msg.cpp:627
+#, c-format
+msgid "Illegal redefinition of component \"%s\""
+msgstr ""
+
+#: c_msg.cpp:629
+#, c-format
+msgid ""
+"Invalid expression \"%s\" in the case branch (literal integer, literal "
+"boolean or literal enumerated value expected)"
+msgstr ""
+
+#: c_msg.cpp:631
+#, c-format
+msgid "The branch type %s differs from selector type (%s)"
+msgstr ""
+
+#: c_msg.cpp:633
+msgid "This case branch value already exist"
+msgstr ""
+
+#: c_msg.cpp:635
+#, c-format
+msgid ""
+"Invalid operation name %s : an operation name in a specification can not be "
+"renamed"
+msgstr ""
+
+#: c_msg.cpp:637
+#, c-format
+msgid ""
+"%s can not be valued here since is a local variable of the LET substitution"
+msgstr ""
+
+#: c_msg.cpp:639
+msgid ""
+"Invalid universal predicate. Valid universal predicates are of type "
+"!x.(P1=>P2) or !(x1,..xn).(P1=>P2)"
+msgstr ""
+
+#: c_msg.cpp:641
+#, c-format
+msgid ""
+"$0 can not be used since %s is not a local quantifier of becomes such that"
+msgstr ""
+
+#: c_msg.cpp:643
+#, c-format
+msgid "$0 can not be used since %s is not specified in %s's abstraction %s"
+msgstr ""
+
+#: c_msg.cpp:645
+#, c-format
+msgid "Formal set parameter \"%s\" can not be typed"
+msgstr ""
+
+#: c_msg.cpp:647
+#, c-format
+msgid ""
+"$0 can not be used since %s is not in a predicate of the INVARIANT of a "
+"WHILE loop"
+msgstr ""
+
+#: c_msg.cpp:649
+msgid "There is already a maplet with this index"
+msgstr ""
+
+#: c_msg.cpp:651
+msgid "There are some lacks in maplet set for a total coverage of the array"
+msgstr ""
+
+#: c_msg.cpp:653
+msgid "LHS and RHS arrays are incompatible"
+msgstr ""
+
+#: c_msg.cpp:655
+msgid "Effective array parameter is incompatible with formal parameter"
+msgstr ""
+
+#: c_msg.cpp:657
+#, c-format
+msgid ""
+"\"%s\" INCLUDES \"%s\" which USES \"%s\", therefore \"%s\" must include "
+"\"%s\""
+msgstr ""
+
+#: c_msg.cpp:659
+#, c-format
+msgid ""
+"Two operations from the same included machine \"%s\" can not be called in "
+"two parallel substitutions"
+msgstr ""
+
+#: c_msg.cpp:661
+#, c-format
+msgid ""
+"$0 can not be used since %s is neither a glued variable, nor a concrete "
+"variable refining a variable from the abstraction"
+msgstr ""
+
+#: c_msg.cpp:663
+#, c-format
+msgid "End of file found while parsing definition file %s"
+msgstr ""
+
+#: c_msg.cpp:665
+#, c-format
+msgid "Builtin operator %s requires a tree operand (given operand type is %s)"
+msgstr ""
+
+#: c_msg.cpp:667
+#, c-format
+msgid ""
+"Builtin operator %s requires a sequence of tree operand (given operand type "
+"is %s)"
+msgstr ""
+
+#: c_msg.cpp:669
+#, c-format
+msgid "Can not add a node of type %s to a tree of type %s"
+msgstr ""
+
+#: c_msg.cpp:671
+#, c-format
+msgid ""
+"Builtin operator %s requires a sequence of integers (given operand type is "
+"%s)"
+msgstr ""
+
+#: c_msg.cpp:673
+#, c-format
+msgid "Builtin operator %s needs three operands (%d operands given)"
+msgstr ""
+
+#: c_msg.cpp:675
+#, c-format
+msgid "Builtin operator %s needs one or three operands (%d operands given)"
+msgstr ""
+
+#: c_msg.cpp:677
+#, c-format
+msgid "%s \"%s\" is not implementable (typed with %s \"%s\")"
+msgstr ""
+
+#: c_msg.cpp:679
+#, c-format
+msgid ""
+"Builtin operator %s requires a sequence of sequence operand (given operand "
+"type is %s)"
+msgstr ""
+
+#: c_msg.cpp:681
+#, c-format
+msgid "Invalid Image index type %s is not a subset of %s"
+msgstr ""
+
+#: c_msg.cpp:683
+#, c-format
+msgid ""
+"Identifier %s can not be used since it clashes with a builtin identifier of "
+"Atelier B's Logic Solver"
+msgstr ""
+
+#: c_msg.cpp:685
+#, c-format
+msgid ""
+"Identifier %s and %s from component %s clash according to Atelier B's Logic "
+"Solver and Prover rules"
+msgstr ""
+
+#: c_msg.cpp:687
+#, c-format
+msgid "Untyped identifier %s can not be typed with generic type %s"
+msgstr ""
+
+#: c_msg.cpp:689
+msgid ""
+"LOCAL_OPERATIONS clause is forbidden in a specification or in a refinement"
+msgstr ""
+
+#: c_msg.cpp:691
+#, c-format
+msgid "Local operation %s is not implemented in component %s"
+msgstr ""
+
+#: c_msg.cpp:693
+#, c-format
+msgid "Literal value %s%s is greater than MAXINT=%s%s"
+msgstr ""
+
+#: c_msg.cpp:695
+#, c-format
+msgid "Literal value %s%s is lower than MININT=%s%s"
+msgstr ""
+
+#: c_msg.cpp:697
+#, c-format
+msgid "MININT=%s is greater than MAXINT=%s"
+msgstr ""
+
+#: c_msg.cpp:699
+#, c-format
+msgid "Tool %s restricts B0 instanciation to literals (integer or boolean)"
+msgstr ""
+
+#: c_msg.cpp:701
+#, c-format
+msgid "Lexem %s is not accepted in state file %s"
+msgstr ""
+
+#: c_msg.cpp:703
+#, c-format
+msgid "No value associated to the lexem %d in state file %s"
+msgstr ""
+
+#: c_msg.cpp:705
+#, c-format
+msgid ""
+"Syntax error in state file %s line %d : lexem of type %d instead of type %d"
+msgstr ""
+
+#: c_msg.cpp:707
+#, c-format
+msgid ""
+"Action to do of index [%d,%d] doesn't exist in the tabular of the actions to "
+"do"
+msgstr ""
+
+#: c_msg.cpp:709
+#, c-format
+msgid ""
+"Action to update of index [%d,%d] doesn't exist in the tabular of the "
+"actions to update"
+msgstr ""
+
+#: c_msg.cpp:711
+#, c-format
+msgid "Update of action state %x with a NULL signature"
+msgstr ""
+
+#: c_msg.cpp:713
+#, c-format
+msgid "Type of action %d doesn't exist"
+msgstr ""
+
+#: c_msg.cpp:715
+#, c-format
+msgid "State of action %d has ever been memorized in %x"
+msgstr ""
+
+#: c_msg.cpp:717
+#, c-format
+msgid "Can't open state file %s"
+msgstr ""
+
+#: c_msg.cpp:719
+#, c-format
+msgid ""
+"Illegal cycle in the operation call graph of the implementation of local "
+"operation %s"
+msgstr ""
+
+#: c_msg.cpp:721
+#, c-format
+msgid "Local operation %s is part of the cycle"
+msgstr ""
+
+#: c_msg.cpp:723
+#, c-format
+msgid ""
+"Illegal call to an operation of %s : in the specification of local operation "
+"%s, there is a simultaneous call to another operation of %s"
+msgstr ""
+
+#: c_msg.cpp:725
+#, c-format
+msgid ""
+"Location of simultaneous call of an operation of %s in the specification of "
+"local operation %s"
+msgstr ""
+
+#: c_msg.cpp:727
+#, c-format
+msgid ""
+"Illegal call to local operation %s with output parameter %s : %s is a "
+"concrete variable modified in the body of the specification of %s"
+msgstr ""
+
+#: c_msg.cpp:729
+#, c-format
+msgid ""
+"Location of the modification of the concrete variable %s in the "
+"specification of %s"
+msgstr ""
+
+#: c_msg.cpp:731
+#, c-format
+msgid ""
+"In local operation specification : illegal call to imported operation %s "
+"with output parameter %s : %s is an imported variable modified in the body "
+"of the specification of %s"
+msgstr ""
+
+#: c_msg.cpp:733
+#, c-format
+msgid ""
+"Location of the modification of the imported variable %s in the "
+"specification of imported operation %s"
+msgstr ""
+
+#: c_msg.cpp:735
+#, c-format
+msgid "Too many parameters in refined operation \"%s\""
+msgstr ""
+
+#: c_msg.cpp:737
+#, c-format
+msgid "Too few parameters in refined operation \"%s\""
+msgstr ""
+
+#: c_msg.cpp:739
+#, c-format
+msgid "Different parameter names (\"%s\" / \"%s\")"
+msgstr ""
+
+#: c_msg.cpp:741
+#, c-format
+msgid "between specification and refinement of operation \"%s\""
+msgstr ""
+
+#: c_msg.cpp:743
+#, c-format
+msgid "Identifier \"%s\" appears twice in left hand side"
+msgstr ""
+
+#: c_msg.cpp:745
+#, c-format
+msgid "Invalid identifier \"%s\" ( \"%s\" expected )"
+msgstr ""
+
+#: c_msg.cpp:747
+#, c-format
+msgid ""
+"Invalid typing expression for %s %s (identifier, 'BOOL', set or 'STRING' "
+"expected)"
+msgstr ""
+
+#: c_msg.cpp:749
+#, c-format
+msgid "Component %s is abstract and has a concrete included component"
+msgstr ""
+
+#: c_msg.cpp:751
+msgid ""
+"Interval type is allowed only in basic translator machine "
+"(basic_translator_machine pragma)"
+msgstr ""
+
+#: c_msg.cpp:753
+#, c-format
+msgid ""
+"Invalid range for array type %s (interval, 'BOOL' or enumerated set expected)"
+msgstr ""
+
+#: c_msg.cpp:755
+msgid "Invalid interval minimal bound (literal integer 0 expected)"
+msgstr ""
+
+#: c_msg.cpp:757
+msgid "Invalid interval maximal bound (static expression expected)"
+msgstr ""
+
+#: c_msg.cpp:759
+msgid "Invalid array type"
+msgstr ""
+
+#: c_msg.cpp:761
+msgid "Location of valuation"
+msgstr ""
+
+#: c_msg.cpp:763
+#, c-format
+msgid "Operation %s must be declared abstract"
+msgstr ""
+
+#: c_msg.cpp:765
+msgid "The indices of an array must be ordered in asceding order"
+msgstr ""
+
+#: c_msg.cpp:767
+#, c-format
+msgid ""
+"Invalid valuation of abstract set %s (abstract set or a constant interval of "
+"integers expected)"
+msgstr ""
+
+#: c_msg.cpp:769
+#, c-format
+msgid ""
+"Invalid operation refinement, %s has not the same signature in specification"
+msgstr ""
+
+#: c_msg.cpp:771
+#, c-format
+msgid "Operation %s must be concrete in implementation"
+msgstr ""
+
+#: c_msg.cpp:773
+msgid "Invalid expression"
+msgstr ""
+
+#: c_msg.cpp:775
+#, c-format
+msgid ""
+"No literal integer type given for machine %s (literal_integer_type pragma)"
+msgstr ""
+
+#: c_msg.cpp:777
+msgid "Concrete constant, set or BOOL expected"
+msgstr ""
+
+#: c_msg.cpp:779
+msgid "Concrete constant, set, BOOL or STRING expected"
+msgstr ""
+
+#: c_msg.cpp:781
+#, c-format
+msgid "Local variable %s must be initialised"
+msgstr ""
+
+#: c_msg.cpp:783
+#, c-format
+msgid "Invalid typing expression %s for local variable %s"
+msgstr ""
+
+#: c_msg.cpp:785
+#, c-format
+msgid "Invalid typing expression %s for output param %s"
+msgstr ""
+
+#: c_msg.cpp:787
+#, c-format
+msgid "Invalid declaration for type %s "
+msgstr ""
+
+#: c_msg.cpp:789
+msgid "Machine parameter is forbidden"
+msgstr ""
+
+#: c_msg.cpp:791
+#, c-format
+msgid "Operation %s must be declared concrete"
+msgstr ""
+
+#: c_msg.cpp:793
+#, c-format
+msgid "%s valuation and declaration must be exactly the same formula"
+msgstr ""
+
+#: c_msg.cpp:795
+#, c-format
+msgid "Declaration of %s is incompatible with previous definition"
+msgstr ""
+
+#: c_msg.cpp:797
+msgid "Location of previous declaration"
+msgstr ""
+
+#: c_msg.cpp:799
+msgid ""
+"Array agreggate expressions are allowed only for initialised a constant or a "
+"local variable"
+msgstr ""
+
+#: c_msg.cpp:801
+#, c-format
+msgid ""
+"Effective parameter type %s is incompatible with formal parameter type %s ( "
+"formal parameter %s)"
+msgstr ""
+
+#: c_msg.cpp:803
+#, c-format
+msgid "%s can not be refered in effective parameter"
+msgstr ""
+
+#: c_msg.cpp:805
+msgid "Illegal redefinition of INLINE pragma"
+msgstr ""
+
+#: c_msg.cpp:807
+msgid "Illegal redefinition of INLINE_ALL pragma"
+msgstr ""
+
+#: c_msg.cpp:809
+msgid "INLINE pragma can not be used with INLINE_ALL pragma"
+msgstr ""
+
+#: c_msg.cpp:811
+#, c-format
+msgid "%s operation is not an operation from implementation %s"
+msgstr ""
+
+#: c_msg.cpp:813
+msgid ""
+"INLINE pragma and INLINE_ALL pragma are allowed only in implementation or "
+"specification"
+msgstr ""
+
+#: c_msg.cpp:815
+msgid "INLINE pragma should have parameter"
+msgstr ""
+
+#: c_msg.cpp:817
+msgid "Illegal redefinition of literal_integer_type pragma"
+msgstr ""
+
+#: c_msg.cpp:819
+msgid "literal_integer_type pragma takes one and only one parameter"
+msgstr ""
+
+#: c_msg.cpp:821
+msgid "Array expression forbidden"
+msgstr ""
+
+#: c_msg.cpp:823
+#, c-format
+msgid "Invalid identifier name %s"
+msgstr ""
+
+#: c_msg.cpp:825
+#, c-format
+msgid "Type %s should be a complete type"
+msgstr ""
+
+#: c_msg.cpp:827
+msgid "Invalid substitution '::' (expected 'identifier :: type')"
+msgstr ""
+
+#: c_msg.cpp:829
+#, c-format
+msgid "Operation %s is not an operation from the specification %s"
+msgstr ""
+
+#: c_msg.cpp:831
+#, c-format
+msgid "Set %s can not be valued with constant %s from the same module"
+msgstr ""
+
+#: c_msg.cpp:833
+#, c-format
+msgid "Operation %s should have only one out parameter"
+msgstr ""
+
+#: c_msg.cpp:835
+msgid "Expression must be static"
+msgstr ""
+
+#: c_msg.cpp:837
+msgid "Invalid index set for array aggregate"
+msgstr ""
+
+#: c_msg.cpp:839
+#, c-format
+msgid ""
+"The type %s for paramter %s of operation %s is incompatible with previous "
+"type %s"
+msgstr ""
+
+#: c_msg.cpp:841
+msgid ""
+"The parameter of the literal_integer_type pragma must be a concrete constant"
+msgstr ""
+
+#: c_msg.cpp:843
+msgid ""
+"The parameter of the literal_integer_type pragma must denote an integer type"
+msgstr ""
+
+#: c_msg.cpp:845
+msgid "Hexadecimal number too large"
+msgstr ""
+
+#: c_msg.cpp:847
+#, c-format
+msgid "Operand is not a real (its type is %s)"
+msgstr ""
+
+#: c_msg.cpp:1659
+msgid "Warning: Nested comment detected."
+msgstr ""
+
+#: c_msg.cpp:1661
+msgid "Comment starts here."
+msgstr ""
+
+#: c_msg.cpp:1663
+msgid "End of file found inside comment."
+msgstr ""
+
+#: c_msg.cpp:1665
+msgid "Warning : Trailing garbage ignored"
+msgstr ""
+
+#: c_msg.cpp:1667
+#, c-format
+msgid "Warning : empty %s will be ignored"
+msgstr ""
+
+#: c_msg.cpp:1669
+#, c-format
+msgid ""
+"Warning : identifier \"%s\" has less than 2 characters : it will be rejected "
+"by Atelier-B's Logic Solver"
+msgstr ""
+
+#: c_msg.cpp:1671
+msgid "Warning : opening lexem does not have a matching closing lexem"
+msgstr ""
+
+#: c_msg.cpp:1673
+msgid "Warning : ambiguous minus will be treated as unary minus"
+msgstr ""
+
+#: c_msg.cpp:1675
+#, c-format
+msgid ""
+"(Hint : write '- op1 %s op2' instead of 'op1 %s - op2' to avoid this warning)"
+msgstr ""
+
+#: c_msg.cpp:1677
+msgid "Warning : strict B syntax forbids use of useless ';'"
+msgstr ""
+
+#: c_msg.cpp:1679
+#, c-format
+msgid "Warning : non-implementable type %s given for %s %s"
+msgstr ""
+
+#: c_msg.cpp:1681
+msgid ""
+"Warning : extra '()' around identifiers in typing predicate are forbidden in "
+"strict B syntax and will be ignored"
+msgstr ""
+
+#: c_msg.cpp:1683
+msgid ""
+"Warning : extra '()' around this expression are useless and will be ignored"
+msgstr ""
+
+#: c_msg.cpp:1685
+#, c-format
+msgid "%s %s may have not been initialised yet"
+msgstr ""
+
+#: c_msg.cpp:1687
+#, c-format
+msgid "%s %s has not been valued yet"
+msgstr ""
+
+#: c_msg.cpp:1689
+#, c-format
+msgid "$0 is useless since %s is not modified in the body of the WHILE loop"
+msgstr ""
+
+#: c_msg.cpp:1691
+#, c-format
+msgid ""
+"%s environment variable is out of date, use parameter resource %s instead"
+msgstr ""
+
+#: c_msg.cpp:1693
+msgid "Lexem ',' will be treated as a maplet ('|->')"
+msgstr ""
+
+#: c_msg.cpp:1695
+msgid ""
+"Warning : ASSERTIONS clause without INVARIANT, only trivial predicates will "
+"be provable"
+msgstr ""
+
+#: c_msg.cpp:1743
+msgid "machine"
+msgstr ""
+
+#: c_msg.cpp:1745
+msgid "betree"
+msgstr ""
+
+#: c_msg.cpp:1747
+msgid "symbol"
+msgstr ""
+
+#: c_msg.cpp:1749
+msgid "lexem"
+msgstr ""
+
+#: c_msg.cpp:1751
+msgid "operation"
+msgstr ""
+
+#: c_msg.cpp:1753
+msgid "skip"
+msgstr ""
+
+#: c_msg.cpp:1755
+msgid "begin"
+msgstr ""
+
+#: c_msg.cpp:1757
+msgid "used_operation"
+msgstr ""
+
+#: c_msg.cpp:1759
+msgid "choice"
+msgstr ""
+
+#: c_msg.cpp:1761
+msgid "or"
+msgstr ""
+
+#: c_msg.cpp:1763
+msgid "precond"
+msgstr ""
+
+#: c_msg.cpp:1765
+msgid "assert"
+msgstr ""
+
+#: c_msg.cpp:1767
+msgid "if"
+msgstr ""
+
+#: c_msg.cpp:1769
+msgid "else"
+msgstr ""
+
+#: c_msg.cpp:1771
+msgid "select"
+msgstr ""
+
+#: c_msg.cpp:1773
+msgid "when"
+msgstr ""
+
+#: c_msg.cpp:1775
+msgid "predicate"
+msgstr ""
+
+#: c_msg.cpp:1777
+msgid "expr"
+msgstr ""
+
+#: c_msg.cpp:1779
+msgid "case"
+msgstr ""
+
+#: c_msg.cpp:1781
+msgid "case item"
+msgstr ""
+
+#: c_msg.cpp:1783
+msgid "list link"
+msgstr ""
+
+#: c_msg.cpp:1785
+msgid "let"
+msgstr ""
+
+#: c_msg.cpp:1787
+msgid "valuation"
+msgstr ""
+
+#: c_msg.cpp:1789
+msgid "identifier"
+msgstr ""
+
+#: c_msg.cpp:1791
+msgid "var"
+msgstr ""
+
+#: c_msg.cpp:1793
+msgid "while"
+msgstr ""
+
+#: c_msg.cpp:1795
+msgid "any"
+msgstr ""
+
+#: c_msg.cpp:1797
+msgid "affect"
+msgstr ""
+
+#: c_msg.cpp:1799
+msgid "becomes member of"
+msgstr ""
+
+#: c_msg.cpp:1801
+msgid "becomes such that"
+msgstr ""
+
+#: c_msg.cpp:1803
+msgid "operation call"
+msgstr ""
+
+#: c_msg.cpp:1805
+msgid "comment"
+msgstr ""
+
+#: c_msg.cpp:1807
+msgid "flag"
+msgstr ""
+
+#: c_msg.cpp:1809
+msgid "definition"
+msgstr ""
+
+#: c_msg.cpp:1811
+msgid "used machine"
+msgstr ""
+
+#: c_msg.cpp:1813
+msgid "literal integer"
+msgstr ""
+
+#: c_msg.cpp:1815
+msgid "binary expression"
+msgstr ""
+
+#: c_msg.cpp:1817
+msgid "expression with parenthesis"
+msgstr ""
+
+#: c_msg.cpp:1819
+msgid "unary op"
+msgstr ""
+
+#: c_msg.cpp:1821
+msgid "array item"
+msgstr ""
+
+#: c_msg.cpp:1823
+msgid "converse"
+msgstr ""
+
+#: c_msg.cpp:1825
+msgid "literal string"
+msgstr ""
+
+#: c_msg.cpp:1827
+msgid "keyword"
+msgstr ""
+
+#: c_msg.cpp:1829
+msgid "lambda expression,"
+msgstr ""
+
+#: c_msg.cpp:1831
+msgid "binary predicate"
+msgstr ""
+
+#: c_msg.cpp:1833
+msgid "typing predicate"
+msgstr ""
+
+#: c_msg.cpp:1835
+msgid "comprehensive set"
+msgstr ""
+
+#: c_msg.cpp:1837
+msgid "image"
+msgstr ""
+
+#: c_msg.cpp:1839
+msgid "predicate with parenthesis"
+msgstr ""
+
+#: c_msg.cpp:1841
+msgid "extensive set"
+msgstr ""
+
+#: c_msg.cpp:1843
+msgid "not predicate"
+msgstr ""
+
+#: c_msg.cpp:1845
+msgid "predicate involving two expressions"
+msgstr ""
+
+#: c_msg.cpp:1847
+msgid "universal predicate"
+msgstr ""
+
+#: c_msg.cpp:1849
+msgid "existential predicate"
+msgstr ""
+
+#: c_msg.cpp:1851
+msgid "empty seq"
+msgstr ""
+
+#: c_msg.cpp:1853
+msgid "empty set"
+msgstr ""
+
+#: c_msg.cpp:1855
+msgid "sigma"
+msgstr ""
+
+#: c_msg.cpp:1857
+msgid "pi"
+msgstr ""
+
+#: c_msg.cpp:1859
+msgid "quantified union"
+msgstr ""
+
+#: c_msg.cpp:1861
+msgid "quantified intersection"
+msgstr ""
+
+#: c_msg.cpp:1863
+msgid "literal boolean"
+msgstr ""
+
+#: c_msg.cpp:1865
+msgid "literal enumerated value"
+msgstr ""
+
+#: c_msg.cpp:1867
+msgid "relation"
+msgstr ""
+
+#: c_msg.cpp:1869
+msgid "renamed ident"
+msgstr ""
+
+#: c_msg.cpp:1871
+msgid "extensive sequence"
+msgstr ""
+
+#: c_msg.cpp:1873
+msgid "generalised union"
+msgstr ""
+
+#: c_msg.cpp:1875
+msgid "generalised intersection"
+msgstr ""
+
+#: c_msg.cpp:1877
+msgid "generic object"
+msgstr ""
+
+#: c_msg.cpp:1879
+msgid "generic item"
+msgstr ""
+
+#: c_msg.cpp:1881
+msgid "generic substitution"
+msgstr ""
+
+#: c_msg.cpp:1883
+msgid "integer"
+msgstr ""
+
+#: c_msg.cpp:1885
+msgid "betree manager"
+msgstr ""
+
+#: c_msg.cpp:1887
+msgid "betree list"
+msgstr ""
+
+#: c_msg.cpp:1889
+msgid "type"
+msgstr ""
+
+#: c_msg.cpp:1891
+msgid "product type"
+msgstr ""
+
+#: c_msg.cpp:1893
+msgid "setof type"
+msgstr ""
+
+#: c_msg.cpp:1895
+msgid "abstract type"
+msgstr ""
+
+#: c_msg.cpp:1897
+msgid "enumerated type"
+msgstr ""
+
+#: c_msg.cpp:1899
+msgid "predefined type"
+msgstr ""
+
+#: c_msg.cpp:1901
+msgid "base type"
+msgstr ""
+
+#: c_msg.cpp:1903
+msgid "constructor type"
+msgstr ""
+
+#: c_msg.cpp:1905
+msgid "generic type"
+msgstr ""
+
+#: c_msg.cpp:1907
+msgid "generic operation"
+msgstr ""
+
+#: c_msg.cpp:1909
+msgid "bound"
+msgstr ""
+
+#: c_msg.cpp:1911
+msgid "operation result"
+msgstr ""
+
+#: c_msg.cpp:1913
+msgid "pragma"
+msgstr ""
+
+#: c_msg.cpp:1915
+msgid "pragma lexem"
+msgstr ""
+
+#: c_msg.cpp:1917
+msgid "B0 type"
+msgstr ""
+
+#: c_msg.cpp:1919
+msgid "B0 base type"
+msgstr ""
+
+#: c_msg.cpp:1921
+msgid "B0 abstract type"
+msgstr ""
+
+#: c_msg.cpp:1923
+msgid "B0 enumerated type"
+msgstr ""
+
+#: c_msg.cpp:1925
+msgid "B0 interval type"
+msgstr ""
+
+#: c_msg.cpp:1927
+msgid "B0 array type"
+msgstr ""
+
+#: c_msg.cpp:1929
+msgid "record"
+msgstr ""
+
+#: c_msg.cpp:1931
+msgid "record item"
+msgstr ""
+
+#: c_msg.cpp:1933
+msgid "struct"
+msgstr ""
+
+#: c_msg.cpp:1935
+msgid "record access"
+msgstr ""
+
+#: c_msg.cpp:1937
+msgid "record type"
+msgstr ""
+
+#: c_msg.cpp:1939
+msgid "label type"
+msgstr ""
+
+#: c_msg.cpp:1941
+msgid "B0 record type"
+msgstr ""
+
+#: c_msg.cpp:1943
+msgid "B0 label type"
+msgstr ""
+
+#: c_msg.cpp:1945
+msgid "message line"
+msgstr ""
+
+#: c_msg.cpp:1947
+msgid "message line manager"
+msgstr ""
+
+#: c_msg.cpp:1949
+msgid "component"
+msgstr ""
+
+#: c_msg.cpp:1951
+msgid "file component"
+msgstr ""
+
+#: c_msg.cpp:1953
+msgid "project"
+msgstr ""
+
+#: c_msg.cpp:1955
+msgid "project manager"
+msgstr ""
+
+#: c_msg.cpp:1957
+msgid "file definition"
+msgstr ""
+
+#: c_msg.cpp:1959
+msgid "component checksums"
+msgstr ""
+
+#: c_msg.cpp:1961
+msgid "operation checksums"
+msgstr ""
+
+#: c_msg.cpp:1963
+msgid "local operation calling tree"
+msgstr ""
+
+#: c_msg.cpp:1965
+msgid "witness"
+msgstr ""
+
+#: c_msg.cpp:1967
+msgid "literal real"
+msgstr ""
+
+#: c_msg.cpp:1969
+msgid "user-defined class 1"
+msgstr ""
+
+#: c_msg.cpp:1971
+msgid "user-defined class 2"
+msgstr ""
+
+#: c_msg.cpp:1973
+msgid "user-defined class 3"
+msgstr ""
+
+#: c_msg.cpp:1975
+msgid "user-defined class 4"
+msgstr ""
+
+#: c_msg.cpp:1977
+msgid "user-defined class 5"
+msgstr ""
+
+#: c_msg.cpp:1979
+msgid "user-defined class 6"
+msgstr ""
+
+#: c_msg.cpp:1981
+msgid "user-defined class 7"
+msgstr ""
+
+#: c_msg.cpp:1983
+msgid "user-defined class 8"
+msgstr ""
+
+#: c_msg.cpp:1985
+msgid "user-defined class 9"
+msgstr ""
+
+#: c_msg.cpp:1987
+msgid "user-defined class 10"
+msgstr ""
+
+#: c_msg.cpp:1989
+msgid "user-defined class 11"
+msgstr ""
+
+#: c_msg.cpp:1991
+msgid "user-defined class 12"
+msgstr ""
+
+#: c_msg.cpp:1993
+msgid "user-defined class 13"
+msgstr ""
+
+#: c_msg.cpp:1995
+msgid "user-defined class 14"
+msgstr ""
+
+#: c_msg.cpp:1997
+msgid "user-defined class 15"
+msgstr ""
+
+#: c_msg.cpp:1999
+msgid "user-defined class 16"
+msgstr ""
+
+#: c_msg.cpp:2001
+msgid "user-defined class 17"
+msgstr ""
+
+#: c_msg.cpp:2003
+msgid "user-defined class 18"
+msgstr ""
+
+#: c_msg.cpp:2005
+msgid "user-defined class 19"
+msgstr ""
+
+#: c_msg.cpp:2007
+msgid "user-defined class 20"
+msgstr ""

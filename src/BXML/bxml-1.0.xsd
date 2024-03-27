@@ -1,0 +1,1867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="https://www.atelierb.eu/Formats/bxml"
+           elementFormDefault="qualified"
+           xmlns:tns="https://www.atelierb.eu/Formats/bxml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+            The purpose of this document is to describe and illustrate
+            the bxml format: an XML representation of a B or Event-B
+            component.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+            This documentation corresponds to version 1.0.0 of the format.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Each element corresponding to a node in the abstract syntax tree
+          may have an optional child element "Attr" containing tool-specific
+          information. This element is always the first child element.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+          For elements corresponding to lists of entities of the same class
+          (identifiers, assertions, etc.), the order of the child elements
+          matches the order in the source file.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+            Copyright © CLEARSY 2019.
+            ### Licensing
+
+            © 2019 by CLEARSY Systems Engineering.
+
+            ![Creative Commons License](https://i.creativecommons.org/l/by-nc/4.0/80x15.png)
+
+            This work is available under a [Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC) License](http://creativecommons.org/licenses/by-nc/4.0/).
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="Machine">
+
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+	  This is the main element of a BXml document.
+          It represents a unique B component.
+
+          The attribute `version` represents the version of the format
+          used. 
+        </xs:documentation>
+      </xs:annotation>
+
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Abstraction" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="tns:Parameters" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="tns:Constraints" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="tns:Includes" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="tns:Imports" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="tns:Sees" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="tns:Extends" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="tns:Uses" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="tns:Promotes" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="Values" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">
+                Represents the VALUES clause of a component.
+
+                Each child element "Valuation" represents the valuation of a concrete constant
+                or that of a deferred set.
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	        <xs:element ref="tns:Valuation" minOccurs="1" maxOccurs="unbounded"/>
+	      </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element ref="tns:Sets" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Abstract_Constants" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Concrete_Constants" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Abstract_Variables" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Concrete_Variables" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Properties" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Invariant" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Variant" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Initialisation" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Assertions" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Local_Operations" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Operations" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:TypeInfos" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="version" type="tns:version_type" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="tns:machine_type" use="required"/>
+        <xs:attribute name="semantic" type="xs:boolean" use="required"/>
+        <xs:attribute name="b0check" type="xs:boolean" use="required"/>
+        <xs:attribute name="position" type="xs:boolean" use="required"/>
+        
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="version_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the possible values for the `version` attribute for
+          the root element. Currently a unique value is possible, but if
+          the format evolves then new values will be created here.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="1.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Abstraction" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Element "Abstraction" is a child of a machine element that corresponds
+          to a refinement or an implementation and contains the name of the refined component.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Parameters">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the parameters of a component.
+
+          Child elements "Id" represent the name of the parameters.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Id" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Constraints">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the CONSTRAINTS clause of a component.
+
+          It has a single child element for the constraint predicate.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:pred_group"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Includes" type="tns:instance_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the INCLUDES clause of a component.
+
+          Then, a non-empty list of elements represent the included component instances.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Imports" type="tns:instance_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the imports clause of a component.
+
+
+          Then, a non-empty list of elements represent the imported component instances.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Uses" type="tns:instance_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the USES clause of a component.
+
+          Then, a non-empty list of elements represent the used component instances.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Sees">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the SEES clause of a component.
+
+          * Has a non-empty list of child elements `Referenced_Machine` to represent the seen components.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Referenced_Machine" minOccurs="1" maxOccurs="unbounded" type="tns:seen_machine_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Extends" type="tns:instance_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the EXTENDS clause of a component.
+
+          A non-empty list of elements represent the extended component instances.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Promotes">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the PROMOTES clause of a component.
+
+          * Non-empty list of "Promoted_Operation" child elements represents
+          the promoted operations.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Promoted_Operation" minOccurs="1" maxOccurs="unbounded" type="tns:promoted_operation_type" />
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Sets">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the SETS clause of a component.
+
+          Each child element "Set" represents the declaration of a set
+          (enumerated or deferred).
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Set" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Abstract_Constants" type="tns:identifier_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the ABSTRACT_CONSTANTS clause of a component.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Concrete_Constants" type="tns:identifier_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the CONCRETE_CONSTANTS clause of a component.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Abstract_Variables" type="tns:identifier_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the ABSTRACT_VARIABLES clause of a component.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Concrete_Variables" type="tns:identifier_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the CONCRETE_VARIABLES clause of a component.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Properties">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the PROPERTIES clause of a component.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:pred_group"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Invariant">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the **INVARIANT** clause of a component.
+
+          A child element of type `Pred` represents the invariant predicate.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:pred_group"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Variant">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the VARIANT clause of a component.
+
+          Then a unique child element of type "Exp" represents the variant expression.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Exp"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Initialisation">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the INITIALISATION clause of a component.
+
+          Then a unique child element of type "Sub" represents the initialisation substitution.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+          <xs:group ref="tns:Sub"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Assertions">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the ASSERTIONS clause of a component.
+
+          Each child is an element of type "pred_group" and represents an assertion.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+          <xs:group ref="tns:pred_group" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Local_Operations">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the LOCAL_OPERATIONS clause of a component.
+
+          Each child element is named "Operation" and represent the local
+          operations of the component.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Operation" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Operations">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the OPERATIONS clause of a component.
+
+          Each child element is named "Operation" and represent the local
+          operations of the component.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="tns:Operation" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="TypeInfos">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the types of the expressions found in the component. Each child element
+          is named `Type` and represents a different type.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="Type" minOccurs="0" maxOccurs="unbounded" type="tns:typeinfos_type"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="instance_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          A non-empty list of elements representing component instances.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="tns:Referenced_Machine" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="seen_machine_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          A non-empty list of elements representing seen component instances.
+        </xs:documentation>
+      </xs:annotation>
+	<xs:sequence>
+	    <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	    <xs:element name="Name" minOccurs="1" maxOccurs="1" type="xs:string"/>
+	    <xs:element name="Instance" minOccurs="0" maxOccurs="1" type="xs:string"/>
+            <!--
+                TODO La valeur de Instance peut être r1.r2.r3, cela devrait être une liste
+                cf. MRLB:7.8
+            -->
+	</xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="Referenced_Machine">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an instance of (or reference to) a component.
+          Optional child element "Attr" contains tool-specific information.
+          Child element "Name" represents the name of the component.
+          Optional child element "Instance" is for the renaming prefix.
+          Optional element "Parameters" is the list of actual parameters.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+		<!--	  <xs:element name="Path" minOccurs="1" maxOccurs="1" type="xs:string"/> -->
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Name" minOccurs="1" maxOccurs="1" type="xs:string"/>
+	  <xs:element name="Instance" minOccurs="0" maxOccurs="1" type="xs:string"/>
+	  <xs:element name="Parameters" minOccurs="0" maxOccurs="1">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:group ref="tns:Exp" minOccurs="1" maxOccurs="unbounded"/>
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="promoted_operation_type" mixed="true">
+	<xs:sequence>
+	    <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	</xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="identifier_list_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Optional child element "Attr" contains tool-specific information.
+          Then, a non-empty list of elements represent the listed identifiers.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="tns:Id" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="machine_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the type of a B component.
+          The value "abstraction" corresponds either to a MACHINE or a SYSTEM component.
+        </xs:documentation>
+      </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="abstraction" />
+            <xs:enumeration value="refinement" />
+            <xs:enumeration value="implementation" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Set">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a set introduced in the SET clause of a B component.
+          Child element "Id" corresponds to the name of the set.
+          Optional element "Enumerated_Values" is present for enumerations and
+          represents the list of enumerated values.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="tns:Id" minOccurs="1" maxOccurs="1"/>
+            <xs:element ref="tns:Enumerated_Values" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Enumerated_Values">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tns:Id" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+    <xs:element name="Operation">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represent an operation or an event.
+
+          * Optional element `Refines` is optional and is a list. The
+          list has a single element in case of an operation in a
+          software component. It may have multiple elements in case of
+          an event in a system component.
+
+          * Optional element `Output_Parameters` represents the list
+          of output parameters of the operation.
+
+          * Optional element `Input_Parameters` represents the list
+          of input parameters of the operation.
+
+          * Optional element `Precondition` represents the precondition
+          of the operation and is a predicate.
+
+          * Mandatory element `Body` represents the body of the operation
+          and is a substitution.
+
+          * Attribute `name` is the name of the operation.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	    <xs:element name="Refines" minOccurs="0" maxOccurs="1">
+		<xs:complexType>
+		    <xs:sequence>
+			<xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="tns:Id" minOccurs="1" maxOccurs="unbounded"/>
+		    </xs:sequence>
+		</xs:complexType>
+	    </xs:element>
+	    <xs:element name="Output_Parameters" minOccurs="0" maxOccurs="1">
+		<xs:complexType>
+		    <xs:sequence>
+			<xs:element ref="tns:Id" minOccurs="1" maxOccurs="unbounded"/>
+		    </xs:sequence>
+		</xs:complexType>
+	    </xs:element>
+	    <xs:element name="Input_Parameters" minOccurs="0" maxOccurs="1">
+		<xs:complexType>
+		    <xs:sequence>
+			<xs:element ref="tns:Id" minOccurs="1" maxOccurs="unbounded"/>
+		    </xs:sequence>
+		</xs:complexType>
+	    </xs:element>
+	    <xs:element name="Precondition" minOccurs="0" maxOccurs="1">
+		<xs:complexType>
+		    <xs:sequence>
+			<xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+			<xs:group ref="tns:pred_group"/>
+		    </xs:sequence>
+		</xs:complexType>
+	    </xs:element>
+	    <xs:element name="Body">
+		<xs:complexType>
+		    <xs:sequence>
+			<xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+			<xs:group ref="tns:Sub"/>
+		    </xs:sequence>
+		</xs:complexType>
+	    </xs:element>
+	</xs:sequence>
+	<xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Valuation">
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Exp" />
+	</xs:sequence>
+	<xs:attribute name="ident" type="xs:string" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="substitution_type">
+	<xs:group ref="tns:Sub"/>
+    </xs:complexType>
+
+    <xs:group name="Sub">
+        <xs:choice>
+	    <xs:element ref="tns:Bloc_Sub"/>
+            <xs:element ref="tns:Skip"/>
+            <xs:element ref="tns:Assert_Sub"/>
+	    <xs:element ref="tns:If_Sub"/>
+            <xs:element ref="tns:Becomes_Such_That"/>
+            <xs:element ref="tns:Assignement_Sub"/>
+	    <xs:element ref="tns:Select"/>
+	    <xs:element ref="tns:Case_Sub"/>
+	    <xs:element ref="tns:ANY_Sub"/>
+	    <xs:element ref="tns:LET_Sub"/>
+	    <xs:element ref="tns:VAR_IN"/>
+	    <xs:element ref="tns:Nary_Sub"/>
+	    <xs:element ref="tns:Operation_Call"/>
+	    <xs:element ref="tns:Becomes_In"/>
+	    <xs:element ref="tns:While"/>
+	    <xs:element ref="tns:Witness"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:element name="Bloc_Sub">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a **BLOCK** substitution.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Sub"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Skip">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an identical (**skip**) substitution.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Assert_Sub">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an **ASSERTION** substitution.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Guard" type="tns:predicate_type" />
+	  <xs:element name="Body" type="tns:substitution_type" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="If_Sub">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an **IF** conditional substitution.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="Condition" type="tns:predicate_type"/>
+          <xs:element name="Then" type="tns:substitution_type"/>
+          <xs:element name="Else" minOccurs="0" maxOccurs="1" type="tns:substitution_type"/>
+        </xs:sequence>
+	<xs:attribute name="elseif" type="xs:string" use="required"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Becomes_Such_That">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a becomes such that substitution, i.e. **v :( P )**.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="Variables" type="tns:variables_type"/>
+          <xs:element name="Pred" type="tns:predicate_type"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Assignement_Sub">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a becomes equal substitution: **v := E**.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Variables">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:group ref="tns:Exp" minOccurs="1" maxOccurs="unbounded"/> <!-- FIXME on pourrait etre plus précis -->
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	  <xs:element name="Values">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:group ref="tns:Exp" minOccurs="1" maxOccurs="unbounded"/>
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Select">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a conditional bounded substitution, i.e. **SELECT P THEN S ... END**.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="When_Clauses">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:element name="When" minOccurs="1" maxOccurs="unbounded">
+		  <xs:complexType>
+		    <xs:sequence>
+		      <xs:element name="Condition" type="tns:predicate_type"/>
+		      <xs:element name="Then" type="tns:substitution_type"/>
+		    </xs:sequence>
+		  </xs:complexType>
+		</xs:element>
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	  <xs:element name="Else" minOccurs="0" maxOccurs="1" type="tns:substitution_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Case_Sub">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a **CASE** conditional substitution.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Value" type="tns:expression_type"/>
+	  <xs:element name="Choices">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:element name="Choice" minOccurs="1" maxOccurs="unbounded">
+		  <xs:complexType>
+		    <xs:sequence>
+		      <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+		      <xs:element name="Value" minOccurs="1" maxOccurs="unbounded" type="tns:expression_type"/>
+		      <xs:element name="Then" type="tns:substitution_type"/>
+		    </xs:sequence>
+		  </xs:complexType>
+		</xs:element>
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	  <xs:element name="Else" minOccurs="0" maxOccurs="1" type="tns:substitution_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ANY_Sub">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an unbounded choice substitution: **ANY X WHERE P THEN S END**.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Variables" type="tns:variables_type"/>
+	  <xs:element name="Pred" type="tns:predicate_type"/>
+	  <xs:element name="Then" type="tns:substitution_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="LET_Sub">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a local definition substitution: **LET id BE id = E IN S END**.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Variables" type="tns:variables_type"/>
+	  <xs:element name="Values">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+		<xs:element ref="tns:Valuation" minOccurs="1" maxOccurs="unbounded"/>
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	  <xs:element name="Then" type="tns:substitution_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="VAR_IN">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a local variable substitution: **VAR v IN S END**.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Variables" type="tns:variables_type"/>
+	  <xs:element name="Body" type="tns:substitution_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Nary_Sub">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          * If attribute `op` is `";"`, then represents a sequencing substitution.
+          * If attribute `op` is `"||"`, then represents a simultaneous substitution.
+          * If attribute `op` is `"CHOICE"`, then represents a bounded **CHOICE** substitution.
+
+          All child elements other than optional `Attr` are substitutions.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Sub" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+	<xs:attribute name="op" use="required" type="tns:nary_sub_op" />
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Operation_Call">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an operation call substitution.
+
+          If the called operation is named `op`, the attributes
+          are as follows
+
+          * if `op` is prefixed by an instance name
+          `inst`, then `value="inst.op"`, `instance="inst"`
+          and `componente="op";
+          
+          * otherwise, `value="op"` and the remaining
+          attributes are not present.
+          
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Name">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:element name="Id" minOccurs="1" maxOccurs="1">
+		  <xs:complexType>
+		    <xs:sequence>
+		      <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+		    </xs:sequence>
+		    <xs:attribute name="value" use="required" type="xs:string" />
+		    <xs:attribute name="instance" use="optional" type="xs:string" />
+		    <xs:attribute name="component" use="optional" type="xs:string" />
+		    </xs:complexType>
+		</xs:element>
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	  <xs:element name="Input_Parameters" minOccurs="0">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:group ref="tns:Exp" minOccurs="1" maxOccurs="unbounded"/>
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	  <xs:element name="Output_Parameters" minOccurs="0">
+	    <xs:complexType>
+	      <xs:sequence>
+		<xs:group ref="tns:Exp" minOccurs="1" maxOccurs="unbounded"/>
+	      </xs:sequence>
+	    </xs:complexType>
+	  </xs:element>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Becomes_In">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a becomes element substitution: **v :: S**.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Variables" type="tns:variables_type"/>
+	  <xs:element name="Value" type="tns:expression_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="While">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a **WHILE** loop substitution.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Condition" type="tns:predicate_type"/>
+	  <xs:element name="Body" type="tns:substitution_type"/>
+	  <xs:element name="Invariant" type="tns:predicate_type"/>
+	  <xs:element name="Variant" type="tns:expression_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Witness">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a **WITNESS** clause in an operation.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Witnesses" type="tns:witnesses_type" />
+	  <xs:element name="Body" type="tns:substitution_type"/>
+	</xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="nary_sub_op">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Either `";"` or `"||"` or `CHOICE`.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+	<xs:enumeration value="||"/>
+	<xs:enumeration value=";"/>
+	<xs:enumeration value="CHOICE"/>
+      </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="witnesses_type">
+	<xs:choice>
+	    <xs:element name="Exp_Comparison" type="tns:witness_type" />
+	    <xs:element name="Nary_Pred">
+		<xs:complexType>
+		    <xs:sequence>
+			<xs:element name="Exp_Comparison" minOccurs="0" maxOccurs="unbounded" type="tns:witness_type"/>
+		    </xs:sequence>
+		    <xs:attribute name="op" type="xs:string" use="required" fixed="&amp;"/>
+		</xs:complexType>
+	    </xs:element>
+	</xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="witness_type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a **WITNESS** clause in an operation.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+            <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="tns:Id"/>
+            <xs:group ref="tns:Exp"/>
+        </xs:sequence>
+        <xs:attribute name="op" type="xs:string" use="required" fixed="="/>
+    </xs:complexType>
+
+    <xs:complexType name="predicate_type">
+	<xs:group ref="tns:pred_group"/>
+    </xs:complexType>
+
+    <xs:group name="pred_group">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Elements of this group represent predicates.
+        </xs:documentation>
+      </xs:annotation>
+        <xs:choice>
+	    <xs:element ref="tns:Binary_Pred"/>
+	    <xs:element ref="tns:Exp_Comparison"/>
+	    <xs:element ref="tns:Quantified_Pred"/>
+	    <xs:element ref="tns:Unary_Pred"/>
+            <xs:element ref="tns:Nary_Pred"/>
+	</xs:choice>
+    </xs:group>
+
+    <xs:element name="Binary_Pred">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represent either an implication (attribute `op="=>"`) or
+          an equivalence (`op="&lt;=>"`).
+
+          Has two child elements that represent predicate arguments.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:pred_group" minOccurs="2" maxOccurs="2"/>
+	</xs:sequence>
+	<xs:attribute name="op" type="tns:binary_pred_op" use="required"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="binary_pred_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="=>" />
+            <xs:enumeration value="&lt;=>" />
+	    <!-- <xs:enumeration value="cand" /> used by BART? -->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Exp_Comparison">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represent a comparison, identified by attribute `op`.
+
+          Has two child elements that represent expression arguments.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Exp" minOccurs="2" maxOccurs="2"/>
+	</xs:sequence>
+	<xs:attribute name="op" type="tns:comparison_op" use="required"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="comparison_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value=":" />
+            <xs:enumeration value="/:" />
+            <xs:enumeration value="&lt;:" />
+            <xs:enumeration value="/&lt;:" />
+            <xs:enumeration value="&lt;&lt;:" />
+            <xs:enumeration value="/&lt;&lt;:" />
+            <xs:enumeration value="=" />
+            <xs:enumeration value="/=" />
+            <!-- untyped comparison -->
+            <xs:enumeration value=">=" />
+            <xs:enumeration value=">" />
+            <xs:enumeration value="&lt;" />
+            <xs:enumeration value="&lt;=" />
+            <!-- integer comparison -->
+            <xs:enumeration value=">=i" />
+            <xs:enumeration value=">i" />
+            <xs:enumeration value="&lt;i" />
+            <xs:enumeration value="&lt;=i" />
+            <!-- real comparison -->
+            <xs:enumeration value=">=r" />
+            <xs:enumeration value=">r" />
+            <xs:enumeration value="&lt;r" />
+            <xs:enumeration value="&lt;=r" />
+            <!-- float comparison -->
+            <xs:enumeration value=">=f" />
+            <xs:enumeration value=">f" />
+            <xs:enumeration value="&lt;f" />
+            <xs:enumeration value="&lt;=f" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Quantified_Pred">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represent either an existential quantification (attribute `type="#"`)
+          or a universal quantification (attribute `type="!"`).
+
+          * Child element `Variables` represents the list of quantified variables;
+
+          * Child element `Body` represents the quantified predcate.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Variables" type="tns:variables_type"/>
+	  <xs:element name="Body" type="tns:predicate_type"/>
+	</xs:sequence>
+	<xs:attribute name="type" type="tns:quantified_pred_op" use="required"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="quantified_pred_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="!" />
+            <xs:enumeration value="#" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Unary_Pred">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represent a negation.
+
+          A child element represents the argument predicate.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:pred_group"/>
+	</xs:sequence>
+	<xs:attribute name="op" type="tns:unary_pred_op" use="required"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="unary_pred_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="not" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Nary_Pred" >
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represent either a conjunction (attribute `op="&amp;"`) or
+          a disjunction (`op="or"`).
+
+          Has child elements that represent argument predicates.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:group ref="tns:pred_group" minOccurs="0" maxOccurs="unbounded"/>
+	<xs:attribute name="op" type="tns:nary_pred_op"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="nary_pred_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="&amp;" />
+            <xs:enumeration value="or" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="expression_type">
+	<xs:group ref="tns:Exp"/>
+    </xs:complexType>
+
+    <xs:complexType name="variables_type">
+        <xs:sequence>
+            <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="tns:Id" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:group name="Exp">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The elements of this group represent expressions.
+
+          * Elements of this group have an attribute `typref`; its
+          value is an integer that represents the index of the `Type`
+          element for the type of this expression.
+
+          * All such `Type` elements are gathered under a `TypeInfos`
+          element, which is a child of the document root element.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:choice>
+	<xs:element ref="tns:Unary_Exp"/>
+	<xs:element ref="tns:Binary_Exp"/>
+	<xs:element ref="tns:Ternary_Exp"/>
+	<xs:element ref="tns:Nary_Exp"/>
+	<xs:element ref="tns:Boolean_Literal"/>
+	<xs:element ref="tns:Boolean_Exp"/>
+	<xs:element ref="tns:EmptySet"/>
+	<xs:element ref="tns:EmptySeq"/>
+	<xs:element ref="tns:Id"/>
+	<xs:element ref="tns:Integer_Literal"/>
+	<xs:element ref="tns:Quantified_Exp"/>
+	<xs:element ref="tns:Quantified_Set"/>
+	<xs:element ref="tns:STRING_Literal"/>
+	<xs:element ref="tns:Struct"/>
+	<xs:element ref="tns:Record"/>
+	<xs:element ref="tns:Real_Literal"/>
+	<xs:element ref="tns:Record_Field_Access"/>
+      </xs:choice>
+    </xs:group>
+
+    <xs:element name="Unary_Exp">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a unary expression.
+
+          * A child element represents the argument expression.
+
+          * Attribute `op` represents the operator.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Exp"/>
+	</xs:sequence>
+	<xs:attribute name="op" type="tns:unary_exp_op" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Binary_Exp">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a binary expression.
+
+          * Two child elements represent the argument expressions.
+
+          * Attribute `op` represents the operator.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Exp" minOccurs="2" maxOccurs="2"/>
+	</xs:sequence>
+	<xs:attribute name="op" type="tns:binary_exp_op" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+        <xs:attribute name="normalized"
+                      type="xs:boolean" />
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Ternary_Exp">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a ternary expression (essentially, a tree expression).
+
+          * Three children elements represent the argument expressions.
+
+          * Attribute `op` represents the operator.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Exp" minOccurs="3" maxOccurs="3"/>
+	</xs:sequence>
+	<xs:attribute name="op" type="tns:ternary_exp_op" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Nary_Exp">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a nary expression (essentially, either a
+          set enumeration or a sequence).
+
+          * Child elements represent the argument expressions.
+
+          * Attribute `op` represents the operator.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Exp" minOccurs="1" maxOccurs="unbounded"/>
+	</xs:sequence>
+	<xs:attribute name="op" type="tns:nary_exp_op" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="boolean_literal_type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TRUE" />
+            <xs:enumeration value="FALSE" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Boolean_Exp">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a `bool` expression, that yields the Boolean value of
+          a predicate.
+
+          * There is a child element that represents the predicate argument.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:pred_group"/>
+	</xs:sequence>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="EmptySet">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an empty set expression.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	</xs:sequence>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="EmptySeq">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an empty sequence expression.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	</xs:sequence>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Boolean_Literal">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a Boolean literal (i.e. `TRUE` or `FALSE`).
+
+          * Attribute `value` represents which of `TRUE` or `FALSE` the literal is.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	</xs:sequence>
+	<xs:attribute name="value" type="tns:boolean_literal_type" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Integer_Literal">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents an integer literal.
+
+          * Attribute `value` represents which number the literal is.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	</xs:sequence>
+	<xs:attribute name="value" type="xs:integer" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Real_Literal">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a real literal (i.e. a decimal number).
+
+          * Attribute `value` represents which number the literal is.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	</xs:sequence>
+	<xs:attribute name="value" type="xs:decimal" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="STRING_Literal">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a character string literal.
+
+          * Attribute `value` represents the string itself.
+
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	</xs:sequence>
+	<xs:attribute name="value" type="xs:string" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Quantified_Exp">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+      Represents a quantified expression (essentially, a lambda expression
+      or a generalizes sum, product, intersection or union).
+
+      * Child element `Variables` represents the list of quantified variables.
+
+      * Child element `Pred` represents the characterizing predicate.
+
+      * Child element `Body` represent the list of quantified variables.
+
+      * Attribute `type` represents the operator.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Variables" type="tns:variables_type"/>
+	  <xs:element name="Pred" type="tns:predicate_type"/>
+	  <xs:element name="Body" type="tns:expression_type"/>
+	</xs:sequence>
+	<xs:attribute name="type" type="tns:quantified_exp_op" use="required"/>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Quantified_Set">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a set defined in comprehension.
+
+          * Child element `Variables` represents the list of quantified variables.
+
+          * Child element `Body` represents the characterizing predicate.
+
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Variables" type="tns:variables_type"/>
+	  <xs:element name="Body" type="tns:predicate_type"/>
+	</xs:sequence>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Struct">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a set of records.
+
+          * Child elements represent the record fields.
+
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Record_Item" minOccurs="1" maxOccurs="unbounded" type="tns:record_item_type"/>
+	</xs:sequence>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Record">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents a record.
+
+          * Child elements represent the record fields.
+
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="Record_Item" minOccurs="1" maxOccurs="unbounded" type="tns:record_item_type"/>
+	</xs:sequence>
+	<xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Record_Field_Access">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the value of a field in a record.
+
+          * Child element represents the record.
+
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+	<xs:sequence>
+	  <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+	  <xs:group ref="tns:Exp" minOccurs="1" maxOccurs="1"/>
+	</xs:sequence>
+	<xs:attribute name="typref" type="xs:integer"/>
+	<xs:attribute name="label" type="xs:string" use="required"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Id">
+      <xs:annotation>
+        <xs:documentation>
+          Represents the occurence of an identifier.
+
+          *  Attribute "value" is the identifier string.
+
+          * Attribute "typref" is the type of the element
+          identified. If the element is not used (e.g., an unused
+          local variable), then this attribute is omitted.
+          
+          * When attribute "value" is a renamed identifier, i.e., has
+	  the form "ren.id", then attribute "instance" is the renaming
+	  prefix "ren".
+          
+          * When attribute "value" is a renamed identifier, i.e., has
+	  the form "ren.id", then attribute "component" is the identifier
+	  "id" of the object thus referenced.
+          
+          * Optional attribute "suffix" applies to identifiers for the
+          previous value of a variable (e.g. "var$0").
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="value" type="xs:string" use="required"/>
+        <xs:attribute name="suffix" type="xs:nonNegativeInteger"/>
+	<xs:attribute name="instance" use="optional" type="xs:string" />
+	<xs:attribute name="component" use="optional" type="xs:string" />
+        <xs:attribute name="typref" type="xs:integer"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="binary_exp_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="," />
+            <xs:enumeration value="*" />
+            <xs:enumeration value="*i" />
+            <xs:enumeration value="*r" />
+            <xs:enumeration value="*f" />
+            <xs:enumeration value="*s" />
+            <xs:enumeration value="**" />
+            <xs:enumeration value="**i" />
+            <xs:enumeration value="**r" />
+            <xs:enumeration value="+" />
+            <xs:enumeration value="+i" />
+            <xs:enumeration value="+r" />
+            <xs:enumeration value="+f" />
+            <xs:enumeration value="+->" />
+            <xs:enumeration value="+->>" />
+            <xs:enumeration value="-" />
+            <xs:enumeration value="-i" />
+            <xs:enumeration value="-r" />
+            <xs:enumeration value="-f" />
+            <xs:enumeration value="-s" />
+            <xs:enumeration value="-->" />
+            <xs:enumeration value="-->>" />
+            <xs:enumeration value="->" />
+            <xs:enumeration value=".." />
+            <xs:enumeration value="/" />
+            <xs:enumeration value="/i" />
+            <xs:enumeration value="/r" />
+            <xs:enumeration value="/f" />
+            <xs:enumeration value="/\" />
+            <xs:enumeration value="/|\" />
+            <xs:enumeration value=";" />
+            <xs:enumeration value="&lt;+" />
+            <xs:enumeration value="&lt;->" />
+            <xs:enumeration value="&lt;-" />
+            <xs:enumeration value="&lt;&lt;|" />
+            <xs:enumeration value="&lt;|" />
+            <xs:enumeration value=">+>" />
+            <xs:enumeration value=">->" />
+            <xs:enumeration value=">+>>" />
+            <xs:enumeration value=">->>" />
+            <xs:enumeration value=">&lt;" />
+            <xs:enumeration value="||" />
+            <xs:enumeration value="\/" />
+            <xs:enumeration value="\|/" />
+            <xs:enumeration value="^" />
+            <xs:enumeration value="mod" />
+            <xs:enumeration value="|->" />
+            <xs:enumeration value="|>" />
+            <xs:enumeration value="|>>" />
+            <xs:enumeration value="[" />
+            <xs:enumeration value="(" />
+            <xs:enumeration value="&lt;'" />
+            <xs:enumeration value="prj1" />
+            <xs:enumeration value="prj2" />
+            <xs:enumeration value="iterate" />
+	    <xs:enumeration value="const" />
+	    <xs:enumeration value="rank" />
+	    <xs:enumeration value="father" />
+	    <xs:enumeration value="subtree" />
+	    <xs:enumeration value="arity" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="nary_exp_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="[" />
+            <xs:enumeration value="{" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ternary_exp_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="son" />
+            <xs:enumeration value="bin" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="quantified_exp_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="%" />
+            <xs:enumeration value="SIGMA" />
+            <xs:enumeration value="iSIGMA" />
+            <xs:enumeration value="rSIGMA" />
+            <xs:enumeration value="PI" />
+            <xs:enumeration value="iPI" />
+            <xs:enumeration value="rPI" />
+            <xs:enumeration value="INTER" />
+            <xs:enumeration value="UNION" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="unary_exp_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="max" />
+            <xs:enumeration value="imax" />
+            <xs:enumeration value="rmax" />
+            <xs:enumeration value="min" />
+            <xs:enumeration value="imin" />
+            <xs:enumeration value="rmin" />
+            <xs:enumeration value="card" />
+            <xs:enumeration value="dom" />
+            <xs:enumeration value="ran" />
+            <xs:enumeration value="POW" />
+            <xs:enumeration value="POW1" />
+            <xs:enumeration value="FIN" />
+            <xs:enumeration value="FIN1" />
+            <xs:enumeration value="union" />
+            <xs:enumeration value="inter" />
+            <xs:enumeration value="seq" />
+            <xs:enumeration value="seq1" />
+            <xs:enumeration value="iseq" />
+            <xs:enumeration value="iseq1" />
+            <xs:enumeration value="-" />
+            <xs:enumeration value="-i" />
+            <xs:enumeration value="-r" />
+            <xs:enumeration value="~" />
+            <xs:enumeration value="size" />
+            <xs:enumeration value="perm" />
+            <xs:enumeration value="first" />
+            <xs:enumeration value="last" />
+            <xs:enumeration value="id" />
+            <xs:enumeration value="closure" />
+            <xs:enumeration value="closure1" />
+            <xs:enumeration value="tail" />
+            <xs:enumeration value="front" />
+            <xs:enumeration value="rev" />
+            <xs:enumeration value="conc" />
+            <xs:enumeration value="succ" />
+            <xs:enumeration value="pred" />
+            <xs:enumeration value="rel" />
+            <xs:enumeration value="fnc" />
+	    <xs:enumeration value="real" />
+	    <xs:enumeration value="floor" />
+	    <xs:enumeration value="ceiling" />
+	    <xs:enumeration value="tree" />
+	    <xs:enumeration value="btree" />
+	    <xs:enumeration value="top" />
+	    <xs:enumeration value="sons" />
+	    <xs:enumeration value="prefix" />
+	    <xs:enumeration value="postfix" />
+	    <xs:enumeration value="sizet" />
+	    <xs:enumeration value="mirror" />
+	    <xs:enumeration value="left" />
+	    <xs:enumeration value="right" />
+	    <xs:enumeration value="infix" />
+	    <xs:enumeration value="bin" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="record_item_type">
+        <xs:sequence>
+            <xs:element ref="tns:Attr" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="tns:Exp"/>
+        </xs:sequence>
+        <xs:attribute name="label" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:element name="Attr">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Element to attach optional information to abstract syntax tree nodes for added functionalities.
+
+          Two optional informations are available built-in the format:
+
+          1. Child element `Pos` represents the position of the represented syntactic element in the source file.
+
+          2. Child element `B0Type` represents the concrete type of the element, if any.
+        </xs:documentation>
+      </xs:annotation>
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element ref="tns:Pos" minOccurs="1" maxOccurs="unbounded" />
+            <xs:element name="B0Type" minOccurs="0">
+                <xs:complexType>
+                    <xs:group ref="tns:B0Type"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:any namespace="##any" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Pos">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Represents the position of a syntactic element in a source file.
+          Attributes "c", "l", "s" represent respectively the column, line
+          and span.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:attribute name="c" type="xs:integer" use="required"/>
+        <xs:attribute name="l" type="xs:integer" use="required"/>
+        <xs:attribute name="s" type="xs:integer" use="required"/>
+        <xs:attribute name="endLine" type="xs:integer" use="optional"/>
+        <xs:attribute name="expanded" type="xs:string" use="optional"/>
+        <xs:attribute name="f" type="xs:string" use="optional"/>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:group name="Type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Elements that represent types for B expressions.
+
+          These are expression types and are built recursively using selected B expression elements,
+          restricted so that their arguments are type representations.
+        </xs:documentation>
+      </xs:annotation>
+        <xs:choice>
+            <xs:element name="Binary_Exp">
+                <xs:complexType>
+                    <xs:group minOccurs="2" maxOccurs="2" ref="tns:Type"/>
+                    <xs:attribute name="op" type="xs:string" use="required" fixed="*"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Id">
+		<xs:complexType>
+                    <xs:attribute name="value" type="xs:string" use="required" />
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="Unary_Exp">
+                <xs:complexType>
+                    <xs:group ref="tns:Type"/>
+                    <xs:attribute name="op" type="xs:string" use="required" fixed="POW"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Struct">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Record_Item" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:group ref="tns:Type"/>
+                                <xs:attribute name="label" type="xs:string" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Generic_Type">
+                <xs:complexType/>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+    <xs:complexType name="typeinfos_type">
+        <xs:sequence>
+            <xs:group ref="tns:Type"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="binary_b0_op">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="--&gt;"/>
+            <xs:enumeration value=".."/>
+            <xs:enumeration value="*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="B0Type">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          Elements that represent types for B0 expressions.
+
+          These are expression types and are built recursively using selected B expression elements,
+          restricted so that their arguments are B0 type representations.
+        </xs:documentation>
+      </xs:annotation>
+        <xs:choice>
+            <xs:element ref="tns:Id"/>
+            <xs:element ref="tns:Integer_Literal"/> <!-- FIXME as interval bounds only -->
+            <xs:element name="Binary_Exp">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group minOccurs="2" maxOccurs="2" ref="tns:B0Type" />
+                    </xs:sequence>
+                    <xs:attribute name="op" type="tns:binary_b0_op" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Struct">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Record_Item" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:group ref="tns:B0Type"/>
+                                <xs:attribute name="label" type="xs:string" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+</xs:schema>

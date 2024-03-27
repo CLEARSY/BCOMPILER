@@ -1,0 +1,15 @@
+add_custom_target (BCOMP_INTL ALL COMMENT "Building BCOMP i18n messages.")
+
+file (GLOB BCOMP_PO_FILES ${BCOMP_SOURCE_DIR}/po/*.po)
+
+foreach (BCOMP_PO_INPUT ${BCOMP_PO_FILES})
+ get_filename_component (BCOMP_PO_INPUT_BASE ${BCOMP_PO_INPUT} NAME_WE)
+  set (BCOMP_MO_OUTPUT ${BCOMP_BINARY_DIR}/po/${BCOMP_PO_INPUT_BASE}.mo)
+  add_custom_command (TARGET BCOMP_INTL COMMAND ${MSGFMT_EXECUTABLE} -o ${BCOMP_MO_OUTPUT} ${BCOMP_PO_INPUT})
+
+  if(NO_BCOMP_INSTALL)
+  else(NO_BCOMP_INSTALL)
+  install (FILES ${BCOMP_MO_OUTPUT} DESTINATION ${install_prefix}translations/locale/${BCOMP_PO_INPUT_BASE}/LC_MESSAGES RENAME ${BCOMP_NLS_PACKAGE}.mo)
+  endif(NO_BCOMP_INSTALL)
+endforeach (BCOMP_PO_INPUT ${BCOMP_PO_FILES})
+

@@ -1,0 +1,22 @@
+<externalTool name="bxmlcomponent"
+	category="component"
+	label="Generate bxml"
+	tooltip="Generate the bxml file for a component"
+        menu="POG2"
+	>
+
+        <toolParameter name="bxml"
+		type="exefile"
+		default="bxml"
+                description="The bxml converter" />
+
+	<command>${bxml}</command>
+	<param>-p</param>
+	<param>${projectBdp}/${projectName}.db</param>
+	<param fileExists="${projectBdp}/AtelierB">-r</param>
+	<param fileExists="${projectBdp}/AtelierB">${projectBdp}/AtelierB</param>
+	<param>-O</param>
+	<param>${projectBdp}</param>
+	<param>${componentName}.${componentExt}</param>
+</externalTool>
+
