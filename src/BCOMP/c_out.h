@@ -6,7 +6,7 @@
 *					Interface du gestionnaire de messages
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -40,12 +40,17 @@ typedef enum
   MSG_NOMINAL_STREAM	// flux "nominal" i.e. stdout
 } T_msg_stream ;
 
+enum class T_msg_level {
+  ERROR,
+  WARNING,
+	INFO,
+};
 
 // Modelisation d'une ligne du flux de messages
 class T_msg_line : public T_item
 {
-  // Flux
-  T_msg_stream		msg_stream ;
+	// warning or error
+  T_msg_level msg_level;
 
   // Position
   T_symbol			*file_name ;
@@ -57,7 +62,7 @@ class T_msg_line : public T_item
 
 public :
   T_msg_line(void) : T_item(NODE_MSG_LINE) {} ;
-  T_msg_line(T_msg_stream new_msg_stream,
+  T_msg_line(T_msg_level level,
 			 T_item **adr_first,
 			 T_item **adr_last,
 			 T_item *father) ;
@@ -68,7 +73,7 @@ public :
 
   // Methodes de lecture
   virtual const char *get_class_name(void) { return "T_msg_line" ; }  ;
-  T_msg_stream get_stream(void) { return msg_stream ; } ;
+  T_msg_level get_level(void) { return msg_level ; } ;
   T_symbol *get_file_name(void) { return file_name ; } ;
   int get_file_line(void) { return file_line ; } ;
   int get_file_column(void) { return file_column ; } ;
@@ -113,7 +118,7 @@ public :
   T_msg_line *get_messages(void) { return first_msg ; } ;
 
   // Creation d'une ligne
-  T_msg_line *create_line(T_msg_stream new_msg_stream) ;
+  T_msg_line *create_line(T_msg_level level) ;
 
   // Liberation de toutes les lignes
   void unlink_lines(void) ;
@@ -142,17 +147,17 @@ extern char *get_msg_buffer(void) ;
 
 // Affichage d'un positionnement
 // version fichier/ligne/colonne
-extern void locate_msg(T_msg_stream msg_stream,
+extern void locate_msg(T_msg_level level,
 								const char *file_name,
 								int file_line,
 								int file_column) ;
 
 // version at_toplevel
-extern void locate_msg(T_msg_stream msg_stream) ;
+extern void locate_msg(T_msg_level level) ;
 
 // Prise en compte du message dans le buffer (affichage immediat et/ou
 // ajout dans les buffers)
-extern void deliver_msg(T_msg_stream msg_stream) ;
+extern void deliver_msg(T_msg_level level) ;
 
 
 //

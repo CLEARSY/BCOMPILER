@@ -6,7 +6,7 @@
 *					Dump HTML d'un Betree
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1542,9 +1542,9 @@ FILE *T_msg_line::dump_html(void)
   s_fprintf(fd, "<H2>Fields from class T_msg_line :</H2><UL>") ;
 
   s_fprintf(fd,
-			"<LI>stream = %s</LI>\n",
-			(msg_stream == MSG_ERROR_STREAM) ?
-			"MSG_ERROR_STREAM" : "MSG_NOMINAL_STREAM") ;
+			"<LI>level = %s</LI>\n",
+			(msg_level == T_msg_level::ERROR) ?
+			"ERROR" : (msg_level == T_msg_level::WARNING ? "WARNING" : "INFO")) ;
   s_fprintf(fd, "<LI>file_name = %s</LI>\n", sym_ref(file_name)) ;
   s_fprintf(fd, "<LI>file_line = %d</LI>\n", file_line) ;
   s_fprintf(fd, "<LI>file_column = %d</LI>\n", file_column) ;

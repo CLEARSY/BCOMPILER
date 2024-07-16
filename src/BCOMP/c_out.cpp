@@ -8,7 +8,7 @@
 * Compilations :
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 ClearSy (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -79,70 +79,51 @@ void msg_buffer_add_new_line(void)
   *(p + 1) = '\0' ;
 }
 
-// Onbtention du flux correspondant a msg_stream
-static FILE *msg_stream_fd_sot[] =
-{
-  // MSG_ERROR_STREAM
-  stderr,
-  //MSG_NOMINAL_STREAM
-  stdout
-} ;
-
-static inline FILE *get_msg_stream_fd(T_msg_stream msg_stream)
-{
-  return msg_stream_fd_sot[msg_stream] ;
-}
-
 // Ligne courante
 static T_msg_line *cur_line_sop = NULL ;
 
 // Creation d'une ligne
-static void new_msg(T_msg_stream msg_stream)
+static void new_msg(T_msg_level level)
 {
   if (msg_destination_si != MSG_DEST_STANDARD_STREAMS)
 	{
 	  TRACE0("new_msg") ;
-	  cur_line_sop = get_msg_line_manager()->create_line(msg_stream) ;
+	  cur_line_sop = get_msg_line_manager()->create_line(level) ;
 	}
 }
 
-static void LOCATE(T_msg_stream msg_stream, T_lexem *x)
+static void LOCATE(T_msg_level level, T_lexem *x)
 {
   if (x == NULL)
 	{
-	  locate_msg(msg_stream) ;
+	  locate_msg(level) ;
 	}
   else
 	{
-	  locate_msg(msg_stream,
+	  locate_msg(level,
 				 x->get_file_name()->get_value(),
 				 x->get_file_line(),
 				 x->get_file_column()) ;
 	}
 }
 
-static void LOCATE_OUT(T_lexem *x)
-{
-  LOCATE(MSG_NOMINAL_STREAM, x) ;
-}
-
 static void LOCATE_ERR(T_lexem *x)
 {
-  LOCATE(MSG_ERROR_STREAM, x) ;
+  LOCATE(T_msg_level::ERROR, x) ;
 }
 
 // Affichage d'un positionnement
 // version fichier/ligne/colonne
-void locate_msg(T_msg_stream msg_stream,
+void locate_msg(T_msg_level level,
 						 const char *file_name,
 						 int file_line,
 						 int file_column)
 {
-  TRACE4("locate_msg(%d, %s:%d:%d)", msg_stream, file_name, file_line, file_column);
+  TRACE4("locate_msg(%d, %s:%d:%d)", level, file_name, file_line, file_column);
   if (msg_destination_si != MSG_DEST_BUFFERS)
 	{
 	  // Affichage en direct
-	  fprintf(get_msg_stream_fd(msg_stream),
+	  fprintf(stderr,
 			  "%s:%d:%d: ",
 			  file_name,
 			  file_line,
@@ -159,34 +140,31 @@ void locate_msg(T_msg_stream msg_stream,
 }
 
 // version fichier/ligne/colonne
-void locate_msg(T_msg_stream msg_stream)
+void locate_msg(T_msg_level level)
 {
   if (msg_destination_si != MSG_DEST_BUFFERS)
 	{
 	  // Affichage en direct
-          fprintf(get_msg_stream_fd(msg_stream), "%s", get_catalog(C_AT_TOPLEVEL)) ;
+    fprintf(stderr, "%s", get_catalog(C_AT_TOPLEVEL)) ;
 	}
-
 }
 
 
 // Prise en compte du message dans le buffer (affichage immediat et/ou
 // ajout dans les buffers)
-void deliver_msg(T_msg_stream msg_stream)
+void deliver_msg(T_msg_level level)
 {
   if (msg_destination_si != MSG_DEST_BUFFERS)
 	{
 	  // Affichage en direct
-          fprintf(get_msg_stream_fd(msg_stream), "%s", msg_buffer_sct) ;
+    fprintf(stderr, "%s", msg_buffer_sct) ;
 	}
-
 
   if (msg_destination_si != MSG_DEST_STANDARD_STREAMS)
 	{
 	  ASSERT(cur_line_sop != NULL) ;
 	  cur_line_sop->set_contents(lookup_symbol(msg_buffer_sct)) ;
 	}
-
 }
 
 
@@ -327,8 +305,8 @@ void syntax_error(T_lexem *lexem,
   TRACE1("lexem = %x", lexem) ;
   TRACE1("lexem->get_file_name = %x", lexem->get_file_name()) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -344,7 +322,7 @@ void syntax_error(T_lexem *lexem,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (definition != NULL)
 	{
@@ -352,7 +330,7 @@ void syntax_error(T_lexem *lexem,
 	  sprintf(get_msg_buffer(),
 			  get_catalog(C_IS_A_MACRO_DEF_HERE),
 			  lexem->get_lex_name()) ;
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::ERROR) ;
 	}
 
   if (error_level == FATAL_ERROR)
@@ -380,8 +358,8 @@ void syntax_error(T_pragma_lexem *plexem,
 
   TRACE2("lexem = %x format=\"%s\"", lexem, format) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -397,7 +375,7 @@ void syntax_error(T_pragma_lexem *plexem,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (error_level == FATAL_ERROR)
 	{
@@ -419,8 +397,8 @@ void parse_error(const char *file,
 {
   va_list ap ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM, file, line, column) ;
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR, file, line, column) ;
 
   va_start(ap, format) ;
   int len = vsprintf(get_msg_buffer(), format, ap) ;
@@ -434,7 +412,7 @@ void parse_error(const char *file,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (error_level == FATAL_ERROR)
 	{
@@ -453,8 +431,8 @@ void toplevel_error(T_error_level error_level,
 {
   va_list ap ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR) ;
   va_start(ap, format) ;
   int len = vsprintf(get_msg_buffer(), format, ap) ;
 #ifndef IPX // ne marche pas sur les IPX
@@ -466,7 +444,7 @@ void toplevel_error(T_error_level error_level,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (error_level == FATAL_ERROR)
 	{
@@ -491,8 +469,8 @@ void lex_warning(const char *file,
 
   if (do_warning(warning_level) == TRUE)
 	{
-	  new_msg(MSG_ERROR_STREAM) ;
-	  locate_msg(MSG_ERROR_STREAM, file, line, column) ;
+	  new_msg(T_msg_level::WARNING) ;
+	  locate_msg(T_msg_level::WARNING, file, line, column) ;
 	  va_list ap ;
 	  va_start(ap, format) ;
 	  int len = vsprintf(get_msg_buffer(), format, ap) ;
@@ -505,7 +483,7 @@ void lex_warning(const char *file,
 	  *p = '\n' ;
 	  *(p + 1) = '\0' ;
 
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::WARNING) ;
 
 	  warning_count_si ++ ;
 	}
@@ -527,7 +505,7 @@ void print(const char *format, ...)
 
   va_end(ap) ;
 
-  deliver_msg(MSG_NOMINAL_STREAM) ;
+  deliver_msg(T_msg_level::INFO) ;
 }
 
 // Arret immediat
@@ -555,20 +533,20 @@ void end_warning(const char *name, T_lexem *start, T_lexem *end)
 {
   TRACE3("end_warning(%s, %x, %x)", name, start, end) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::WARNING) ;
   LOCATE_ERR(start) ;
   sprintf(get_msg_buffer(), get_catalog(C_OPN_MIGHT_NOT_BE_CLOSED), name) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::WARNING) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::WARNING) ;
   LOCATE_ERR(start) ;
   sprintf(get_msg_buffer(), get_catalog(C_BEGINNING_OF), name) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::WARNING) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::WARNING) ;
   LOCATE_ERR(end) ;
   sprintf(get_msg_buffer(), get_catalog(C_END_OF), name) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::WARNING) ;
 }
 
 // Erreur du type : lexeme non attendu
@@ -585,8 +563,8 @@ void syntax_unexpected_error(T_lexem *cur_lexem,
 	  lexem = lexem->get_original_lexem() ;
 	}
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -632,11 +610,11 @@ void syntax_unexpected_error(T_lexem *cur_lexem,
 	}
 
   msg_buffer_add_new_line() ;
-  deliver_msg(MSG_ERROR_STREAM) ;
-  new_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
+  new_msg(T_msg_level::ERROR) ;
   LOCATE_ERR(lexem) ;
   sprintf(get_msg_buffer(), get_catalog(C_EXPECTED_VALUE), expected_value) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (definition != NULL)
 	{
@@ -644,7 +622,7 @@ void syntax_unexpected_error(T_lexem *cur_lexem,
 	  sprintf(get_msg_buffer(),
 			  get_catalog(C_IS_A_MACRO_DEF_HERE),
 			  lexem->get_lex_name()) ;
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::ERROR) ;
 	}
 
   if (error_level == FATAL_ERROR)
@@ -678,26 +656,26 @@ void syntax_unexpected_error(T_item *cur_item,
 	  lexem = lexem->get_original_lexem() ;
 	}
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   LOCATE_ERR(lexem) ;
   sprintf(get_msg_buffer(), "%s", get_catalog(C_UNEXPECTED)) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
   sprintf(get_msg_buffer(), " %s\n", class_name) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   LOCATE_ERR(lexem) ;
   sprintf(get_msg_buffer(), get_catalog(C_EXPECTED_VALUE), expected_value) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (definition != NULL)
 	{
-	  new_msg(MSG_ERROR_STREAM) ;
+	  new_msg(T_msg_level::ERROR) ;
 	  LOCATE_ERR(definition) ;
 	  sprintf(get_msg_buffer(),
 			  get_catalog(C_IS_A_MACRO_DEF_HERE),
 			  lexem->get_lex_name()) ;
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::ERROR) ;
 	}
 
   if (error_level == FATAL_ERROR)
@@ -720,7 +698,7 @@ void syntax_warning(T_lexem *lexem,
 	{
 	  va_list ap ;
 
-	  new_msg(MSG_ERROR_STREAM) ;
+	  new_msg(T_msg_level::WARNING) ;
 	  LOCATE_ERR(lexem) ;
 
 	  va_start(ap, format) ;
@@ -734,7 +712,7 @@ void syntax_warning(T_lexem *lexem,
 	  *p = '\n' ;
 	  *(p + 1) = '\0' ;
 
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::WARNING) ;
 	  warning_count_si ++ ;
 	}
 }
@@ -748,7 +726,7 @@ void semantic_warning(T_item *item,
 	{
 	  va_list ap ;
 
-	  new_msg(MSG_ERROR_STREAM) ;
+	  new_msg(T_msg_level::WARNING) ;
 	  LOCATE_ERR(item->get_ref_lexem()) ;
 	  va_start(ap, format) ;
 	  int len = vsprintf(get_msg_buffer(), format, ap) ;
@@ -761,7 +739,7 @@ void semantic_warning(T_item *item,
 	  *p = '\n' ;
 	  *(p + 1) = '\0' ;
 
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::WARNING) ;
 	}
 }
 
@@ -772,10 +750,10 @@ void syntax_already_error(T_lexem *cur_lexem,
 								   const char *redefined_item)
 {
   TRACE1("syntax_already_error(%s)", redefined_item) ;
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   LOCATE_ERR(cur_lexem) ;
   sprintf(get_msg_buffer(), get_catalog(C_REDEFINITION_OF), redefined_item) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
   already_error_level_si = error_level ;
 
   if (error_level != MULTI_LINE)
@@ -788,10 +766,10 @@ void syntax_already_error(T_lexem *cur_lexem,
 // Erreur du type : lexeme redefinition -- info de positionnement
 void already_location(T_lexem *cur_lexem)
 {
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   LOCATE_ERR(cur_lexem) ;
   sprintf(get_msg_buffer(), "%s", get_catalog(C_LOCATION_OF_PREVIOUS_OCCURENCE)) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (already_error_level_si == FATAL_ERROR)
 	{
@@ -856,11 +834,11 @@ void internal_error(T_lexem *lexem,
 
   TRACE3("internal_error at %s:%d (%s)", file, line, format) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   sprintf(get_msg_buffer(), get_catalog(C_INTERNAL_ERROR), file, line) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   LOCATE_ERR(lexem) ;
   va_start(ap, format) ;
   int len = vsprintf(get_msg_buffer(), format, ap) ;
@@ -873,7 +851,7 @@ void internal_error(T_lexem *lexem,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
   stop() ;
 }
 
@@ -893,8 +871,8 @@ void semantic_error(T_lexem *lexem,
 
   TRACE1("lexem = %x", lexem) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -911,7 +889,7 @@ void semantic_error(T_lexem *lexem,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (error_level == FATAL_ERROR)
 	{
@@ -949,8 +927,8 @@ void semantic_error(T_item *item,
 
   TRACE1("lexem = %x", lexem) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -967,16 +945,16 @@ void semantic_error(T_item *item,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (definition != NULL)
 	{
-	  new_msg(MSG_ERROR_STREAM) ;
+	  new_msg(T_msg_level::ERROR) ;
 	  LOCATE_ERR(definition) ;
 	  sprintf(get_msg_buffer(),
 			  get_catalog(C_IS_A_MACRO_DEF_HERE),
 			  lexem->get_lex_name()) ;
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::ERROR) ;
 	}
 
   if (error_level == FATAL_ERROR)
@@ -1004,8 +982,8 @@ void semantic_error_details(T_lexem *lexem, const char *format, ...)
 
   TRACE1("lexem = %x", lexem) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -1022,7 +1000,7 @@ void semantic_error_details(T_lexem *lexem, const char *format, ...)
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
 }
 
@@ -1041,8 +1019,8 @@ void semantic_error_details(T_item *item, const char *format, ...)
 
   TRACE1("lexem = %x", lexem) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -1059,17 +1037,17 @@ void semantic_error_details(T_item *item, const char *format, ...)
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 }
 
 // Indication de la localisation d'une clause en cas d'erreur
 void clause_location_error(T_item *cur_item,
 									const char *clause_name)
 {
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   LOCATE_ERR(cur_item->get_ref_lexem()) ;
   sprintf(get_msg_buffer(), get_catalog(C_LOCALISATION_OF_CLAUSE), clause_name) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 }
 
 // Erreur de type "clause 1 implique clause 2"
@@ -1091,7 +1069,7 @@ void double_identifier_error(T_ident *new_def,
 {
   const char *new_name = new_def->get_name()->get_value() ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   LOCATE_ERR(new_def->get_ref_lexem()) ;
   sprintf(get_msg_buffer(),
 		  get_error_msg(E_IDENT_CLASH),
@@ -1099,14 +1077,14 @@ void double_identifier_error(T_ident *new_def,
 		  new_def->get_ident_type_name(),
 		  old_def->get_ident_type_name()) ;
   msg_buffer_add_new_line() ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   error_count_si++ ;
   LOCATE_ERR(old_def->get_ref_lexem()) ;
   sprintf(get_msg_buffer(), "%s", get_error_msg(E_IDENT_CLASH_OTHER_LOCATION)) ;
    msg_buffer_add_new_line() ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
   // GP 14/10/98 resol pb duplic message "double identifier"
 
   // Merge des deux anneaux de collage pour ne pas bégayer par la suite.
@@ -1124,9 +1102,9 @@ void toplevel_warning(T_warning_level warning_level,
 
   va_list ap ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::WARNING) ;
   sprintf(get_msg_buffer(), "%s", get_catalog(C_AT_TOPLEVEL)) ;
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::WARNING) ;
 
   va_start(ap, format) ;
 
@@ -1140,7 +1118,7 @@ void toplevel_warning(T_warning_level warning_level,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::WARNING) ;
 	  warning_count_si ++ ;
 }
 
@@ -1155,10 +1133,10 @@ void user_error(T_item *item,
   T_lexem *lexem = item->get_ref_lexem() ;
   TRACE1("lexem = %x", lexem) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   if (lexem != NULL)
 	{
-	  locate_msg(MSG_ERROR_STREAM,
+	  locate_msg(T_msg_level::ERROR,
 				 lexem->get_file_name()->get_value(),
 				 lexem->get_file_line(),
 				 lexem->get_file_column()) ;
@@ -1175,7 +1153,7 @@ void user_error(T_item *item,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (error_level == FATAL_ERROR)
 	{
@@ -1206,10 +1184,10 @@ void user_warning(T_item *item,
   T_lexem *lexem = item->get_ref_lexem() ;
   TRACE1("lexem = %x", lexem) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::WARNING) ;
   if (lexem != NULL)
 	{
-	  locate_msg(MSG_ERROR_STREAM,
+	  locate_msg(T_msg_level::WARNING,
 				 lexem->get_file_name()->get_value(),
 				 lexem->get_file_line(),
 				 lexem->get_file_column()) ;
@@ -1226,7 +1204,7 @@ void user_warning(T_item *item,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::WARNING) ;
 	  warning_count_si ++ ;
 }
 
@@ -1243,12 +1221,12 @@ void user_error(T_error_level error_level,
 #endif
   va_end(ap) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::ERROR) ;
   char *p = (char *)((size_t)get_msg_buffer() + len) ;
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (error_level == FATAL_ERROR)
 	{
@@ -1271,7 +1249,7 @@ void user_warning(T_warning_level warning_level,
 	  return ;
 	}
 
-  new_msg(MSG_ERROR_STREAM) ;
+  new_msg(T_msg_level::WARNING) ;
   va_list ap ;
   va_start(ap, format) ;
   int len = vsprintf(get_msg_buffer(), format, ap) ;
@@ -1284,23 +1262,20 @@ void user_warning(T_warning_level warning_level,
   *p = '\n' ;
   *(p + 1) = '\0' ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::WARNING) ;
 	  warning_count_si ++ ;
 }
 
-//
-//	}{ Gestion des lignes
-//
-T_msg_line::T_msg_line(T_msg_stream new_msg_stream,
+T_msg_line::T_msg_line(T_msg_level level,
 								T_item **adr_first,
 								T_item **adr_last,
 								T_item *father)
   : T_item(NODE_MSG_LINE, adr_first, adr_last, father, NULL, NULL)
 {
   TRACE5("T_msg_line(%x)::T_msg_line(%d, %x, %x, %x)",
-		 this, new_msg_stream, adr_first, adr_last, father) ;
+		 this, level, adr_first, adr_last, father) ;
 
-  msg_stream = new_msg_stream ;
+  msg_level = level;
 
   TRACE1("this %x", this) ;
   TRACE1("this %s", this->get_class_name()) ;
@@ -1350,9 +1325,9 @@ void reset_msg_line_manager(void)
 }
 
 // Creation d'une ligne
-T_msg_line *T_msg_line_manager::create_line(T_msg_stream new_msg_stream)
+T_msg_line *T_msg_line_manager::create_line(T_msg_level level)
 {
-  return new T_msg_line(new_msg_stream,
+  return new T_msg_line(level,
 						(T_item **)&first_msg,
 						(T_item **)&last_msg,
 						this) ;
@@ -1406,8 +1381,8 @@ void B0_syntax_error(T_item *item,
   TRACE1("lexem = %x", lexem) ;
   TRACE1("lexem->get_file_name = %x", lexem->get_file_name()) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -1428,7 +1403,7 @@ void B0_syntax_error(T_item *item,
   sprintf(get_msg_buffer(), "(B0Check) %s", tmp) ;
   s_free(tmp) ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (definition != NULL)
 	{
@@ -1436,7 +1411,7 @@ void B0_syntax_error(T_item *item,
 	  sprintf(get_msg_buffer(),
 			  get_catalog(C_IS_A_MACRO_DEF_HERE),
 			  lexem->get_lex_name()) ;
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::ERROR) ;
 	}
 
   if (error_level == FATAL_ERROR)
@@ -1476,8 +1451,8 @@ static void B0_semantic_error(T_lexem *lexem,
 
   TRACE1("lexem = %x", lexem) ;
 
-  new_msg(MSG_ERROR_STREAM) ;
-  locate_msg(MSG_ERROR_STREAM,
+  new_msg(T_msg_level::ERROR) ;
+  locate_msg(T_msg_level::ERROR,
 			 lexem->get_file_name()->get_value(),
 			 lexem->get_file_line(),
 			 lexem->get_file_column()) ;
@@ -1496,16 +1471,16 @@ static void B0_semantic_error(T_lexem *lexem,
   sprintf(get_msg_buffer(), "(B0Check) %s", tmp) ;
   delete [] tmp ;
 
-  deliver_msg(MSG_ERROR_STREAM) ;
+  deliver_msg(T_msg_level::ERROR) ;
 
   if (definition != NULL)
 	{
-	  new_msg(MSG_ERROR_STREAM) ;
+	  new_msg(T_msg_level::ERROR) ;
 	  LOCATE_ERR(definition) ;
 	  sprintf(get_msg_buffer(),
 			  get_catalog(C_IS_A_MACRO_DEF_HERE),
 			  lexem->get_lex_name()) ;
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::ERROR) ;
 	}
 
   if (error_level == FATAL_ERROR)
@@ -1567,7 +1542,7 @@ void B0_semantic_warning(T_item *item,
 	{
 	  va_list ap ;
 
-	  new_msg(MSG_ERROR_STREAM) ;
+	  new_msg(T_msg_level::WARNING) ;
 	  LOCATE_ERR(item->get_ref_lexem()) ;
 	  va_start(ap, format) ;
 	  int len = vsprintf(get_msg_buffer(), format, ap) ;
@@ -1585,7 +1560,7 @@ void B0_semantic_warning(T_item *item,
 	  sprintf(get_msg_buffer(), "(B0Check) %s", tmp) ;
 	  delete [] tmp ;
 
-	  deliver_msg(MSG_ERROR_STREAM) ;
+	  deliver_msg(T_msg_level::WARNING) ;
 	  warning_count_si ++ ;
 	}
 }

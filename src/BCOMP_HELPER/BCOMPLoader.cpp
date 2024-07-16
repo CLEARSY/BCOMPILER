@@ -180,9 +180,7 @@ bool BCOMPLoader::handleBCOMPErrors()
 //            file_name = getFileName(file_name, true);
         }
 
-        T_msg_stream stream = messages->get_stream();
-
-        if(stream == MSG_ERROR_STREAM)
+        if(messages->get_level() == T_msg_level::ERROR)
         {
             handler->message(MessageHandler::CRITICITY_ERROR, msg, file_name, line, col);
             result = false;
@@ -276,4 +274,3 @@ void BCOMPLoader::unloadComponent(T_betree *betree)
     manager->delete_betree(betree);
     delete betree;
 }
-

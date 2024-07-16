@@ -1731,13 +1731,13 @@ static const char *const english_warning_table[] =
     /* 17 W_COMMA_WILL_BE_TREATED_AS_A_MAPLET */
     gettext_noop("Lexem ',' will be treated as a maplet ('|->')"),
     /* 18 W_ASSERTIONS_CLAUSE_WITHOUT_INVARIANT_CLAUSE */
-    gettext_noop("Warning : ASSERTIONS clause without INVARIANT, only trivial predicates will be provable"),
+    gettext_noop("ASSERTIONS clause without INVARIANT, only trivial predicates will be provable"),
     /* 19 W_VARIANT_WITHOUT_NON_DIVERGENCE_RESSOURCE */
-    gettext_noop("Warning : VARIANT clause without divergence POs generation"),
+    gettext_noop("VARIANT clause without divergence POs generation"),
     /* 20 W_REFINED_EVENT_NOT_CLOSED */
-    gettext_noop("Warning : Event %s is refined by %s but not closed"),
+    gettext_noop("Event %s is refined by %s but not closed"),
     /* 21 W_PRAGMA_IN_DEF */
-    gettext_noop("Warning : Pragma in definitions are not handled by compiler"),
+    gettext_noop("Pragma in definitions are not handled by compiler"),
 } ;
 
 //static const char *const french_warning_table[] =
