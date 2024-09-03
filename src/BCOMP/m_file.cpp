@@ -1,12 +1,12 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: m_file.cpp,v 2.0 2007-05-18 13:44:38 jburlando Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Moniteur de session
 *					Classe representant un fichier contenant un composant
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 ClearSy (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -690,7 +690,7 @@ T_betree *T_file_component::load_betrees(T_bcomp_call_type bc_type,
 
 		TRACE1("appel au compilateur syntaxique: filename = %s", filename);
 		set_file_fetch_mode(FFMODE_LOCAL);
-                compiler_syntax_analysis(filename, converterName);
+                compiler_syntax_analysis(NULL, filename, converterName);
 		chdir(original_cwd);
         delete[] filename;
 		break;
@@ -734,7 +734,7 @@ T_betree *T_file_component::load_betrees(T_bcomp_call_type bc_type,
 		  }
 		TRACE1("appel au compilateur syntaxique: fullname = %s", fullname);
 		set_file_fetch_mode(FFMODE_MS);
-                compiler_syntax_analysis(fullname, converterName);
+                compiler_syntax_analysis(NULL, fullname, converterName);
 		break;
 	  }
 #endif /* ACTION_NG */

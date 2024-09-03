@@ -1,12 +1,12 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: m_api.h,v 2.0 2007/09/17 09:05:39 arequet Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Moniteur de session
 *					Interface pour les applications utilisatrices
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -92,6 +92,7 @@ EXTERN void m_component_reset_checksum(T_component *compo);
 EXTERN int m_component_has_checksum(T_component *compo);
 EXTERN int m_component_expand(T_component *compo, const char* converterName);
 EXTERN int m_component_cut(T_component *compo, const char* converterName);
+EXTERN int m_component_is_eventB(T_component *compo);
 
 
 /* initialisation */

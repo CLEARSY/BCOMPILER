@@ -1,13 +1,13 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: v_ldreq.cpp,v 2.0 1999-03-15 11:49:19 sl Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Compilateur B
 *					Analyseur semantique
 *					Chargement des machines requises
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -75,7 +75,8 @@ static T_betree *load_single_machine(T_used_machine *reference,
 		 input_file,
 		 input_file2) ;
 
-  new_betree = compiler_syntax_analysis(input_file,
+  new_betree = compiler_syntax_analysis(reference->get_component_name()->get_value(),
+                                        input_file,
                                         converterName,
 										input_file2,
 										input_file3,
@@ -238,20 +239,30 @@ T_betree *load_required_machines(T_betree *betree,
 	  if (abstract == NULL)
 		{
 		  // On le charge
-		  char *input_file_spec = get_1Ko_string() ;  // A FAIRE :: dynamique
-		  sprintf(input_file_spec,
-				  "%s.mch",
-				  root->get_abstraction_name()->get_name()->get_value()) ;
-		  char *input_file_ref = get_1Ko_string() ;  // A FAIRE :: dynamique
+          char *input_file_spec = get_1Ko_string() ;  // A FAIRE :: dynamique
+          sprintf(input_file_spec,
+                  "%s.mch",
+                  root->get_abstraction_name()->get_name()->get_value()) ;
+          char *input_file_ref = get_1Ko_string() ;  // A FAIRE :: dynamique
 		  sprintf(input_file_ref,
 				  "%s.ref",
 				  root->get_abstraction_name()->get_name()->get_value()) ;
-		  char *input_file_sys = get_1Ko_string() ;  // A FAIRE :: dynamique
-		  sprintf(input_file_sys,
+          char *input_file_sys = get_1Ko_string() ;  // A FAIRE :: dynamique
+          sprintf(input_file_sys,
 				  "%s.sys",
-				  root->get_abstraction_name()->get_name()->get_value()) ;
+                  root->get_abstraction_name()->get_name()->get_value()) ;
 
-                  compiler_syntax_analysis(input_file_ref, converterName, input_file_spec, input_file_sys) ;
+          switch (T_project::get_default_project_type()) {
+          case PROJECT_SOFTWARE:
+                          compiler_syntax_analysis(root->get_abstraction_name()->get_name()->get_value(), input_file_ref, converterName, input_file_spec, NULL) ;
+                          break;
+          case PROJECT_SYSTEM:
+                          compiler_syntax_analysis(root->get_abstraction_name()->get_name()->get_value(), input_file_ref, converterName, input_file_sys, NULL) ;
+                          break;
+          default:
+                          compiler_syntax_analysis(root->get_abstraction_name()->get_name()->get_value(), input_file_ref, converterName, input_file_spec, input_file_sys) ;
+                          break;
+          }
 		  // abstraction : il faut demander au betree manager car le
 		  // fichier peut contenir plusieurs composants
 		  //

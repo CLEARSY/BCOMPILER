@@ -1,12 +1,12 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: c_betree.h,v 2.0 2004-01-08 09:33:01 cm Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Compilateur B
 *					Interface d'un betree
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -84,7 +84,8 @@ class T_betree : public T_item
 {
 #ifdef __BCOMP__
   friend T_betree *syntax_analysis(T_lexem *, const char *) ;
-  friend T_betree *internal_syntax_analysis(int dep_mode,
+  friend T_betree *internal_syntax_analysis(const char *component_name,
+                                            int dep_mode,
 													 const char *input_file,
                                                                                                          const char *converterName,
 													 const char *s_i_file,

@@ -9,7 +9,7 @@
 *					substitutions
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -339,7 +339,8 @@ static time_t convertit_date(int jour, int mois, int annee)
 //
 extern int getopt(int argc, char * const argv[], const char *optstring) ;
 extern char *optarg ;
-extern T_betree *internal_syntax_analysis(int dep_mode,
+extern T_betree *internal_syntax_analysis(const char *component_name,
+                                          int dep_mode,
 	const char *input_file,
         const char *converterName,
 	const char *second_input_file,
@@ -663,7 +664,7 @@ date_limite_dl =  convertit_date(jour, mois, annee);
 			  TRACE1("DEBUT DEBUG_LEAKS passe %d", cpt) ;
 			  ENTER_TRACE ; ENTER_TRACE ;
 #endif // DEBUG_LEAKS
-                          betree = compiler_syntax_analysis(input_file->get_value(), converterName) ;
+                          betree = compiler_syntax_analysis(NULL, input_file->get_value(), converterName) ;
 #ifdef DEBUG_LEAKS
 			  EXIT_TRACE ; EXIT_TRACE ;
 			  TRACE1(" FIN  DEBUG_LEAKS passe %d", cpt) ;
@@ -875,7 +876,7 @@ print_referenced_machine(FILE *file,
 	}
 
 	// charge la machine
-        internal_syntax_analysis(TRUE, converterName, file_1, file_2, NULL, NULL, TRUE);
+        internal_syntax_analysis(base_name, TRUE, converterName, file_1, file_2, NULL, NULL, TRUE);
 
 	T_betree *tree = betree_manager_get_betree(name);
 	if(tree != NULL)

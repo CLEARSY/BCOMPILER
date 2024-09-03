@@ -1,6 +1,6 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: c_api.h,v 2.0 2007/01/08 11:06:15 atelierb Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Compilations :	-D__BCOMP__ lors de la generation du compilateur
 *					(les clients NE DOIVENT PAS positionner ce drapeau)
@@ -9,7 +9,7 @@
 *					Interface de la bibliotheque du compilateur B
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -223,7 +223,8 @@ extern T_betree *compiler_dep_analysis(const char *input_file,
 // load_lexem = lexeme qui a demande le chargement le cas echeant
 // (ex: bb  dans SEES bb)
 extern T_betree *
-	compiler_syntax_analysis(const char *input_file,
+    compiler_syntax_analysis(const char *component_name,
+                         const char *input_file,
                                  const char* converterName,
 							 const char *second_input_file = NULL,
 							 const char *third_input_file = NULL,

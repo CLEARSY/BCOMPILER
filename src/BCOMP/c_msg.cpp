@@ -884,6 +884,8 @@ static const char *const english_error_table[] =
     gettext_noop("Binary number too large"),
     /* E_TOTAL_RELATIONS_NOT_ALLOWED */
     gettext_noop("Total and surjective relation operators are not allowed"),
+    /* E_AMBIGUOUS_FILE */
+    gettext_noop("File for component %s is ambiguous: it could be %s or %s"),
 } ;
 
 //static const char *const french_error_table[] =

@@ -225,7 +225,7 @@ T_betree* BCOMPLoader::loadComponent(const std::string& file_name, const std::st
 //        std::string f = getFileName(file_name, false);
         std::string f = file_name;
 
-        betree = compiler_syntax_analysis(f.c_str(), converterName.c_str());
+        betree = compiler_syntax_analysis(NULL, f.c_str(), converterName.c_str());
 
         if(betree == NULL)
         {

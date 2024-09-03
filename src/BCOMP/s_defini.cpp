@@ -1,6 +1,6 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: s_defini.cpp,v 2.0 2007-07-27 15:19:46 jburlando Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Compilateur B
 *					Definitions
@@ -9,7 +9,7 @@
 *					-DAUTO_PAREN_DEF pour le parenthesage automatique des def
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -693,7 +693,7 @@ void include_file_definitions(const char *file_name,
   TRACE1("fdef = %x", fdef) ;
 
   TRACE0(">> APPEL LEX_ANALYSIS") ;
-  lex_analysis(sys_file_name, converterName, NULL, NULL, *adr_cur_lexem, NULL) ;
+  lex_analysis(NULL, sys_file_name, converterName, NULL, NULL, *adr_cur_lexem, NULL) ;
   TRACE0("<< APPEL LEX_ANALYSIS") ;
   fdef->set_checksum(lex_pop_MD5_key_stack()) ;
   TRACE1("checksum recupere : <%s>", fdef->get_checksum()->get_value()) ;

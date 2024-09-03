@@ -1,6 +1,6 @@
 /***************************** CLEARSY **************************************
 * Fichier : $Id: c_lexana.cpp,v 2.0 2007-07-27 15:19:46 jburlando Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Compilations :	*	-DCHECK_INDEX pour verifier que l'on ne deborde pas
 *						du buffer de lecture
@@ -12,7 +12,7 @@
 * Description :		Fonctions d'analyse lexicale de haut niveau
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -81,7 +81,8 @@ UConverter* uconv;
 //
 // }{ Chargement en memoire du fichier a parser
 //
-int load_file(const char *file_name_acp,
+int load_file(const char *component_name,
+              const char *file_name_acp,
 					   const char *second_file_name_acp,
 					   const char *third_file_name_acp,
 					   T_lexem *load_lexem,
@@ -124,20 +125,65 @@ int load_file(const char *file_name_acp,
   TRACE0("premier essai") ;
   fd = open_source_file(file_name_acp, len, size) ;
 
-  if ( (fd == NULL) && (second_file_name_acp != NULL) )
+  if (second_file_name_acp != NULL)
 	{
 	  TRACE0("deuxieme essai") ;
-	  fd = open_source_file(second_file_name_acp, len, size) ;
+      FILE *fd1 = open_source_file(second_file_name_acp, len, size) ;
 	  // On caste en (char *) car on sait qu'on n'ecrira pas dans file_name
 	  // sans la reallouer au prealable
-	  file_name = (char *)second_file_name_acp ;
-	  if ( (fd == NULL) && (third_file_name_acp != NULL) )
+      if (fd == NULL) {
+          fd = fd1;
+          file_name = (char *)second_file_name_acp ;
+      } else if (fd1 != NULL) {
+          // On indique si possible la provenance
+          if (load_lexem == NULL)
+          {
+              toplevel_error(FATAL_ERROR,
+                             get_error_msg(E_AMBIGUOUS_FILE),
+                             component_name,
+                             file_name,
+                             second_file_name_acp) ;
+          }
+          else
+          {
+              syntax_error(load_lexem,
+                           FATAL_ERROR,
+                           get_error_msg(E_AMBIGUOUS_FILE),
+                           component_name,
+                           file_name,
+                           second_file_name_acp) ;
+          }
+
+      }
+      if (third_file_name_acp != NULL)
 		{
 		  TRACE0("troisieme essai") ;
-		  fd = open_source_file(third_file_name_acp, len, size) ;
+          fd1 = open_source_file(third_file_name_acp, len, size) ;
 		  // On caste en (char *) car on sait qu'on n'ecrira pas dans file_name
-		  // sans la reallouer au prealable
-		  file_name = (char *)third_file_name_acp ;
+          // sans la reallouer au prealable
+          if (fd == NULL) {
+              fd = fd1;
+              file_name = (char *)third_file_name_acp ;
+          } else if (fd1 != NULL) {
+              if (load_lexem == NULL)
+              {
+                  toplevel_error(FATAL_ERROR,
+                                 get_error_msg(E_AMBIGUOUS_FILE),
+                                 component_name,
+                                 file_name,
+                                 third_file_name_acp) ;
+              }
+              else
+              {
+                  syntax_error(load_lexem,
+                               FATAL_ERROR,
+                               get_error_msg(E_AMBIGUOUS_FILE),
+                               component_name,
+                               file_name,
+                               third_file_name_acp) ;
+              }
+
+          }
 		}
 	}
 
@@ -359,7 +405,8 @@ static T_symbol *compute_expanded_checksum(T_lexem *first_lexem)
 //
 // }{ Chargement en memoire du fichier a parser
 //
-int lex_analysis(const char *file_name_acp,
+int lex_analysis(const char *component_name,
+                 const char *file_name_acp,
                           const char *converterName,
                           const char *second_file_name_acp,
                           const char *third_file_name_acp,
@@ -382,7 +429,8 @@ int lex_analysis(const char *file_name_acp,
   }
 
   // Chargement du fichier et calcul des flux de lexemes
-  int status = load_file(file_name_acp,
+  int status = load_file(component_name,
+                         file_name_acp,
 						 second_file_name_acp,
 						 third_file_name_acp,
 						 load_lexem,

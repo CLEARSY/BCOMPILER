@@ -1,12 +1,12 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: m_projec.cpp,v 2.0 2007-01-08 17:15:25 atelierb Exp $
-* (C) 2008-2018 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Moniteur de session
 *					Classe de gestion d'un projet
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ RCS_ID("$Id: m_projec.cpp,v 1.21 2007-01-08 17:15:25 atelierb Exp $") ;
 #include "version_atb"		// Version de l'atelier inscrite dans le fichier xml
 
 // Type de projet à utiliser dans le cas ou aucun projet n'est chargé.
-T_project_type T_project::default_project_type = PROJECT_SOFTWARE;
+T_project_type T_project::default_project_type = PROJECT_TYPE_UNKNWON;
 
 T_project_type T_project::get_default_project_type(void)
 {

@@ -6,7 +6,7 @@
 *					Interface de la bibliotheque
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -168,7 +168,8 @@ static void syntax_check(void)
 // rend un Betree
 // second_input_file = 2e essai pour trouver le nom du composant
 // (ex: REFINES MM, input_file = MM.mch, second_input_file = MM.ref)
-T_betree *internal_syntax_analysis(int dep_mode,
+T_betree *internal_syntax_analysis(const char *component_name,
+                                   int dep_mode,
 											const char *input_file,
                                                                                         const char *converterName,
                                             const char *second_input_file = NULL,
@@ -194,7 +195,8 @@ T_betree *internal_syntax_analysis(int dep_mode,
   T_betree *before_last_betree = get_betree_manager()->get_last_betree() ;
 
   // On recupere une pile de flux de lexemes
-  int status = lex_analysis(input_file,
+  int status = lex_analysis(component_name,
+                            input_file,
                             converterName,
 							second_input_file,
 							third_input_file,
@@ -444,7 +446,8 @@ T_betree *internal_syntax_analysis(int dep_mode,
 // rend un Betree
 // second_input_file = 2e essai pour trouver le nom du composant
 // (ex: REFINES MM, input_file = MM.mch, second_input_file = MM.ref)
-T_betree *compiler_syntax_analysis(const char *input_file,
+T_betree *compiler_syntax_analysis(const char *component_name,
+                                   const char *input_file,
                                             const char *converterName,
 											const char *second_input_file,// = NULL
 											const char *third_input_file,// = NULL
@@ -475,7 +478,8 @@ T_betree *compiler_syntax_analysis(const char *input_file,
 
   force_full_lexems_reset() ;
 
-  T_betree *res = internal_syntax_analysis(FALSE,
+  T_betree *res = internal_syntax_analysis(component_name,
+                                           FALSE,
 										   input_file,
                                                                                    converterName,
 										   second_input_file,
@@ -643,7 +647,8 @@ T_betree *compiler_dep_analysis(const char *input_file,
 	}
 
   force_full_lexems_reset() ;
-  T_betree *res = internal_syntax_analysis(TRUE,
+  T_betree *res = internal_syntax_analysis(NULL,
+                                           TRUE,
 										   input_file,
                                                                                    converterName,
 										   NULL,

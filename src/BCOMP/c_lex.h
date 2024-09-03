@@ -1,13 +1,13 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: c_lex.h,v 2.0 2007-07-25 14:07:45 arequet Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Compilateur B
 *					Interface de l'analyseur lexical
 *					Definition des lexemes
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -67,7 +67,8 @@ size_t get_lex_type_ascii_len(T_lex_type lex_type) ;
 class T_lexem : public T_object
 {
   friend void watch_last_lexem(void) ;
-  friend T_betree *internal_syntax_analysis(int dep_mode,
+  friend T_betree *internal_syntax_analysis(const char *component_name,
+                                            int dep_mode,
 													 const char *input_file,
                                                                                                          const char *converterName,
                                                      const char *s_i_file,
@@ -75,14 +76,16 @@ class T_lexem : public T_object
                                                      T_lexem *load_lexem,
                                                      int complain_if_unrdble) ;
 #ifdef __BCOMP__
-  friend int lex_analysis(const char *file_name_acp,
+  friend int lex_analysis(const char *component_name,
+                          const char *file_name_acp,
                                    const char *converterName,
                                    const char *second_file_name_acp,
                                    const char *third_file_name_acp,
                                    T_lexem *load_lexem,
                                    MD5Context *adr_ctx,
                                    int complain_if_unreadable) ;
-  friend int load_file(const char *file_name_acp,
+  friend int load_file(const char *component_name,
+                       const char *file_name_acp,
 								const char *second_file_name_acp,
 								const char *third_file_name_acp,
 								T_lexem *load_lexem,
@@ -423,7 +426,8 @@ public :
 #ifdef __BCOMP__
 // Interface de l'analyseur lexical : chargement d'un fichier
 // load_lexem = lexeme qui a provoque le chargement
-extern int lex_analysis(const char *file_name_acp,
+extern int lex_analysis(const char *component_name,
+                        const char *file_name_acp,
                                  const char *converterName,
                                  const char *second_file_name_acp = NULL,
                                  const char *third_file_name_acp = NULL,
