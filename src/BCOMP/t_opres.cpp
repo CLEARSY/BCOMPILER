@@ -1,12 +1,12 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: t_opres.cpp,v 2.0 2001-07-19 16:32:23 lv Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Compilateur B
 *					Fabrication du type des expressions pour les sequences
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1184,10 +1184,11 @@ void T_op_result::vtype_rel(T_keyword *keyword)
 	{
 	  // ... et de type ensemble
 	  semantic_error(dst,
-					 CAN_CONTINUE,
+                     CAN_CONTINUE,
 					 get_error_msg(E_OPERAND_OF_BUILTIN_OP_IS_NOT_A_SET),
 					 get_lex_type_ascii(keyword->get_lex_type()),
-					 make_type_name(dst)->get_value()) ;
+                     make_type_name(dst)->get_value()) ;
+      return ;
 	}
 
 
