@@ -1,6 +1,6 @@
 /***************************** CLEARSY **************************************
 * Fichier : $Id: s_lex.cpp,v 2.0 2007-06-04 08:41:33 jburlando Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Compilations :	*	-DCHECK_INDEX pour verifier que l'on ne deborde pas
 *						du buffer de lecture
@@ -12,7 +12,7 @@
 * Description :
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -2544,9 +2544,6 @@ FILE *open_source_file(const char *file_name_acp,
 		 file_name_acp,
 		 get_file_fetch_mode()) ;
   struct stat stats_ls ; // Infos sur le fichier a charger
-
-  // Reset du path de recherche
-  lex_set_path(NULL) ;
 
   if(get_file_fetch_mode() == FFMODE_USER &&
      file_fetcher_user)

@@ -122,6 +122,9 @@ int load_file(const char *component_name,
   // sans la reallouer au prealable
   char *file_name = (char *)file_name_acp ;
 
+  // Reset du path de recherche
+  lex_set_path(NULL) ;
+
   TRACE0("premier essai") ;
   fd = open_source_file(file_name_acp, len, size) ;
 
