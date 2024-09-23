@@ -6,7 +6,7 @@
 *				Modelisation d'un fichier.
 *
 This file is part of RESSOURCE
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     RESSOURCE is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,8 +29,10 @@ RCS_ID("$Id: p_file.cpp,v 1.9 2000/07/11 16:08:50 fl Exp $") ;
 
 // Includes du systeme
 #include <cstdio>
+#include <cstdlib>
 #include <sys/stat.h>
-
+#include <regex>
+#include <string>
 
 // Includes head
 #include "p_head.h"
@@ -275,7 +277,6 @@ void T_resource_file::set_name(const char *new_string_acp)
   name_op = new T_resource_string(new_string_acp) ;
 }
 
-
 // Affectation de la  ligne
 void T_resource_file::set_line(int new_number_ai,
 										 const char *new_string_acp)
@@ -291,29 +292,60 @@ void T_resource_file::set_line(int new_number_ai,
   // Recherche de la ligne
   T_resource_line *line_lop = get_line(new_number_ai) ;
 
-  // Mise a jour de la valeur de la ligne
-  if(line_lop != NULL)
-	{
-	  line_lop->set_value(new T_resource_string(new_string_acp)) ;
-	}
-  // Cree une nouvelle ligne
-  else
-	{
-	  // Numero de la nouvelle ligne
-	  int new_number_li = 1 ;
+ // Remplacement des variables d'environnement par leur valeur
+	std::string line = new_string_acp;
 
-	  // Cherche le numero de la derniere ligne
-	  if((*get_adr_last_line()) != NULL)
-		{
-		  // Numero nouvelle ligne = dernier numero + 1
-		  new_number_li =
-			((T_resource_line*)(*get_adr_last_line()))->get_number()+1 ;
+	{
+    std::regex re(R"_((?:^|[^\$]+)(\$[A-Za-z0-9._-]+))_");
+		std::smatch matches;
+		std::string::const_iterator searchStart(line.cbegin());
+		while (std::regex_search(searchStart, line.cend(), matches, re)) {
+			const std::string envvar = matches[1];
+			char *replacement = std::getenv(envvar.c_str() + 1);
+			if (replacement == NULL) {
+				  fprintf(stderr,
+						"%s:%d: Resource file error: unknown environment variable %s\n",
+						name_op->get_string(),
+						new_number_ai,
+						envvar.c_str()) ;
+				searchStart = matches[1].first + envvar.length();
+			} else {
+				line.replace(matches[1].first, matches[1].second, replacement);
+				searchStart = matches[1].first + strlen(replacement);
+			}
 		}
+
+		const std::string target = "$$";
+    const std::string replacement = "$";
+    size_t pos = 0;
+
+    while ((pos = line.find(target, pos)) != std::string::npos) {
+        line.replace(pos, target.length(), replacement);
+        pos += replacement.length();
+    }
+	}
+ const char *expanded_line = line.c_str();
+
+    // Mise a jour de la valeur de la ligne
+    if (line_lop != NULL) {
+      line_lop->set_value(new T_resource_string(expanded_line));
+    }
+    // Cree une nouvelle ligne
+    else {
+      // Numero de la nouvelle ligne
+      int new_number_li = 1;
+
+      // Cherche le numero de la derniere ligne
+      if ((*get_adr_last_line()) != NULL) {
+        // Numero nouvelle ligne = dernier numero + 1
+        new_number_li =
+            ((T_resource_line *)(*get_adr_last_line()))->get_number() + 1;
+      }
 #ifdef DEBUG_RESOURCES
 	  TRACE1("   Last N%d", new_number_li) ;
 #endif
 	  // Creation de la ligne
-      T_resource_string resource_string(new_string_acp) ;
+      T_resource_string resource_string(expanded_line) ;
 	  line_lop = new T_resource_line(new_number_li,
                                       &resource_string,
 									  &first_line_op,
