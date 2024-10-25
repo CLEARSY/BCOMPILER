@@ -96,7 +96,8 @@ add_custom_target(BCOMP_VERSION
 
 include_directories(${BCOMP_SOURCE_DIR}
 	${RESOURCES_SOURCE_DIR}
-	${STUB_DECOMPILER_SOURCE_DIR})
+	${STUB_DECOMPILER_SOURCE_DIR}
+  ${ICU_INCLUDE_DIRS})
 
 set(BCOMP_SOURCES bcomp.cpp c_auto_test.cpp)
 
@@ -145,6 +146,6 @@ add_executable(BCOMP_EXE ${BCOMP_SOURCES})
 set_target_properties(BCOMP_EXE	PROPERTIES OUTPUT_NAME "bcomp")
 add_dependencies(BCOMP_EXE BCOMP_VERSION)
 
-target_link_libraries(BCOMP_EXE 
+target_link_libraries(BCOMP_EXE
     -Bstatic BCOMP_LIB RESOURCES_LIB STUB_DECOMP_LIB
     -Bdynamic ${ICU_LIBRARIES} ${CMAKE_DL_LIBS} ${WINMM})
