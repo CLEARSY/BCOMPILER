@@ -1,13 +1,13 @@
 /***************************** CLEARSY **************************************
 * Fichier : $Id: d_dskobj.cpp,v 2.0 2007-07-25 09:58:51 arequet Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :	Objets persistants
 *
 * Compilation : -DPERSIST_TRACE pour avoir des traces
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -314,7 +314,7 @@ static size_t current_index_cache_timestamp_si = CACHE_SIZE ;
 // Initialisation du cache
 static void init_index_cache(void)
 {
-  for (register size_t i = 0 ; i < CACHE_SIZE ; i++)
+  for (size_t i = 0 ; i < CACHE_SIZE ; i++)
 	{
 	  index_cache_sot[i].adr = NULL ;
 	  index_cache_sot[i].index = 0 ;
@@ -328,7 +328,7 @@ static void init_index_cache(void)
 // Recherche dans le cache
 static int object_index_cache_lookup(T_object *adr, size_t *adr_index)
 {
-  for (register size_t i = 0 ; i < CACHE_SIZE ; i++)
+  for (size_t i = 0 ; i < CACHE_SIZE ; i++)
 	{
 	  if (index_cache_sot[i].adr == adr)
 		{
@@ -344,7 +344,7 @@ static int object_index_cache_lookup(T_object *adr, size_t *adr_index)
 // Ajout dans le cache
 static void object_index_cache_add(T_object *adr, size_t index)
 {
-  register T_index_cache *cache_entry = NULL ;
+  T_index_cache *cache_entry = NULL ;
 
   if (last_unused_index_cache_entry_si < CACHE_SIZE)
 	{
@@ -358,9 +358,9 @@ static void object_index_cache_add(T_object *adr, size_t index)
 	  int min_cache_index = 0 ;
 	  size_t min_timestamp = current_index_cache_timestamp_si ;
 
-	  for (register size_t i = 0 ; i < CACHE_SIZE ; i++)
+	  for (size_t i = 0 ; i < CACHE_SIZE ; i++)
 		{
-		  register size_t timestamp = index_cache_sot[i].timestamp ;
+		  size_t timestamp = index_cache_sot[i].timestamp ;
 		  if (timestamp < min_timestamp)
 			{
 			  min_timestamp = timestamp ;

@@ -1,6 +1,6 @@
 /******************************* CLEARSY **************************************
 * Fichier : $Id: c_md5.cpp,v 2.0 1998-09-28 15:18:47 sl Exp $
-* (C) 2008 CLEARSY
+* (C) 2008-2025 CLEARSY
 *
 * Description :		Compilateur B
 *					Calcul de cle MD5 (code domaine public)
@@ -21,7 +21,7 @@
 * will fill a supplied 16-byte array with the digest.
 *
 This file is part of B_COMPILER
-    Copyright (C) 2008 ClearSy (contact@clearsy.com)
+    Copyright (C) 2008-2025 CLEARSY (contact@clearsy.com)
 
     B_COMPILER is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -191,7 +191,7 @@ void MD5Final(unsigned char digest[16], struct MD5Context *ctx)
  */
 void MD5Transform(uint32 buf[4], uint32 const in[16])
 {
-  register uint32 a, b, c, d;
+  uint32 a, b, c, d;
 
   a = buf[0];
   b = buf[1];
