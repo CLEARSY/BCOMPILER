@@ -680,18 +680,17 @@ void XmlWriter::writeConstraints(T_machine *mch)
         writer->writeAttribute("op", "&");
         for(std::list<T_ident*>::iterator it = sets_parameters.begin(); it != sets_parameters.end(); ++it)
         {
-            // set : FIN(INTEGER)
+            T_type * param_type = (*it)->get_B_type();
+            // set : FIN(set)
             if (add_constraint_on_param_set_) {
+                T_setof_type * set_type = new T_setof_type(param_type, nullptr, nullptr, nullptr);
                 writer->beginElement("Exp_Comparison");
                 writer->writeAttribute("op", ":");
                 visit(*it);
                 writer->beginElement("Unary_Exp");
                 writer->writeAttribute("op", "FIN");
-                writer->writeAttribute("typref", "3");
-                writer->beginElement("Id");
-                writer->writeAttribute("value", "INTEGER");
-                writer->writeAttribute("typref", "2");
-                writer->endElement("Id");
+                writeType(set_type);
+                visit(*it);
                 writer->endElement("Unary_Exp");
                 writer->endElement("Exp_Comparison");
             }
@@ -702,7 +701,7 @@ void XmlWriter::writeConstraints(T_machine *mch)
             writer->writeAttribute("op", "=");
             visit(*it);
             writer->beginElement("EmptySet");
-            writer->writeAttribute("typref", "2");
+            writeType(param_type);
             writer->endElement("EmptySet");
             writer->endElement("Exp_Comparison");
             writer->endElement("Unary_Pred");

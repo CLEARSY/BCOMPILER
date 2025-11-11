@@ -41,7 +41,7 @@ Options:
  -i count         : sets the indentation size (default to zero).
  -O directory     : sets the output directory. If nothing is specified, the file is written to stdout.
  -M mode          : sets the default project mode (SOFTWARE|SYSTEM|VALIDATION).
- -d               : do not create constraint forcing a set machine parameter to be a FIN(INTEGER).
+ -d               : do not create constraint forcing a set machine parameter to be a finite set.
 )";
 }
 
