@@ -13,7 +13,8 @@ class XmlWriter
     : public NodeVisitor
 {
 public:
-    XmlWriter(std::ostream *output_stream = 0);
+    XmlWriter(const std::string& traceability, 
+        std::ostream *output_stream = 0);
     ~XmlWriter();
 
     void setIndentSize(int size);
@@ -244,6 +245,7 @@ private:
     std::vector<std::string> typeInfoDict;
 
     std::string machineFileName;
+    std::string _traceability;
     bool positionAttributes;
 
     bool writeAttributes;

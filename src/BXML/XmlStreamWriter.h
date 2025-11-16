@@ -34,6 +34,7 @@ public:
     void beginDocument();
     void endDocument();
 
+    void writeComment(const std::string &comment_text);
     void beginElement(const std::string& element_name);
     void writeAttribute(const std::string& name, const std::string& value);
     void writeAttribute(const std::string& name, unsigned int value);

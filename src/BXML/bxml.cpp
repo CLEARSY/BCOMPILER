@@ -42,7 +42,7 @@ Options:
  -O directory     : sets the output directory. If nothing is specified, the file is written to stdout.
  -M mode          : sets the default project mode (SOFTWARE|SYSTEM|VALIDATION).
  -d               : do not create constraint forcing a set machine parameter to be a finite set.
-)";
+ -0               : do not trace tool and options in the output XML file.)";
 }
 
 void display_version()
@@ -116,6 +116,7 @@ int main(int argc, char **argv)
     char c;
     char *db_file = 0;
     char *resource_file = 0;
+    std::string traceability {"tool=bxml;options='"};
     std::vector<std::string> include_directories;
     std::string converter_name = "UTF-8";
     bool semantic_analysis = false;
@@ -124,6 +125,7 @@ int main(int argc, char **argv)
 
     bool pos_attributes = false;
     bool delete_set_constraint = false;
+    bool not_trace_tool_options = false;
 
     int  return_code = 0;
     int indent_size = 0;
@@ -136,40 +138,57 @@ int main(int argc, char **argv)
         exit(0);
     }
 
-    while((c = getopt(argc, argv, "xhp:I:r:E:acdPi:O:M:v")) != EOF)
+    bool first=true;
+    while((c = getopt(argc, argv, "xhp:I:r:E:acdPi:O:M:v0")) != EOF)
     {
+        if (!first) {
+            traceability.append(" ");
+        } else {
+            first = false;
+        }
         switch(c)
         {
         case 'p':
             db_file = optarg;
+            traceability.append("-p <path to db file>");
             break;
         case 'I':
             include_directories.push_back(optarg);
+            traceability.append("-I <include directory>");
             break;
         case 'r':
             resource_file = optarg;
+            traceability.append("-r <path to resource file>");
             break;
         case 'E':
             converter_name = optarg;
+            traceability.append("-E ");
+            traceability.append(converter_name);
             break;
         case 'a':
             semantic_analysis = true;
+            traceability.append("-a");
             break;
         case 'c':
             b0_check = true;
             semantic_analysis = true;
+            traceability.append("-c");
             break;
         case 'P':
             pos_attributes = true;
+            traceability.append("-P");
             break;
         case 'i':
             indent_size = atoi(optarg);
+            traceability.append("-i ");
+            traceability.append(optarg);
             break;
         case 'O':
             {
                 struct stat info;
                 if( stat( optarg, &info ) == 0 && S_ISDIR(info.st_mode)){
                     output_directory = optarg;
+                    traceability.append(" -O <output directory>");
                 } else {
                     std::cout << "Unknown directory '" << optarg << "'." << std::endl;
                     exit(EXIT_FAILURE);
@@ -178,6 +197,7 @@ int main(int argc, char **argv)
             }
         case 'x':
             xml = true;
+            traceability.append("-x");
             break;
         case 'M':
 	    {
@@ -193,10 +213,16 @@ int main(int argc, char **argv)
 		    display_help();
 		    exit(1);
 		}
+        traceability.append("-M ");
+        traceability.append(mode);
 		break;
 	    }
         case 'd':
             delete_set_constraint = true;
+            traceability.append("-d");
+            break;
+            case '0':
+        not_trace_tool_options = true;
             break;
 	case 'v':
 	  display_version();
@@ -209,6 +235,12 @@ int main(int argc, char **argv)
           display_help();
           exit(1);
         }
+    }
+    traceability.append("';sha='");
+    traceability.append(BXML_SOURCE_CODE_SHA);
+    traceability.push_back('\'');
+    if (not_trace_tool_options) {
+        traceability.clear();
     }
 
     MessageHandler* messages_handler;
@@ -250,7 +282,7 @@ int main(int argc, char **argv)
                     {
                         output_stream.reset(get_output_file(tree, output_directory));
                     }
-                    XmlWriter writer(output_stream.get() ? output_stream.get() : &std::cout);
+                    XmlWriter writer(traceability, output_stream.get() ? output_stream.get() : &std::cout);
                     writer.setIsEventB(loader.isEventB());
                     writer.setAddConstraintOnParamSet(not delete_set_constraint);
 

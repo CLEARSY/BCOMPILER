@@ -89,8 +89,9 @@ void XmlWriter::setWritePositionAttributes(bool write_attributes)
     positionAttributes = write_attributes;
 }
 
-XmlWriter::XmlWriter(std::ostream *output_stream)
+XmlWriter::XmlWriter(const std::string& traceability, std::ostream *output_stream)
     : writer(new XmlStreamWriter(output_stream)),
+    _traceability(traceability),
     positionAttributes(true),
     writeAttributes(true),
     typeInfoStream(new std::stringstream()),
@@ -99,6 +100,7 @@ XmlWriter::XmlWriter(std::ostream *output_stream)
     _b0Check(false)
 {
     writer->setIndentString("");
+
     typeInfoWriter->setIndentString("");
     typeInfoWriter->beginElement("TypeInfos");
     typeInfoDict.push_back("<Id value='BOOL'/>");
@@ -726,6 +728,9 @@ void XmlWriter::visitMachine(T_machine*mch)
         getPosition(mch, machineFileName, l, c, s);
 
         writer->beginDocument();
+        if (!_traceability.empty()) {
+            writer->writeComment(_traceability);
+        }
         writer->beginElement("Machine");
         writer->writeAttribute("xmlns", "https://www.atelierb.eu/Formats/bxml");
         writer->writeAttribute("version", "1.0");

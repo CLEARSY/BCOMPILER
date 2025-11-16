@@ -57,6 +57,15 @@ void XmlStreamWriter::newLine()
     writeIndent();
 }
 
+void XmlStreamWriter::writeComment(const std::string &comment_text)
+{
+    this->writeIndent();
+    (*outputStream) << "<!-- ";
+    (*outputStream) << comment_text;
+    (*outputStream) << " -->";
+    newLine();
+}
+
 void XmlStreamWriter::beginElement(const std::string &element_name)
 {
     closeElement(true);

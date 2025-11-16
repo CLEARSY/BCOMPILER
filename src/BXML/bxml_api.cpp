@@ -7,7 +7,7 @@
 #include <BCOMPLoader.h>
 #include <MessageHandler.h>
 #include "c_api.h"
-
+#include "version.h"
 
 std::ostream *get_output_file2(T_betree *btree, const std::string& output_directory)
 {
@@ -68,10 +68,21 @@ EXTERN int  m_component_bxml(char* mach_as, char *db_file, const char *converter
     }
 
     std::unique_ptr<std::ostream> output_stream;
+    std::string traceability {"bxml_api; converter_name='"};
+    traceability.append(converter_name);
+    traceability.append("'; semantic_analysis='");
+    traceability.append(semantic_analysis ? "true" : "false");
+    traceability.append("'; b0_check='");
+    traceability.append(b0_check ? "true" : "false");
+    traceability.append("'; sha='");
+    traceability.append(BXML_SOURCE_CODE_SHA);
+    traceability.push_back('\'');
+
+
 
     output_stream.reset(get_output_file2(tree, output_directory));
 
-    XmlWriter writer(output_stream.get() ? output_stream.get() : &std::cout);
+    XmlWriter writer(traceability, output_stream.get() ? output_stream.get() : &std::cout);
 
     writer.setIndentSize(indent_size);
     writer.setWritePositionAttributes(pos_attributes);
